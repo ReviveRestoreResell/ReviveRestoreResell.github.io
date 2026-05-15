@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Elle's Mini Cooper Quest</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, system-ui, "Segoe UI", sans-serif; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); min-height: 100vh; padding: 20px 16px 32px; color: #f0f0f0; }
+  .wrap { max-width: 940px; margin: 0 auto; }
+
+  /* Header */
+  .header { text-align: center; margin-bottom: 20px; }
+  .title { font-size: 32px; font-weight: 800; color: #fff; margin-bottom: 4px; letter-spacing: -0.5px; line-height: 1.1; text-shadow: 0 2px 8px rgba(0,0,0,0.4); }
+  .sub { font-size: 15px; color: #a0aec0; }
+
+  /* Road scene */
+  .road-wrap { background: linear-gradient(180deg, #87CEEB 0%, #B0E0E6 55%, #8B7355 55%, #6B5645 100%); border-radius: 18px; padding: 18px 14px 0; position: relative; overflow: hidden; margin-bottom: 18px; box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+  .sun { position: absolute; top: 16px; right: 24px; width: 50px; height: 50px; background: radial-gradient(circle, #FFD700 0%, #FFA500 100%); border-radius: 50%; box-shadow: 0 0 28px rgba(255,200,0,0.7); animation: sunPulse 3s ease-in-out infinite; }
+  @keyframes sunPulse {
+    0%, 100% { box-shadow: 0 0 28px rgba(255,200,0,0.7); transform: scale(1); }
+    50% { box-shadow: 0 0 42px rgba(255,200,0,0.9); transform: scale(1.05); }
+  }
+  .cloud { position: absolute; background: white; border-radius: 50px; opacity: 0.9; }
+  .cloud1 { width: 60px; height: 18px; top: 28px; animation: drift1 30s linear infinite; }
+  .cloud2 { width: 45px; height: 14px; top: 55px; animation: drift2 45s linear infinite; }
+  @keyframes drift1 {
+    0% { left: -70px; }
+    100% { left: 110%; }
+  }
+  @keyframes drift2 {
+    0% { left: -55px; }
+    100% { left: 110%; }
+  }
+  .road { position: relative; height: 130px; margin-top: 78px; }
+  .road-line { position: absolute; top: 50%; left: 0; right: 0; height: 5px; background: repeating-linear-gradient(90deg, #FFD700 0, #FFD700 22px, transparent 22px, transparent 44px); transform: translateY(-50%); animation: roadMove 0.6s linear infinite; background-size: 44px 100%; }
+  @keyframes roadMove {
+    0% { background-position: 0 0; }
+    100% { background-position: -44px 0; }
+  }
+  .finish { position: absolute; right: 6px; top: 10px; bottom: 10px; width: 30px; background: repeating-conic-gradient(#000 0deg 90deg, #fff 90deg 180deg); background-size: 15px 15px; border-radius: 4px; border: 2px solid #333; }
+  .flag { position: absolute; right: 10px; top: -28px; font-size: 26px; animation: flagWave 2s ease-in-out infinite; transform-origin: bottom left; }
+  @keyframes flagWave {
+    0%, 100% { transform: rotate(-5deg); }
+    50% { transform: rotate(5deg); }
+  }
+  .start-marker { position: absolute; left: 8px; top: -22px; font-size: 11px; font-weight: 800; color: #fff; text-shadow: 1px 1px 3px rgba(0,0,0,0.7); letter-spacing: 1px; }
+
+  /* Mini Cooper (inline SVG, emerald green) */
+  .mini { position: absolute; top: 50%; transform: translate(-50%, -50%); transition: left 1.4s cubic-bezier(0.4, 0, 0.2, 1); width: 120px; z-index: 3; }
+  .mini svg { width: 100%; height: auto; display: block; animation: carBounce 0.4s ease-in-out infinite; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.45)); }
+  .mini .wheel-front, .mini .wheel-back { transform-box: fill-box; transform-origin: center; animation: wheelSpin 0.4s linear infinite; }
+  .mini .wheel-front { transform-origin: 45px 60px; }
+  .mini .wheel-back { transform-origin: 115px 60px; }
+  .exhaust { position: absolute; left: -6px; top: 60%; font-size: 16px; opacity: 0; animation: puff 1.5s ease-out infinite; }
+  @keyframes wheelSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  @keyframes carBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-2px); }
+  }
+  @keyframes puff {
+    0% { opacity: 0; transform: translateX(0) translateY(0) scale(0.5); }
+    30% { opacity: 0.7; }
+    100% { opacity: 0; transform: translateX(-30px) translateY(-8px) scale(1.3); }
+  }
+  .mini-pct { position: absolute; top: -20px; left: 50%; transform: translateX(-50%); background: #fff; color: #00604a; font-weight: 800; font-size: 11px; padding: 2px 8px; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.3); white-space: nowrap; z-index: 4; }
+
+  /* Stats */
+  .stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 16px; }
+  .stat { background: #232940; border: 1px solid #2d3553; border-radius: 14px; padding: 12px 6px; text-align: center; }
+  .stat-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.4px; color: #8b94b8; font-weight: 700; margin-bottom: 5px; }
+  .stat-value { font-size: 22px; font-weight: 800; color: #fff; line-height: 1; }
+  .stat-value.money { color: #4ade80; }
+  .stat-sub { font-size: 9px; color: #6b7494; margin-top: 4px; }
+
+  /* Bars */
+  .bars { background: #232940; border: 1px solid #2d3553; border-radius: 14px; padding: 16px; margin-bottom: 16px; }
+  .bar-row { margin-bottom: 12px; }
+  .bar-row:last-child { margin-bottom: 0; }
+  .bar-label { display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+  .bar-track { height: 20px; background: #1a1f33; border-radius: 10px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 10px; transition: width 1s ease-out; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; font-size: 10px; font-weight: 800; color: white; min-width: 40px; }
+  .bar-hours { background: linear-gradient(90deg, #FF6B6B, #FF8E53); }
+  .bar-money { background: linear-gradient(90deg, #22c55e, #4ade80); }
+  .bar-garments { background: linear-gradient(90deg, #4ECDC4, #44A08D); }
+
+  /* Bonuses Earned (ongoing log of side-hustle items) */
+  .bonuses { background: linear-gradient(135deg, rgba(255,215,0,0.08), rgba(255,140,80,0.06)); border: 1.5px solid rgba(255,215,0,0.45); border-radius: 14px; padding: 16px; margin-bottom: 16px; box-shadow: 0 2px 12px rgba(255,215,0,0.08); }
+  .bonus-title { font-size: 15px; font-weight: 800; color: #FFD700; margin-bottom: 4px; }
+  .bonus-sub { font-size: 12px; color: #f0d8a8; margin-bottom: 12px; font-style: italic; }
+  .bonus-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 14px; }
+  .bonus-table th { text-align: left; padding: 7px 5px; font-size: 10px; text-transform: uppercase; color: #FFD700; border-bottom: 2px solid rgba(255,215,0,0.35); font-weight: 700; letter-spacing: 0.3px; }
+  .bonus-table td { padding: 9px 5px; border-bottom: 1px solid rgba(255,215,0,0.15); color: #e0e6f0; }
+  .bonus-table tr:last-child td { border-bottom: none; }
+  .bonus-item { font-weight: 700; color: #fff; }
+  .bonus-watch { display: inline-block; font-size: 18px; color: #FFD700; letter-spacing: 1px; text-shadow: 0 0 8px rgba(255,215,0,0.85), 0 0 16px rgba(255,215,0,0.45); animation: watchGlow 2.4s ease-in-out infinite; }
+  @keyframes watchGlow {
+    0%, 100% { text-shadow: 0 0 8px rgba(255,215,0,0.85), 0 0 16px rgba(255,215,0,0.45); transform: scale(1); }
+    50% { text-shadow: 0 0 14px rgb(255,255,170), 0 0 26px rgba(255,215,0,0.75); transform: scale(1.04); }
+  }
+  .bonus-totals { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding-top: 12px; border-top: 1px dashed rgba(255,215,0,0.4); }
+  .bt { text-align: center; padding: 6px 4px; }
+  .bt-label { display: block; font-size: 9px; text-transform: uppercase; color: #8b94b8; font-weight: 700; margin-bottom: 4px; letter-spacing: 0.4px; }
+  .bt-val { font-size: 20px; color: #FFD700; font-weight: 800; line-height: 1; }
+
+  /* Hustle bests (Longest Hustle / Longest Day / Effective Rate) */
+  .bests { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 16px; }
+  .best { background: linear-gradient(135deg, rgba(255,107,107,0.18), rgba(255,140,80,0.18)); border: 1.5px solid rgba(255,140,80,0.55); border-radius: 14px; padding: 14px 12px; text-align: center; box-shadow: 0 2px 10px rgba(255,107,107,0.15); }
+  .best-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.6px; color: #FFD700; font-weight: 800; margin-bottom: 6px; }
+  .best-value { font-size: 26px; font-weight: 800; color: #fff; line-height: 1; }
+  .best-sub { font-size: 10px; color: #f0d8a8; margin-top: 5px; font-weight: 600; }
+  .best-wage { grid-column: 1 / -1; background: linear-gradient(135deg, rgba(74,222,128,0.2), rgba(255,215,0,0.22)); border-color: rgba(255,215,0,0.65); box-shadow: 0 2px 12px rgba(255,215,0,0.18); }
+  .best-wage .best-label { color: #facc15; }
+  .best-wage .best-value { background: linear-gradient(90deg, #4ade80, #FFD700); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .best-wage .best-sub { color: #f5e6a8; }
+
+  /* Super Bonus (Camo Pants 4-day streak challenge) */
+  .super { background: linear-gradient(135deg, #2a1a4a 0%, #1f1538 100%); border: 2px solid #FFD700; border-radius: 14px; padding: 16px; margin-bottom: 16px; position: relative; overflow: hidden; box-shadow: 0 0 18px rgba(255,215,0,0.15); }
+  .super::before { content: "✨"; position: absolute; top: 10px; right: 14px; font-size: 18px; animation: sparkle 2.4s ease-in-out infinite; }
+  .super::after { content: "🌟"; position: absolute; top: 36px; right: 28px; font-size: 12px; animation: sparkle 3.2s ease-in-out infinite 0.6s; opacity: 0.7; }
+  @keyframes sparkle {
+    0%, 100% { opacity: 0.5; transform: scale(1) rotate(0deg); }
+    50% { opacity: 1; transform: scale(1.3) rotate(20deg); }
+  }
+  .super-title { font-size: 16px; font-weight: 800; color: #FFD700; margin-bottom: 3px; letter-spacing: 0.2px; }
+  .super-sub { font-size: 12px; color: #c8b3ec; margin-bottom: 12px; }
+  .day-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 12px; }
+  .day { background: #1a1f33; border: 1.5px solid #2d3553; border-radius: 10px; padding: 8px 4px; text-align: center; transition: all 0.35s ease; }
+  .day.hit { background: linear-gradient(135deg, #FFD700, #FFA500); border-color: #FFD700; box-shadow: 0 0 14px rgba(255,200,0,0.55); transform: translateY(-1px); }
+  .day-label { font-size: 9px; font-weight: 800; color: #8b94b8; text-transform: uppercase; letter-spacing: 0.5px; }
+  .day.hit .day-label { color: #1a1a2e; }
+  .day-date { font-size: 15px; font-weight: 800; color: #fff; margin-top: 2px; }
+  .day.hit .day-date { color: #1a1a2e; }
+  .day-check { font-size: 14px; margin-top: 2px; opacity: 0.3; line-height: 1; }
+  .day.hit .day-check { opacity: 1; }
+  .super-bars .bar-row { margin-bottom: 8px; }
+  .super-bars .bar-row:last-child { margin-bottom: 0; }
+  .bar-meas { background: linear-gradient(90deg, #a855f7, #c084fc); }
+  .bar-steam { background: linear-gradient(90deg, #ec4899, #f472b6); }
+  .super-bars .bar-track { height: 16px; }
+  .super-bars .bar-label { font-size: 12px; }
+
+  .prize { margin-top: 12px; padding: 10px 12px; background: #161b2e; border-radius: 10px; border: 1.5px dashed rgba(255,215,0,0.5); display: flex; gap: 12px; align-items: center; transition: all 0.5s ease; }
+  .prize.unlocked { background: linear-gradient(135deg, rgba(255,215,0,0.18), rgba(168,85,247,0.18)); border-style: solid; border-color: #FFD700; box-shadow: 0 0 18px rgba(255,215,0,0.4); animation: prizeGlow 2.4s ease-in-out infinite; }
+  @keyframes prizeGlow {
+    0%, 100% { box-shadow: 0 0 18px rgba(255,215,0,0.4); }
+    50% { box-shadow: 0 0 32px rgba(255,215,0,0.7); }
+  }
+  .prize-img { width: 64px; height: 64px; border-radius: 8px; background: #2d3553; flex-shrink: 0; overflow: hidden; position: relative; }
+  .prize-img img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%) brightness(0.4) blur(3px); transition: filter 0.7s ease; display: block; }
+  .prize.unlocked .prize-img img { filter: none; }
+  .prize-img::after { content: "🔒"; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 24px; transition: opacity 0.4s; }
+  .prize.unlocked .prize-img::after { opacity: 0; }
+  .prize-info { flex: 1; min-width: 0; }
+  .prize-tag { font-size: 9px; text-transform: uppercase; letter-spacing: 0.6px; color: #FFD700; font-weight: 800; margin-bottom: 3px; }
+  .prize-name { font-size: 13px; font-weight: 700; color: #fff; line-height: 1.3; margin-bottom: 2px; }
+  .prize.locked .prize-name { color: #8b94b8; }
+  .prize-link { display: inline-block; margin-top: 4px; font-size: 11px; color: #1a1a2e; background: #FFD700; padding: 3px 10px; border-radius: 6px; text-decoration: none; font-weight: 800; box-shadow: 0 1px 3px rgba(0,0,0,0.4); }
+  .prize-link:hover { background: #FFC107; }
+  .prize-link:active { transform: translateY(1px); }
+
+  /* Milestones */
+  .milestones { background: #232940; border: 1px solid #2d3553; border-radius: 14px; padding: 16px; margin-bottom: 16px; }
+  .ms-title { font-size: 14px; font-weight: 800; color: #fff; margin-bottom: 12px; }
+  .ms-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  .ms { padding: 10px 4px; border-radius: 10px; text-align: center; background: #1a1f33; border: 2px solid #2d3553; transition: all 0.3s; }
+  .ms.hit { background: linear-gradient(135deg, #FFD700, #FFA500); border-color: #FFD700; color: #1a1a2e; box-shadow: 0 0 12px rgba(255,200,0,0.4); }
+  .ms-icon { font-size: 22px; margin-bottom: 3px; }
+  .ms-pct { font-size: 12px; font-weight: 800; }
+  .ms-name { font-size: 10px; color: #8b94b8; margin-top: 2px; }
+  .ms.hit .ms-name { color: #1a1a2e; font-weight: 700; }
+
+  /* Log */
+  .log { background: #232940; border: 1px solid #2d3553; border-radius: 14px; padding: 16px; }
+  .log-title { font-size: 14px; font-weight: 800; color: #fff; margin-bottom: 10px; }
+  .log-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .log-table th { text-align: left; padding: 7px 5px; font-size: 10px; text-transform: uppercase; color: #8b94b8; border-bottom: 2px solid #2d3553; font-weight: 700; }
+  .log-table td { padding: 9px 5px; border-bottom: 1px solid #2d3553; color: #e0e6f0; }
+  .log-table tr:last-child td { border-bottom: none; }
+  .pace { display: inline-block; padding: 3px 8px; border-radius: 10px; font-size: 10px; font-weight: 800; }
+  .pace-good { background: #065f46; color: #d1fae5; }
+  .pace-ok { background: #92400e; color: #fef3c7; }
+  .pace-low { background: #991b1b; color: #fee2e2; }
+  .del-btn { background: transparent; border: none; color: #ef4444; cursor: pointer; font-size: 14px; opacity: 0.6; padding: 4px; }
+  .del-btn:hover, .del-btn:active { opacity: 1; }
+
+  .add { display: flex; gap: 8px; flex-wrap: wrap; align-items: end; margin-top: 12px; padding-top: 12px; border-top: 1px solid #2d3553; }
+  .field { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+  .field label { font-size: 9px; text-transform: uppercase; color: #8b94b8; font-weight: 700; letter-spacing: 0.5px; }
+  .field input { padding: 8px 10px; border: 1px solid #2d3553; border-radius: 8px; font-size: 14px; background: #1a1f33; color: #fff; width: 100px; -webkit-appearance: none; appearance: none; }
+  .field input:focus { outline: none; border-color: #4ECDC4; }
+  .btn { padding: 9px 16px; background: linear-gradient(135deg, #FF6B6B, #FF8E53); color: white; border: none; border-radius: 8px; font-weight: 800; font-size: 13px; cursor: pointer; box-shadow: 0 2px 6px rgba(255,107,107,0.3); }
+  .btn:active { transform: translateY(1px); }
+  .btn-clear { background: #1a1f33; color: #a0aec0; border: 1px solid #2d3553; box-shadow: none; }
+
+  .celebrate { text-align: center; font-size: 16px; font-weight: 800; color: #FFD700; padding: 12px; display: none; background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(255,140,80,0.1)); border-radius: 12px; margin-bottom: 16px; border: 2px dashed #FFD700; }
+
+  .footnote { text-align: center; color: #a0aec0; font-size: 13px; margin-top: 18px; line-height: 1.6; padding: 0 16px; }
+  .footnote strong { color: #FFD700; font-size: 15px; }
+  .scripture { text-align: center; margin-top: 20px; padding: 16px; border-top: 1px solid rgba(255,215,0,0.15); border-bottom: 1px solid rgba(255,215,0,0.15); }
+  .scripture-quote { font-size: 14px; color: #f0f0f0; font-style: italic; line-height: 1.5; margin-bottom: 6px; }
+  .scripture-ref { font-size: 12px; color: #FFD700; font-weight: 700; letter-spacing: 0.5px; }
+
+  /* Mobile */
+  @media (max-width: 640px) {
+    body { padding: 16px 12px 28px; }
+    .title { font-size: 26px; }
+    .sub { font-size: 13px; }
+    .stat-value { font-size: 20px; }
+    .field input { width: 80px; font-size: 16px; }
+    .road-wrap { height: auto; }
+    .road { height: 110px; margin-top: 70px; }
+    .mini { width: 100px; }
+    .super-title { font-size: 15px; }
+    .super-sub { font-size: 11px; }
+    .day-date { font-size: 14px; }
+    .prize-img { width: 56px; height: 56px; }
+    .prize-name { font-size: 12px; }
+    .bests { grid-template-columns: 1fr 1fr; }
+    .best-value { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="header">
+    <div class="title">🏁 Elle's Mini Cooper Quest 🚗</div>
+    <div class="sub">200 hours @ $15/hr → 2006 Mini Cooper</div>
+  </div>
+
+  <div class="road-wrap">
+    <div class="sun"></div>
+    <div class="cloud cloud1"></div>
+    <div class="cloud cloud2"></div>
+    <div class="road">
+      <div class="road-line"></div>
+      <div class="start-marker">START</div>
+      <div class="finish"></div>
+      <div class="flag">🏁</div>
+      <div class="mini" id="mini" style="left: 5%;">
+        <div class="mini-pct" id="mini-pct">0%</div>
+        <svg viewBox="0 0 160 80" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Green Mini Cooper">
+          <ellipse cx="80" cy="73" rx="62" ry="2.5" fill="rgba(0,0,0,0.3)"/>
+          <path d="M 18 56 L 18 46 Q 19 36 30 34 L 42 33 L 50 22 Q 56 14 67 13 L 94 13 Q 105 14 111 22 L 119 33 L 131 34 Q 142 36 142 46 L 142 56 Z" fill="#00875A" stroke="#013824" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M 50 22 Q 56 14 67 13 L 94 13 Q 105 14 111 22 L 108 30 L 53 30 Z" fill="#f5f5f5" stroke="#013824" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M 54 29 L 58 19 Q 62 15 68 15 L 78 15 L 78 29 Z" fill="#a3d8eb" opacity="0.9"/>
+          <path d="M 82 15 L 92 15 Q 100 15 104 19 L 108 29 L 82 29 Z" fill="#a3d8eb" opacity="0.9"/>
+          <line x1="80" y1="15" x2="80" y2="29" stroke="#013824" stroke-width="2"/>
+          <line x1="80" y1="31" x2="80" y2="56" stroke="#013824" stroke-width="1" opacity="0.7"/>
+          <line x1="20" y1="47" x2="140" y2="47" stroke="#013824" stroke-width="0.6" opacity="0.5"/>
+          <rect x="70" y="40" width="8" height="2" rx="1" fill="#c0c0c0"/>
+          <path d="M 51 26 Q 47 26 47 29 Q 47 31 49 31 L 52 31" fill="#f5f5f5" stroke="#013824" stroke-width="0.8"/>
+          <circle cx="136" cy="40" r="5" fill="#FFF8DC" stroke="#c0c0c0" stroke-width="1"/>
+          <circle cx="136" cy="40" r="3" fill="#FFE066"/>
+          <circle cx="135" cy="39" r="1" fill="#fff"/>
+          <rect x="130" y="48" width="12" height="4" rx="1" fill="#1a1a1a" stroke="#013824" stroke-width="0.5"/>
+          <rect x="18" y="55" width="124" height="2" rx="0.5" fill="#c0c0c0" opacity="0.7"/>
+          <ellipse cx="45" cy="60" rx="14" ry="8" fill="#013824"/>
+          <ellipse cx="115" cy="60" rx="14" ry="8" fill="#013824"/>
+          <g class="wheel-front">
+            <circle cx="45" cy="60" r="10" fill="#1a1a1a"/>
+            <circle cx="45" cy="60" r="7.5" fill="#2a2a2a"/>
+            <circle cx="45" cy="60" r="2.5" fill="#888"/>
+            <line x1="45" y1="52.5" x2="45" y2="67.5" stroke="#aaa" stroke-width="1"/>
+            <line x1="37.5" y1="60" x2="52.5" y2="60" stroke="#aaa" stroke-width="1"/>
+            <line x1="39.7" y1="54.7" x2="50.3" y2="65.3" stroke="#aaa" stroke-width="1"/>
+            <line x1="39.7" y1="65.3" x2="50.3" y2="54.7" stroke="#aaa" stroke-width="1"/>
+          </g>
+          <g class="wheel-back">
+            <circle cx="115" cy="60" r="10" fill="#1a1a1a"/>
+            <circle cx="115" cy="60" r="7.5" fill="#2a2a2a"/>
+            <circle cx="115" cy="60" r="2.5" fill="#888"/>
+            <line x1="115" y1="52.5" x2="115" y2="67.5" stroke="#aaa" stroke-width="1"/>
+            <line x1="107.5" y1="60" x2="122.5" y2="60" stroke="#aaa" stroke-width="1"/>
+            <line x1="109.7" y1="54.7" x2="120.3" y2="65.3" stroke="#aaa" stroke-width="1"/>
+            <line x1="109.7" y1="65.3" x2="120.3" y2="54.7" stroke="#aaa" stroke-width="1"/>
+          </g>
+        </svg>
+        <div class="exhaust">💨</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-label">⏱️ HOURS</div>
+      <div class="stat-value" id="stat-hours">0</div>
+      <div class="stat-sub">of 200</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">💰 EARNED</div>
+      <div class="stat-value money" id="stat-money">$0</div>
+      <div class="stat-sub">of $3,000</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">👕 GARMENTS</div>
+      <div class="stat-value" id="stat-garments">0</div>
+      <div class="stat-sub">of ~6,000</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">🔥 PACE</div>
+      <div class="stat-value" id="stat-pace">0</div>
+      <div class="stat-sub">target 30/hr</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">🚗 LEFT</div>
+      <div class="stat-value" id="stat-left">200</div>
+      <div class="stat-sub">to the keys</div>
+    </div>
+  </div>
+
+  <!-- SUPER BONUS: 4-day streak (Wed-Sat May 13-16) + 120 meas + 120 steams -->
+  <div class="super" id="super">
+    <div class="super-title">🎁 SUPER BONUS — 4-Day Streak Challenge</div>
+    <div class="super-sub">Work Wed → Sat · log 120 measurements + 120 steams total · unlock the prize</div>
+
+    <div class="day-row" id="day-row">
+      <div class="day" data-date="2026-05-13"><div class="day-label">Wed</div><div class="day-date">5/13</div><div class="day-check">·</div></div>
+      <div class="day" data-date="2026-05-14"><div class="day-label">Thu</div><div class="day-date">5/14</div><div class="day-check">·</div></div>
+      <div class="day" data-date="2026-05-15"><div class="day-label">Fri</div><div class="day-date">5/15</div><div class="day-check">·</div></div>
+      <div class="day" data-date="2026-05-16"><div class="day-label">Sat</div><div class="day-date">5/16</div><div class="day-check">·</div></div>
+    </div>
+
+    <div class="super-bars">
+      <div class="bar-row">
+        <div class="bar-label"><span>📏 Measurements</span><span id="super-meas-label">0 / 120</span></div>
+        <div class="bar-track"><div class="bar-fill bar-meas" id="bar-meas" style="width: 0%;"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label"><span>💨 Steams</span><span id="super-steam-label">0 / 120</span></div>
+        <div class="bar-track"><div class="bar-fill bar-steam" id="bar-steam" style="width: 0%;"></div></div>
+      </div>
+    </div>
+
+    <div class="prize locked" id="prize">
+      <div class="prize-img"><img src="https://www.pacsun.com/dw/image/v2/AAJE_PRD/on/demandware.static/-/Sites-pacsun_storefront_catalog/default/dwaabf34b1/product_images/0850604890138NEW_00_835.jpg?sw=300" alt="PacSun Tree Camo Low Rise Baggy Pants"/></div>
+      <div class="prize-info">
+        <div class="prize-tag" id="prize-tag">🔒 SUPER PRIZE — LOCKED</div>
+        <div class="prize-name">PacSun Tree Camo Low Rise Baggy Pants</div>
+        <a href="https://www.pacsun.com/pacsun/tree-camo-low-rise-baggy-pants-0850604890138.html" target="_blank" rel="noopener" class="prize-link">Preview at PacSun →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ONGOING Bonuses Earned (data-driven, supports future entries) -->
+  <div class="bonuses">
+    <div class="bonus-title">🎁 Bonuses Earned</div>
+    <div class="bonus-sub">Side hustle wins on the road to the keys ✨</div>
+    <table class="bonus-table">
+      <thead>
+        <tr><th>Date</th><th>Item</th><th>Qty</th><th>Avg Value</th><th>Profit / Item</th></tr>
+      </thead>
+      <tbody id="bonus-body"></tbody>
+    </table>
+    <div class="bonus-totals">
+      <div class="bt">
+        <span class="bt-label">Total items</span>
+        <span class="bt-val" id="bt-items">0</span>
+      </div>
+      <div class="bt">
+        <span class="bt-label">Total value</span>
+        <span class="bt-val" id="bt-value">$0</span>
+      </div>
+      <div class="bt">
+        <span class="bt-label">Potential profit</span>
+        <span class="bt-val" id="bt-profit">$0</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hustle bests + Effective Rate -->
+  <div class="bests">
+    <div class="best">
+      <div class="best-label">🔥 LONGEST HUSTLE</div>
+      <div class="best-value" id="best-streak">0</div>
+      <div class="best-sub">days in a row</div>
+    </div>
+    <div class="best">
+      <div class="best-label">⭐ LONGEST DAY</div>
+      <div class="best-value" id="best-day">0</div>
+      <div class="best-sub">hours in a single shift</div>
+    </div>
+    <div class="best best-wage">
+      <div class="best-label">💰 EFFECTIVE RATE</div>
+      <div class="best-value" id="best-rate">$0/hr</div>
+      <div class="best-sub" id="best-rate-sub">Base $15/hr + $0 bonus earnings</div>
+    </div>
+  </div>
+
+  <div class="bars">
+    <div class="bar-row">
+      <div class="bar-label"><span>⏱️ Hours</span><span id="bar-hours-pct">0%</span></div>
+      <div class="bar-track"><div class="bar-fill bar-hours" id="bar-hours" style="width: 0%;"></div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label"><span>💰 Earned</span><span id="bar-money-pct">0%</span></div>
+      <div class="bar-track"><div class="bar-fill bar-money" id="bar-money" style="width: 0%;"></div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label"><span>👕 Garments</span><span id="bar-garments-pct">0%</span></div>
+      <div class="bar-track"><div class="bar-fill bar-garments" id="bar-garments" style="width: 0%;"></div></div>
+    </div>
+  </div>
+
+  <div class="celebrate" id="celebrate">🎉 ROAD TRIP TIME — SHE EARNED THE KEYS! 🎉</div>
+
+  <div class="milestones">
+    <div class="ms-title">🏆 Milestones</div>
+    <div class="ms-grid">
+      <div class="ms" data-mark="20"><div class="ms-icon">🌱</div><div class="ms-pct">10%</div><div class="ms-name">Started</div></div>
+      <div class="ms" data-mark="50"><div class="ms-icon">⛽</div><div class="ms-pct">25%</div><div class="ms-name">Fueled</div></div>
+      <div class="ms" data-mark="100"><div class="ms-icon">🛣️</div><div class="ms-pct">50%</div><div class="ms-name">Halfway</div></div>
+      <div class="ms" data-mark="150"><div class="ms-icon">🏎️</div><div class="ms-pct">75%</div><div class="ms-name">Stretch</div></div>
+      <div class="ms" data-mark="200"><div class="ms-icon">🔑</div><div class="ms-pct">100%</div><div class="ms-name">Keys!</div></div>
+    </div>
+  </div>
+
+  <div class="log">
+    <div class="log-title">📋 Work Log</div>
+    <table class="log-table">
+      <thead>
+        <tr><th>Date</th><th>Hrs</th><th>M</th><th>S</th><th>Tot</th><th>Pace</th><th></th></tr>
+      </thead>
+      <tbody id="log-body"></tbody>
+    </table>
+    <div class="add">
+      <div class="field"><label>Date</label><input type="date" id="in-date" /></div>
+      <div class="field"><label>Hours</label><input type="number" id="in-hours" step="0.25" min="0" placeholder="2" /></div>
+      <div class="field"><label>Measured</label><input type="number" id="in-meas" min="0" placeholder="0" /></div>
+      <div class="field"><label>Steamed</label><input type="number" id="in-steam" min="0" placeholder="0" /></div>
+      <button class="btn" id="btn-add">+ Log Day</button>
+      <button class="btn btn-clear" id="btn-reset">Reset</button>
+    </div>
+  </div>
+
+  <div class="footnote">
+    <strong>Keep going, Elle.</strong> The keys are coming. 🔑<br>
+    — Mom &amp; Dad 🚗💨
+  </div>
+
+  <div class="scripture">
+    <div class="scripture-quote">
+      "She is clothed with strength and dignity;<br>
+      she can laugh at the days to come."
+    </div>
+    <div class="scripture-ref">— Proverbs 31:25</div>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  const STORAGE_KEY = 'elle_mini_log_v5';
+  const BONUS_KEY = 'elle_mini_bonuses_v2';
+  const HOURS_GOAL = 200;
+  const GARMENT_GOAL = 6000;
+  const HOURLY_RATE = 15;
+  const TOTAL_VALUE = HOURS_GOAL * HOURLY_RATE; // $3,000
+
+  // Super Bonus (Camo Pants) parameters
+  const SUPER_DAYS = ['2026-05-13','2026-05-14','2026-05-15','2026-05-16'];
+  const SUPER_MEAS_GOAL = 120;
+  const SUPER_STEAM_GOAL = 120;
+
+  // Work log seed (May 6 → May 14)
+  const seedLog = [
+    { date: '2026-05-06', hours: 2, meas: 10, steam: 40 },
+    { date: '2026-05-07', hours: 2, meas: 11, steam: 11 },
+    { date: '2026-05-08', hours: 4, meas: 30, steam: 30 },
+    { date: '2026-05-13', hours: 3, meas: 29, steam: 29 },
+    { date: '2026-05-14', hours: 3, meas: 30, steam: 30 }
+  ];
+
+  // Bonuses seed — add to this list as Elle finds more items
+  // glyph: emoji shown in the Item cell. Multiple chars OK (e.g. "⌚✨")
+  const seedBonuses = [
+    { date: '2026-05-08', dateLabel: 'May 8', glyph: '⌚✨', label: 'Watches', qty: 3, avgValue: 20, profitPerItem: 20 }
+  ];
+
+  let log = [];
+  let bonuses = [];
+
+  function loadAll() {
+    try {
+      const rawLog = localStorage.getItem(STORAGE_KEY);
+      log = rawLog ? JSON.parse(rawLog) : [...seedLog];
+      if (!rawLog) saveLog();
+    } catch(e) { log = [...seedLog]; }
+    try {
+      const rawB = localStorage.getItem(BONUS_KEY);
+      bonuses = rawB ? JSON.parse(rawB) : [...seedBonuses];
+      if (!rawB) saveBonuses();
+    } catch(e) { bonuses = [...seedBonuses]; }
+  }
+
+  function saveLog() {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(log)); } catch(e) {}
+  }
+  function saveBonuses() {
+    try { localStorage.setItem(BONUS_KEY, JSON.stringify(bonuses)); } catch(e) {}
+  }
+
+  function totals() {
+    return log.reduce((acc, e) => {
+      acc.hours += +e.hours || 0;
+      acc.garments += (+e.meas || 0) + (+e.steam || 0);
+      return acc;
+    }, { hours: 0, garments: 0 });
+  }
+
+  function bonusTotals() {
+    return bonuses.reduce((acc, b) => {
+      const qty = +b.qty || 0;
+      acc.items += qty;
+      acc.value += qty * (+b.avgValue || 0);
+      acc.profit += qty * (+b.profitPerItem || 0);
+      return acc;
+    }, { items: 0, value: 0, profit: 0 });
+  }
+
+  function longestStreak() {
+    if (log.length === 0) return 0;
+    const dates = log.filter(e => (+e.hours || 0) > 0).map(e => e.date).sort();
+    if (dates.length === 0) return 0;
+    let longest = 1, cur = 1;
+    for (let i = 1; i < dates.length; i++) {
+      const a = new Date(dates[i-1] + 'T00:00:00');
+      const b = new Date(dates[i] + 'T00:00:00');
+      const diff = Math.round((b - a) / 86400000);
+      if (diff === 1) cur++;
+      else if (diff > 1) cur = 1;
+      // diff 0 = duplicate date — ignore
+      if (cur > longest) longest = cur;
+    }
+    return longest;
+  }
+
+  function longestDay() {
+    return log.reduce((max, e) => Math.max(max, +e.hours || 0), 0);
+  }
+
+  function superProgress() {
+    const inWindow = log.filter(e => SUPER_DAYS.includes(e.date));
+    const meas = inWindow.reduce((s,e) => s + (+e.meas || 0), 0);
+    const steam = inWindow.reduce((s,e) => s + (+e.steam || 0), 0);
+    const daysHit = SUPER_DAYS.map(d => log.some(e => e.date === d && (+e.hours || 0) > 0));
+    const streakComplete = daysHit.every(x => x);
+    const unlocked = streakComplete && meas >= SUPER_MEAS_GOAL && steam >= SUPER_STEAM_GOAL;
+    return { meas, steam, daysHit, streakComplete, unlocked };
+  }
+
+  function paceClass(p) {
+    if (p >= 28) return 'pace-good';
+    if (p >= 18) return 'pace-ok';
+    return 'pace-low';
+  }
+
+  function fmtMoney(n) {
+    return '$' + Math.round(n).toLocaleString();
+  }
+
+  function fmtRate(n) {
+    return '$' + n.toFixed(2) + '/hr';
+  }
+
+  function shortDate(iso) {
+    try {
+      const d = new Date(iso + 'T00:00:00');
+      return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    } catch(_) { return iso; }
+  }
+
+  function render() {
+    const t = totals();
+    const earned = t.hours * HOURLY_RATE;
+    const hoursPct = Math.min(100, (t.hours / HOURS_GOAL) * 100);
+    const moneyPct = Math.min(100, (earned / TOTAL_VALUE) * 100);
+    const garmPct = Math.min(100, (t.garments / GARMENT_GOAL) * 100);
+    const pace = t.hours > 0 ? (t.garments / t.hours).toFixed(1) : '0';
+
+    document.getElementById('stat-hours').textContent = t.hours.toFixed(1);
+    document.getElementById('stat-money').textContent = fmtMoney(earned);
+    document.getElementById('stat-garments').textContent = t.garments.toLocaleString();
+    document.getElementById('stat-pace').textContent = pace;
+    document.getElementById('stat-left').textContent = Math.max(0, HOURS_GOAL - t.hours).toFixed(1);
+
+    document.getElementById('bar-hours').style.width = hoursPct + '%';
+    document.getElementById('bar-hours').textContent = t.hours.toFixed(1) + ' / 200';
+    document.getElementById('bar-money').style.width = moneyPct + '%';
+    document.getElementById('bar-money').textContent = fmtMoney(earned) + ' / $3,000';
+    document.getElementById('bar-garments').style.width = garmPct + '%';
+    document.getElementById('bar-garments').textContent = t.garments.toLocaleString();
+    document.getElementById('bar-hours-pct').textContent = hoursPct.toFixed(1) + '%';
+    document.getElementById('bar-money-pct').textContent = moneyPct.toFixed(1) + '%';
+    document.getElementById('bar-garments-pct').textContent = garmPct.toFixed(1) + '%';
+
+    const carPos = 5 + (hoursPct / 100) * 82;
+    document.getElementById('mini').style.left = carPos + '%';
+    document.getElementById('mini-pct').textContent = hoursPct.toFixed(1) + '%';
+
+    document.getElementById('celebrate').style.display = hoursPct >= 100 ? 'block' : 'none';
+
+    document.querySelectorAll('.ms').forEach(el => {
+      const mark = parseFloat(el.dataset.mark);
+      el.classList.toggle('hit', t.hours >= mark);
+    });
+
+    // Bonuses Earned table + totals
+    const bonusBody = document.getElementById('bonus-body');
+    bonusBody.innerHTML = '';
+    bonuses.forEach(b => {
+      const qty = +b.qty || 0;
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${b.dateLabel || b.date}</td>
+        <td class="bonus-item"><span class="bonus-watch">${b.glyph}</span> ${b.label}</td>
+        <td>${qty}</td>
+        <td>$${(+b.avgValue || 0).toFixed(0)}</td>
+        <td>$${(+b.profitPerItem || 0).toFixed(0)}</td>
+      `;
+      bonusBody.appendChild(tr);
+    });
+    const bt = bonusTotals();
+    document.getElementById('bt-items').textContent = bt.items;
+    document.getElementById('bt-value').textContent = fmtMoney(bt.value);
+    document.getElementById('bt-profit').textContent = fmtMoney(bt.profit);
+
+    // Bests
+    document.getElementById('best-streak').textContent = longestStreak();
+    document.getElementById('best-day').textContent = longestDay().toFixed(1);
+    const bonusEarnings = bt.profit;
+    const effectiveRate = t.hours > 0 ? (earned + bonusEarnings) / t.hours : HOURLY_RATE;
+    document.getElementById('best-rate').textContent = fmtRate(effectiveRate);
+    document.getElementById('best-rate-sub').textContent = `Base $${Math.round(earned).toLocaleString()} + $${Math.round(bonusEarnings)} bonus earnings`;
+
+    // Super Bonus
+    const sp = superProgress();
+    const measPct = Math.min(100, (sp.meas / SUPER_MEAS_GOAL) * 100);
+    const steamPct = Math.min(100, (sp.steam / SUPER_STEAM_GOAL) * 100);
+    document.getElementById('bar-meas').style.width = measPct + '%';
+    document.getElementById('bar-meas').textContent = sp.meas + ' / ' + SUPER_MEAS_GOAL;
+    document.getElementById('super-meas-label').textContent = sp.meas + ' / ' + SUPER_MEAS_GOAL;
+    document.getElementById('bar-steam').style.width = steamPct + '%';
+    document.getElementById('bar-steam').textContent = sp.steam + ' / ' + SUPER_STEAM_GOAL;
+    document.getElementById('super-steam-label').textContent = sp.steam + ' / ' + SUPER_STEAM_GOAL;
+    document.querySelectorAll('.day[data-date]').forEach(el => {
+      const d = el.dataset.date;
+      const idx = SUPER_DAYS.indexOf(d);
+      if (idx >= 0) el.classList.toggle('hit', sp.daysHit[idx]);
+      const check = el.querySelector('.day-check');
+      if (check) check.textContent = (idx >= 0 && sp.daysHit[idx]) ? '\u2713' : '\u00b7';
+    });
+    const prize = document.getElementById('prize');
+    const prizeTag = document.getElementById('prize-tag');
+    if (sp.unlocked) {
+      prize.classList.remove('locked');
+      prize.classList.add('unlocked');
+      prizeTag.textContent = '\ud83c\udfc6 SUPER PRIZE \u2014 UNLOCKED!';
+    } else {
+      prize.classList.add('locked');
+      prize.classList.remove('unlocked');
+      prizeTag.textContent = '\ud83d\udd12 SUPER PRIZE \u2014 LOCKED';
+    }
+
+    // Work log table
+    const tbody = document.getElementById('log-body');
+    tbody.innerHTML = '';
+    [...log].reverse().forEach((e, ri) => {
+      const idx = log.length - 1 - ri;
+      const pace = e.hours > 0 ? ((+e.meas||0)+(+e.steam||0)) / +e.hours : 0;
+      const pc = paceClass(pace);
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${shortDate(e.date)}</td>
+        <td>${(+e.hours||0).toFixed(1)}</td>
+        <td>${+e.meas||0}</td>
+        <td>${+e.steam||0}</td>
+        <td>${((+e.meas||0)+(+e.steam||0)).toLocaleString()}</td>
+        <td><span class="pace ${pc}">${pace.toFixed(1)}/hr</span></td>
+        <td><button class="del-btn" data-idx="${idx}" title="Remove">\u2715</button></td>
+      `;
+      tbody.appendChild(tr);
+    });
+    tbody.querySelectorAll('.del-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const i = parseInt(this.dataset.idx);
+        log.splice(i, 1);
+        saveLog();
+        render();
+      });
+    });
+  }
+
+  function init() {
+    loadAll();
+    render();
+
+    // Default date to today
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth()+1).padStart(2,'0');
+    const dd = String(today.getDate()).padStart(2,'0');
+    document.getElementById('in-date').value = `${yyyy}-${mm}-${dd}`;
+
+    document.getElementById('btn-add').addEventListener('click', function() {
+      const d = document.getElementById('in-date').value;
+      const h = parseFloat(document.getElementById('in-hours').value) || 0;
+      const m = parseInt(document.getElementById('in-meas').value) || 0;
+      const s = parseInt(document.getElementById('in-steam').value) || 0;
+      if (!d || h <= 0) return;
+      const existing = log.findIndex(e => e.date === d);
+      if (existing >= 0) {
+        log[existing].hours = (+log[existing].hours||0) + h;
+        log[existing].meas = (+log[existing].meas||0) + m;
+        log[existing].steam = (+log[existing].steam||0) + s;
+      } else {
+        log.push({ date: d, hours: h, meas: m, steam: s });
+        log.sort((a,b) => a.date.localeCompare(b.date));
+      }
+      saveLog();
+      render();
+      document.getElementById('in-hours').value = '';
+      document.getElementById('in-meas').value = '';
+      document.getElementById('in-steam').value = '';
+    });
+
+    document.getElementById('btn-reset').addEventListener('click', function() {
+      if (!confirm('Reset all data to the starting seed?')) return;
+      log = [...seedLog];
+      bonuses = [...seedBonuses];
+      saveLog();
+      saveBonuses();
+      render();
+    });
+  }
+
+  window.addEventListener('DOMContentLoaded', init);
+})();
+</script>
+</body>
+</html>
