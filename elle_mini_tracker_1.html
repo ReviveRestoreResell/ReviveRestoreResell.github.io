@@ -314,39 +314,6 @@
     </div>
   </div>
 
-  <!-- SUPER BONUS: 4-day streak (Wed-Sat May 13-16) + 120 meas + 120 steams -->
-  <div class="super" id="super">
-    <div class="super-title">🎁 SUPER BONUS — 4-Day Streak Challenge</div>
-    <div class="super-sub">Work Wed → Sat · log 120 measurements + 120 steams total · unlock the prize</div>
-
-    <div class="day-row" id="day-row">
-      <div class="day" data-date="2026-05-13"><div class="day-label">Wed</div><div class="day-date">5/13</div><div class="day-check">·</div></div>
-      <div class="day" data-date="2026-05-14"><div class="day-label">Thu</div><div class="day-date">5/14</div><div class="day-check">·</div></div>
-      <div class="day" data-date="2026-05-15"><div class="day-label">Fri</div><div class="day-date">5/15</div><div class="day-check">·</div></div>
-      <div class="day" data-date="2026-05-16"><div class="day-label">Sat</div><div class="day-date">5/16</div><div class="day-check">·</div></div>
-    </div>
-
-    <div class="super-bars">
-      <div class="bar-row">
-        <div class="bar-label"><span>📏 Measurements</span><span id="super-meas-label">0 / 120</span></div>
-        <div class="bar-track"><div class="bar-fill bar-meas" id="bar-meas" style="width: 0%;"></div></div>
-      </div>
-      <div class="bar-row">
-        <div class="bar-label"><span>💨 Steams</span><span id="super-steam-label">0 / 120</span></div>
-        <div class="bar-track"><div class="bar-fill bar-steam" id="bar-steam" style="width: 0%;"></div></div>
-      </div>
-    </div>
-
-    <div class="prize locked" id="prize">
-      <div class="prize-img"><img src="https://www.pacsun.com/dw/image/v2/AAJE_PRD/on/demandware.static/-/Sites-pacsun_storefront_catalog/default/dwaabf34b1/product_images/0850604890138NEW_00_835.jpg?sw=300" alt="PacSun Tree Camo Low Rise Baggy Pants"/></div>
-      <div class="prize-info">
-        <div class="prize-tag" id="prize-tag">🔒 SUPER PRIZE — LOCKED</div>
-        <div class="prize-name">PacSun Tree Camo Low Rise Baggy Pants</div>
-        <a href="https://www.pacsun.com/pacsun/tree-camo-low-rise-baggy-pants-0850604890138.html" target="_blank" rel="noopener" class="prize-link">Preview at PacSun →</a>
-      </div>
-    </div>
-  </div>
-
   <!-- ONGOING Bonuses Earned (data-driven, supports future entries) -->
   <div class="bonuses">
     <div class="bonus-title">🎁 Bonuses Earned</div>
@@ -438,6 +405,39 @@
     </div>
   </div>
 
+  <!-- SUPER BONUS: previous window missed — restart available, dates TBD -->
+  <div class="super" id="super">
+    <div class="super-title">🎁 SUPER BONUS — Restart Available</div>
+    <div class="super-sub">Previous window missed (May 13–16). Talk to Dad to set the next 4-day challenge — same prize on the line.</div>
+
+    <div class="day-row" id="day-row">
+      <div class="day"><div class="day-label">Day 1</div><div class="day-date">—</div><div class="day-check">·</div></div>
+      <div class="day"><div class="day-label">Day 2</div><div class="day-date">—</div><div class="day-check">·</div></div>
+      <div class="day"><div class="day-label">Day 3</div><div class="day-date">—</div><div class="day-check">·</div></div>
+      <div class="day"><div class="day-label">Day 4</div><div class="day-date">—</div><div class="day-check">·</div></div>
+    </div>
+
+    <div class="super-bars">
+      <div class="bar-row">
+        <div class="bar-label"><span>📏 Measurements</span><span id="super-meas-label">0 / 120</span></div>
+        <div class="bar-track"><div class="bar-fill bar-meas" id="bar-meas" style="width: 0%;"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label"><span>💨 Steams</span><span id="super-steam-label">0 / 120</span></div>
+        <div class="bar-track"><div class="bar-fill bar-steam" id="bar-steam" style="width: 0%;"></div></div>
+      </div>
+    </div>
+
+    <div class="prize locked" id="prize">
+      <div class="prize-img"><img src="https://www.pacsun.com/dw/image/v2/AAJE_PRD/on/demandware.static/-/Sites-pacsun_storefront_catalog/default/dwaabf34b1/product_images/0850604890138NEW_00_835.jpg?sw=300" alt="PacSun Tree Camo Low Rise Baggy Pants"/></div>
+      <div class="prize-info">
+        <div class="prize-tag" id="prize-tag">🔒 SUPER PRIZE — LOCKED</div>
+        <div class="prize-name">PacSun Tree Camo Low Rise Baggy Pants</div>
+        <a href="https://www.pacsun.com/pacsun/tree-camo-low-rise-baggy-pants-0850604890138.html" target="_blank" rel="noopener" class="prize-link">Preview at PacSun →</a>
+      </div>
+    </div>
+  </div>
+
   <div class="footnote">
     <strong>Keep going, Elle.</strong> The keys are coming. 🔑<br>
     — Mom &amp; Dad 🚗💨
@@ -455,31 +455,37 @@
 
 <script>
 (function(){
-  const STORAGE_KEY = 'elle_mini_log_v5';
-  const BONUS_KEY = 'elle_mini_bonuses_v2';
+  const STORAGE_KEY = 'elle_mini_log_v6';
+  const BONUS_KEY = 'elle_mini_bonuses_v3';
   const HOURS_GOAL = 200;
   const GARMENT_GOAL = 6000;
   const HOURLY_RATE = 15;
   const TOTAL_VALUE = HOURS_GOAL * HOURLY_RATE; // $3,000
 
   // Super Bonus (Camo Pants) parameters
-  const SUPER_DAYS = ['2026-05-13','2026-05-14','2026-05-15','2026-05-16'];
+  // SUPER_DAYS is intentionally empty — previous window (May 13-16) was missed.
+  // To re-arm: set SUPER_DAYS to the new 4-day window and update the day-row HTML labels/dates.
+  const SUPER_DAYS = [];
   const SUPER_MEAS_GOAL = 120;
   const SUPER_STEAM_GOAL = 120;
 
-  // Work log seed (May 6 → May 14)
+  // Work log seed (May 6 → May 21)
+  // Rule of thumb when only hours are reported: 20 items/hr split evenly between meas + steam.
   const seedLog = [
     { date: '2026-05-06', hours: 2, meas: 10, steam: 40 },
     { date: '2026-05-07', hours: 2, meas: 11, steam: 11 },
     { date: '2026-05-08', hours: 4, meas: 30, steam: 30 },
     { date: '2026-05-13', hours: 3, meas: 29, steam: 29 },
-    { date: '2026-05-14', hours: 3, meas: 30, steam: 30 }
+    { date: '2026-05-14', hours: 3, meas: 30, steam: 30 },
+    { date: '2026-05-20', hours: 3, meas: 30, steam: 30 },
+    { date: '2026-05-21', hours: 3, meas: 30, steam: 30 }
   ];
 
   // Bonuses seed — add to this list as Elle finds more items
   // glyph: emoji shown in the Item cell. Multiple chars OK (e.g. "⌚✨")
   const seedBonuses = [
-    { date: '2026-05-08', dateLabel: 'May 8', glyph: '⌚✨', label: 'Watches', qty: 3, avgValue: 20, profitPerItem: 20 }
+    { date: '2026-05-08', dateLabel: 'May 8', glyph: '⌚✨', label: 'Watches', qty: 3, avgValue: 20, profitPerItem: 20 },
+    { date: '2026-05-25', dateLabel: 'May 25', glyph: '👟✨', label: 'Shoes', qty: 3, avgValue: 20, profitPerItem: 20 }
   ];
 
   let log = [];
