@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Pick List — 2026-08-10</title>
+<title>Pick List — 2026-08-10 — done</title>
 <style>
   :root{
     --bg:#f6f7f9; --card:#fff; --ink:#14181f; --mute:#6b7480;
@@ -91,6 +91,16 @@
     -webkit-appearance:none;appearance:none;}
   .exp{background:var(--key);border-color:var(--key);color:#fff;font-weight:600}
   .hint{margin-top:16px;font-size:12px;color:var(--mute);text-align:center}
+  .gap{max-width:700px;margin:18px auto 0;font-size:12px;color:#92400e;text-align:center}
+  .wrap{max-width:640px;margin:26px auto 0;padding:0 16px}
+  .wrap table{width:100%;border-collapse:collapse;font-size:16px}
+  .wrap td{padding:13px 4px;border-bottom:1px solid var(--line);vertical-align:top}
+  .wrap td.n{text-align:right;font-weight:650;font-variant-numeric:tabular-nums;
+    white-space:nowrap;padding-left:14px;font-size:19px}
+  .wrap tr.tot td{border-bottom:none;border-top:2px solid var(--ink);font-weight:700}
+  .wrap .lab{font-weight:600}
+  .wrap .det{display:block;font-size:13px;color:var(--mute);margin-top:3px;line-height:1.5}
+  .done-h{max-width:640px;margin:22px auto 0;padding:0 16px;font-size:15px;color:var(--mute)}
   footer{margin-top:22px;font-size:12px;color:var(--mute);text-align:center;line-height:1.6}
   @buyer print{
     body{background:#fff;padding:0}
@@ -103,55 +113,15 @@
 </style>
 </head>
 <body>
-<form>
-
   <h1>Pick List — Monday, Aug 10 2026</h1>
-  <div class="sub">0 items · </div>
-  <div class="build">build 4 · 9:30 am · sold-pick-list v1.8</div>
-
-  <div class="rack">FLAGS — read them when you want</div>
-  <div class="degraded"><b>Partial run — the list was built anyway.</b> These sources were missing or unreadable this morning, so anything they alone would have caught is not on this card: Mercari NOT CHECKED -- page would not hydrate; consent banner deliberately not accepted. Any Mercari sale from the last 24h is not on this card., eBay report is narrower than the live queue -- eBay_Sales_Fulfillment_08-10-26.csv holds 1 of the 2 open orders. Do not seed the eBay leg from the report alone., FBMP in-person blind spot persists -- the Active-set baseline was first captured 2026-08-09 19:58, so a local-pickup sale earlier than that is undetectable and must be hand-added via manual_add\., Poshmark order_ids were carried from the ledger by exact title match; the live page&#x27;s order-id hrefs could not be extracted through the JS bridge (output filter blocked the hex ids). All 11 titles matched 1:1, so the mapping is unambiguous.. A missing input is never a reason to skip the walk.</div>
-
-  <div class="hint">Tap a row to mark it picked. Export picked → Save to Files → Daily_Pick_List\inbox\</div>
-  <footer>
-    ✓ <b>Live queues + manual add</b> — platform_feeds/_status.json: 0; platform_feeds/depop_2026-08-10.json: 0; platform_feeds/ebay_2026-08-10.json: 2; platform_feeds/fbmp_2026-08-10.json: 3; platform_feeds/mercari_2026-08-10.json: 0; platform_feeds/poshmark_2026-08-10.json: 11; manual_add/Manual_Add_2026-08-09_recover_inperson.json: 2<br>
-    ✓ <b>eBay live queue</b> — PROVEN. TWO sources agree in part and the LIVE queue governs. Live Seller Hub filter=AWAITING_SHIPMENT reads 2 open: 05-15020-95392 Christian Siriano shirt (SKU G-4 2198, sold Aug 9, ship-by Aug 11) and 27-14976-24522 Nike Tech Jogger (SKU F-20 0823, sold Aug 8, ship-by Aug 10). NEITHER has tracking (&#x27;+ Add tracking&#x27; on both) so neither infers closed. NOTE: today&#x27;s eBay_Sales_Fulfillment_08-10-26.csv DID land but carries only 1 record (the Christian Siriano) -- the report is scoped to the recent sale window and does NOT contain the still-open Aug 8 Nike order. The report alone would have dropped a live order; the live read is authoritative for this leg.<br>
-    ✓ <b>Poshmark live queue</b> — PROVEN COMPLETE. poshmark.com/order/sales?status=to_ship footer reads &#x27;Showing 1-11 of 11&#x27; -- full set on one page, no pagination needed, nothing hidden. All 11 Awaiting Shipment rows match the ledger&#x27;s 11 Poshmark entries exactly by title, buyer, price and sold date. Zero new, zero advanced to In Transit.<br>
-    ✓ <b>Depop live queue</b> — PROVEN. depop.com/sellinghub/sold-items/ &#x27;All&#x27; view: every sold row carries Shipped or Payment refunded; no row is unshipped. Zero open Depop orders.<br>
-    ✓ <b>Mercari live queue</b> — NOT CHECKED -- mercari.com/mypage/listings/in_progress/ and /listings/ both failed to hydrate (div#__next rendered EMPTY, 0 bytes, after reload and 3 waits up to 9s). The consent banner was present and was NOT accepted. This differs from 2026-08-09 when the same page rendered under the banner. Mercari&#x27;s open-order count for 2026-08-10 is UNKNOWN; it was 0 yesterday but that is not carried forward as fact.<br>
-    ✓ <b>FBMP live queue</b> — PROVEN NO CHANGE. Ship leg: Gmail from:marketplace.facebook.com newer_than:7d returns exactly 2 label emails -- Aug 08 wood wall art (ship-by Aug 15) and Aug 03 matchbox (ship-by Aug 10). Both already open in the ledger; no new label email. In-person leg: live Active set loaded to &#x27;Showing 92 of 92 listings&#x27;; SHA-256 of the sorted title set = f6cc6509...082f, IDENTICAL to the 2026-08-09 21:55 baseline. Active 92, Sold 799, Pending 1 -- all three unchanged. Checksum holds -&gt; zero FBMP sales since the last run. Per rule 0b FBMP is NEVER inferred closed, so the 3 open FBMP entries all remain open.<br>
-    ✓ <b>eBay report</b> — eBay_Sales_Fulfillment_08-10-26.csv (1 in window) [SKU backfill only]<br>
-    ✓ <b>Poshmark report</b> — Poshmark_Sales_Finances_01-01-26_to_08-10-26.csv (72 in window) -- NOTE: completed/paid sales only, lags the to-ship queue [SKU backfill only]<br>
-    ✓ <b>Depop report</b> — Depop Sales 05_01_2026 - 05_19_2026.csv (0 in window) [SKU backfill only]<br>
-    ✓ <b>Mercari report</b> — Custom-sales-report_052025-051926_all.csv (0 in window) [SKU backfill only]<br>
-    ✓ <b>Vendoo sold register</b> — Vendoo_Inventory_Full_08-10-26.csv -- 208 sold in 45d, 7509 SKUs on file [SKU backfill + reconcile, never a candidate]<br>
-    ✓ <b>eBay unshipped (no Shipped On Date)</b> — 1 order(s)<br>
-    ✓ <b>Vendoo locations (Internal Notes)</b> — 4275 SKU location(s) from Vendoo_Inventory_Full_08-10-26.csv+4275, Vendoo_Inventory_Full_08-09-26.csv+0<br>
-    ✓ <b>Vendoo sold, not on this card</b> — 1 sale(s) in the last 3 days that no live queue reported — expected to be already shipped or picked, listed for an eyeball: Tops-0851 eBay 2026-08-07<br>
-    ✓ <b>Vendoo enrichment</b> — Vendoo_Inventory_Full_08-10-26.csv (color + SHIP- policy)<br>
-    Format: item-locate v2.5 card · data: Master_SKU_v3 + Vendoo export<br>
-  </footer>
-  <div class="bar"><div class="barin">
-    <span class="count"></span>
-    <span class="dots"></span>
-    <input class="reset" type="reset" value="Reset">
-    <button class="exp" type="button" onclick="exportPicked()">Export picked</button>
-  </div></div>
-
-</form>
-<script>var DATEKEY="2026-08-10";
-function exportPicked(){
-  var picked=[].slice.call(document.querySelectorAll('.chk:checked'))
-              .map(function(c){return c.dataset.key;});
-  if(!picked.length){alert('Nothing checked yet.');return;}
-  var doc={schema:'rrr-picked/1.0',exported_at:new Date().toISOString(),
-           list_date:DATEKEY,source:'iphone-export',picked:picked};
-  var name='picked-'+DATEKEY+'-'+new Date().toISOString().slice(11,19).replace(/:/g,'')+'.json';
-  var b=new Blob([JSON.stringify(doc,null,2)],{type:'application/json'});
-  var u=URL.createObjectURL(b),a=document.createElement('a');
-  a.href=u;a.download=name;document.body.appendChild(a);a.click();
-  setTimeout(function(){a.remove();URL.revokeObjectURL(u);},1500);
-}
-</script>
+  <div class="sub">Day complete — 16 picked</div>
+  <div class="build">build 6 · 9:40 am · sold-pick-list v1.9</div>
+  <div class="wrap"><table>
+    <tr><td><span class="lab">Shipped</span><span class="det">Poshmark 11 · eBay 2 · FBMP 1</span></td><td class="n">14</td></tr>
+    <tr><td><span class="lab">Hand delivered</span><span class="det">OTHER-0844 Baby Brezza Bottle Washer Pro Wash · OTHER-0849 Donvier Electronic Yogurt Maker 8 </span></td><td class="n">2</td></tr>
+    <tr class="tot"><td>Total</td><td class="n">16</td></tr>
+  </table></div>
+  <div class="gap">Not checked today: <b>Mercari</b></div>
+  <div class="done-h">Nothing left to pull. Tomorrow's list builds at 4:50 am.</div>
 </body>
 </html>
