@@ -78,7 +78,7 @@
   .barin{max-width:700px;margin:0 auto;width:100%;display:flex;align-items:center;gap:10px}
   .count{font-size:14px;font-weight:600;color:var(--ink);white-space:nowrap;
     font-variant-numeric:tabular-nums}
-  .count::after{content:counter(picked) " of 15 picked"}
+  .count::after{content:counter(picked) " of 17 picked"}
   .dots{flex:1;display:flex;gap:5px}
   .dot{flex:1;height:6px;border-radius:3px;background:#e0e4e9;transition:background .25s ease}
   form:has(#p1:checked) .d1,
@@ -95,7 +95,9 @@
   form:has(#p12:checked) .d12,
   form:has(#p13:checked) .d13,
   form:has(#p14:checked) .d14,
-  form:has(#p15:checked) .d15{background:var(--done)}
+  form:has(#p15:checked) .d15,
+  form:has(#p16:checked) .d16,
+  form:has(#p17:checked) .d17{background:var(--done)}
   .reset,.exp{font:inherit;font-size:13px;border:1px solid var(--line);background:#fff;
     color:var(--mute);border-radius:7px;padding:7px 13px;cursor:pointer;
     -webkit-appearance:none;appearance:none;}
@@ -116,8 +118,8 @@
 <form>
 
   <h1>Pick List — Sunday, Aug 9 2026</h1>
-  <div class="sub">15 items · Poshmark 11 · FBMP 3 · eBay 1</div>
-  <div class="degraded"><b>Partial run — the list was built anyway.</b> These sources were missing or unreadable this morning, so anything they alone would have caught is not on this card: Mercari live queue. A missing input is never a reason to skip the walk.</div>
+  <div class="sub">17 items · Poshmark 11 · FBMP 5 · eBay 1 · 2 in person</div>
+  <div class="degraded"><b>Partial run — the list was built anyway.</b> These sources were missing or unreadable this morning, so anything they alone would have caught is not on this card: eBay export gap - eBay_Sales_Fulfillment_08-09-26.csv never landed; the eBay leg came from a live Seller Hub read, not the report, FBMP in-person blind spot - the Active-set baseline was first captured 2026-08-09 19:58, so a local-pickup sale from earlier than that is undetectable and will never appear here unless hand-added, 2 items have no Master v3 match and render UNKNOWN - do not guess a bin. A missing input is never a reason to skip the walk.</div>
 
   <div class="rack">POD 1 · RACK 4</div>
   <input class="chk" type="checkbox" id="p1" data-key="Poshmark:6a77c483740c5538220470ca">
@@ -318,11 +320,37 @@
       </div></div>
     </div>
   </label>
+  <input class="chk" type="checkbox" id="p14" data-key="FBMP:teb52f2990578">
+  <label class="item" for="p14">
+    <div class="num"><span class="n">14</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">—<span class="sep">·</span><span class="cat">OTHER-0844</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Other</div>
+        <div class="l3">Baby Brezza Bottle Washer Pro Wash Sterilize Dry Baby Bottles</div>
+        <div class="l4"><b>FBMP</b> · IN PERSON — no label</div>
+        <div class="mig local"><span class="chip">IN PERSON</span><span>Sold for local handoff — pick it, but do not print a label.</span></div>
+      </div></div>
+    </div>
+  </label>
+  <input class="chk" type="checkbox" id="p15" data-key="FBMP:ted6c6df90b2b">
+  <label class="item" for="p15">
+    <div class="num"><span class="n">15</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">—<span class="sep">·</span><span class="cat">OTHER-0849</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Other</div>
+        <div class="l3">Donvier Electronic Yogurt Maker 8 Jar Timer Complete Extra Cup</div>
+        <div class="l4"><b>FBMP</b> · IN PERSON — no label</div>
+        <div class="mig local"><span class="chip">IN PERSON</span><span>Sold for local handoff — pick it, but do not print a label.</span></div>
+      </div></div>
+    </div>
+  </label>
 
   <div class="rack">UNKNOWN POD</div>
-  <input class="chk" type="checkbox" id="p14" data-key="FBMP:fbmp-pending-lululemon-tank">
-  <label class="item unknown" for="p14">
-    <div class="num"><span class="n">14</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p16" data-key="FBMP:fbmp-pending-lululemon-tank">
+  <label class="item unknown" for="p16">
+    <div class="num"><span class="n">16</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">UNRESOLVED</div>
       <div class="detail"><div class="inner">
@@ -334,9 +362,9 @@
       </div></div>
     </div>
   </label>
-  <input class="chk" type="checkbox" id="p15" data-key="Poshmark:6a794e180826406227aeb6b5">
-  <label class="item unknown" for="p15">
-    <div class="num"><span class="n">15</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p17" data-key="Poshmark:6a794e180826406227aeb6b5">
+  <label class="item unknown" for="p17">
+    <div class="num"><span class="n">17</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">UNRESOLVED</div>
       <div class="detail"><div class="inner">
@@ -350,12 +378,12 @@
 
   <div class="hint">Tap a row to mark it picked. Export picked → Save to Files → Daily_Pick_List\inbox\</div>
   <footer>
-    ✓ <b>Live queues + manual add</b> — platform_feeds/_status.json: 0; platform_feeds/depop_2026-08-09.json: 0; platform_feeds/ebay_2026-08-09.json: 1; platform_feeds/fbmp_2026-08-09.json: 3; platform_feeds/poshmark_2026-08-09.json: 11<br>
-    ✓ <b>eBay live queue</b> — Seller Hub live queue read — Awaiting shipment (1). NOTE: eBay_Sales_Fulfillment_08-09-26.csv NEVER LANDED; newest export on disk is 08-08-26 and shows 0 unshipped. The live read is what caught today&#x27;s one order.<br>
-    ✓ <b>Poshmark live queue</b> — poshmark.com/order/sales read live — 11 Awaiting Shipment (Aug 07-09), 8 In Transit, 1 Order Complete. Page caps at 20 rows and the status/Show-100 filters would not take a synthetic click, so orders older than Aug 06 were NOT scanned for a straggler.<br>
-    ✓ <b>Depop live queue</b> — depop.com/sellinghub sold-items -&gt; To ship tab read live — EMPTY. Zero open Depop orders.<br>
-    ⚠ <b>Mercari live queue</b> — NOT FOUND -- NOT CHECKED: mercari.com/mypage/listings/in_progress rendered only the cookie/privacy consent banner. Consent banners are never accepted on Vaughn&#x27;s behalf, so the Mercari leg is unread this run.<br>
-    ✓ <b>FBMP live queue</b> — Ship leg from Gmail (2 labels: Aug 08 wood wall art, Aug 03 matchbox) + Pending tab (1 aged &#x27;Sold/Shipped&#x27; row, no label email in 45d). In-person leg: Active 93 -&gt; 92 vs the 19:58 baseline, Sold held at 799, so the checksum says NO FBMP sale — the one item that left Active is the A&amp;F skirt that sold on POSHMARK today. Zero in-person sales detected. Baseline was first captured 2026-08-09 19:58, so in-person detection only covers the last ~3 hours.<br>
+    ✓ <b>Live queues + manual add</b> — platform_feeds/_status.json: 0; platform_feeds/depop_2026-08-09.json: 0; platform_feeds/ebay_2026-08-09.json: 1; platform_feeds/fbmp_2026-08-09.json: 3; platform_feeds/mercari_2026-08-09.json: 0; platform_feeds/poshmark_2026-08-09.json: 11; manual_add/Manual_Add_2026-08-09_recover_inperson.json: 2<br>
+    ✓ <b>eBay live queue</b> — PROVEN. Seller Hub live queue, filter=AWAITING_SHIPMENT: &#x27;Awaiting shipment (1)&#x27;, &#x27;Results: 1-1 of 1&#x27;. Order 27-14976-24522, SKU F-20 0823, Nike Tech Jogger, sold Aug 8, ship-by Aug 10, tracking NOT added (&#x27;+ Add tracking&#x27;). GAP: eBay_Sales_Fulfillment_08-09-26.csv still NEVER LANDED; newest on disk is 08-08-26. The live read is the source for this leg.<br>
+    ✓ <b>Poshmark live queue</b> — PROVEN COMPLETE -- the 2026-08-09 truncation gap is CLOSED. The status filter DOES take a JS .click() on the option leaf inside .my-sales-desktop-table__filter-select[1]; it navigates to ?status=to_ship and the footer reads &#x27;Showing 1-11 of 11&#x27;. 11 of 11 Awaiting Shipment read, no pagination needed, nothing hidden. All 11 order_ids match the ledger exactly.<br>
+    ✓ <b>Depop live queue</b> — PROVEN. depop.com/sellinghub/sold-items -&gt; &#x27;To ship&#x27; tab: EMPTY (&#x27;Once you&#x27;ve made a sale, you&#x27;ll be able to see your receipt here&#x27;). Zero open Depop orders.<br>
+    ✓ <b>Mercari live queue</b> — CHECKED THIS RUN (was NOT CHECKED at 21:25). mercari.com/mypage/listings/in_progress rendered fully: Sold &gt; In progress = 0, &#x27;No in progress orders yet&#x27;. Active 95, Complete 10. Consent banner was present and was NOT accepted -- content rendered underneath it.<br>
+    ✓ <b>FBMP live queue</b> — PROVEN NO CHANGE. Ship leg: Gmail from:marketplace.facebook.com newer_than:14d returns 3 label emails -- Aug 08 wood wall art and Aug 03 matchbox (both already open in the ledger) and Jul 28 paper lanterns (ship-by Aug 3, no longer in Pending, treated closed). In-person leg: live Active set scraped to &#x27;Showing 92 of 92&#x27;, SHA-256 of the sorted title set is IDENTICAL to the 21:15 baseline (e1740687...dedd3); Sold held at 799 and Pending at 1. Checksum holds -&gt; zero FBMP sales since 21:24. LIMIT: baseline first captured 2026-08-09 19:58, so in-person detection still only covers the last ~2 hours; anything sold before that is permanently undetectable by this method (see manual_add recovery).<br>
     ✓ <b>eBay report</b> — eBay_Sales_Fulfillment_08-08-26.csv (13 in window) [SKU backfill only]<br>
     ✓ <b>Poshmark report</b> — Poshmark_Sales_Finances_01-01-26_to_08-09-26.csv (71 in window) -- NOTE: completed/paid sales only, lags the to-ship queue [SKU backfill only]<br>
     ✓ <b>Depop report</b> — Depop Sales 05_01_2026 - 05_19_2026.csv (0 in window) [SKU backfill only]<br>
@@ -366,7 +394,7 @@
   </footer>
   <div class="bar"><div class="barin">
     <span class="count"></span>
-    <span class="dots"><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i><i class="dot d5"></i><i class="dot d6"></i><i class="dot d7"></i><i class="dot d8"></i><i class="dot d9"></i><i class="dot d10"></i><i class="dot d11"></i><i class="dot d12"></i><i class="dot d13"></i><i class="dot d14"></i><i class="dot d15"></i></span>
+    <span class="dots"><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i><i class="dot d5"></i><i class="dot d6"></i><i class="dot d7"></i><i class="dot d8"></i><i class="dot d9"></i><i class="dot d10"></i><i class="dot d11"></i><i class="dot d12"></i><i class="dot d13"></i><i class="dot d14"></i><i class="dot d15"></i><i class="dot d16"></i><i class="dot d17"></i></span>
     <input class="reset" type="reset" value="Reset">
     <button class="exp" type="button" onclick="exportPicked()">Export picked</button>
   </div></div>
