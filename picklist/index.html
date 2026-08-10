@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Pick List — 2026-08-09</title>
+<title>Pick List — 2026-08-10</title>
 <style>
   :root{
     --bg:#f6f7f9; --card:#fff; --ink:#14181f; --mute:#6b7480;
@@ -78,7 +78,7 @@
   .barin{max-width:700px;margin:0 auto;width:100%;display:flex;align-items:center;gap:10px}
   .count{font-size:14px;font-weight:600;color:var(--ink);white-space:nowrap;
     font-variant-numeric:tabular-nums}
-  .count::after{content:counter(picked) " of 17 picked"}
+  .count::after{content:counter(picked) " of 18 picked"}
   .dots{flex:1;display:flex;gap:5px}
   .dot{flex:1;height:6px;border-radius:3px;background:#e0e4e9;transition:background .25s ease}
   form:has(#p1:checked) .d1,
@@ -97,7 +97,8 @@
   form:has(#p14:checked) .d14,
   form:has(#p15:checked) .d15,
   form:has(#p16:checked) .d16,
-  form:has(#p17:checked) .d17{background:var(--done)}
+  form:has(#p17:checked) .d17,
+  form:has(#p18:checked) .d18{background:var(--done)}
   .reset,.exp{font:inherit;font-size:13px;border:1px solid var(--line);background:#fff;
     color:var(--mute);border-radius:7px;padding:7px 13px;cursor:pointer;
     -webkit-appearance:none;appearance:none;}
@@ -117,9 +118,9 @@
 <body>
 <form>
 
-  <h1>Pick List — Sunday, Aug 9 2026</h1>
-  <div class="sub">17 items · Poshmark 11 · FBMP 5 · eBay 1 · 2 in person</div>
-  <div class="degraded"><b>Partial run — the list was built anyway.</b> These sources were missing or unreadable this morning, so anything they alone would have caught is not on this card: eBay export gap - eBay_Sales_Fulfillment_08-09-26.csv never landed; the eBay leg came from a live Seller Hub read, not the report, FBMP in-person blind spot - the Active-set baseline was first captured 2026-08-09 19:58, so a local-pickup sale from earlier than that is undetectable and will never appear here unless hand-added, 2 items have no Master v3 match and render UNKNOWN - do not guess a bin. A missing input is never a reason to skip the walk.</div>
+  <h1>Pick List — Monday, Aug 10 2026</h1>
+  <div class="sub">18 items · Poshmark 11 · FBMP 5 · eBay 2 · 2 in person</div>
+  <div class="degraded"><b>Partial run — the list was built anyway.</b> These sources were missing or unreadable this morning, so anything they alone would have caught is not on this card: Mercari NOT CHECKED -- page would not hydrate; consent banner deliberately not accepted. Any Mercari sale from the last 24h is not on this card., eBay report is narrower than the live queue -- eBay_Sales_Fulfillment_08-10-26.csv holds 1 of the 2 open orders. Do not seed the eBay leg from the report alone., FBMP in-person blind spot persists -- the Active-set baseline was first captured 2026-08-09 19:58, so a local-pickup sale earlier than that is undetectable and must be hand-added via manual_add\., Poshmark order_ids were carried from the ledger by exact title match; the live page&#x27;s order-id hrefs could not be extracted through the JS bridge (output filter blocked the hex ids). All 11 titles matched 1:1, so the mapping is unambiguous.. A missing input is never a reason to skip the walk.</div>
 
   <div class="rack">POD 1 · RACK 4</div>
   <input class="chk" type="checkbox" id="p1" data-key="Poshmark:6a77c483740c5538220470ca">
@@ -142,7 +143,7 @@
   <label class="item" for="p2">
     <div class="num"><span class="n">2</span><span class="tick">✓</span></div>
     <div class="body">
-      <div class="l1">F20<span class="sep">·</span><span class="sku">F-20 0823</span><span class="sep">·</span><span class="cat">F-20 0823</span></div>
+      <div class="l1">F20<span class="sep">·</span><span class="sku">F-20 0823</span><span class="sep">·</span><span class="cat">PANTS-0640</span></div>
       <div class="detail"><div class="inner">
         <div class="l2">Red</div>
         <div class="l3">Nike Tech Jogger Pants Men&#x27;s 32 Burgundy Red Tapered Leg Activewear Performance</div>
@@ -151,11 +152,24 @@
       </div></div>
     </div>
   </label>
-
-  <div class="rack">POD 1 · RACK 10</div>
-  <input class="chk" type="checkbox" id="p3" data-key="Poshmark:6a76ba15d71e6f5ceecb7690">
+  <input class="chk" type="checkbox" id="p3" data-key="eBay:05-15020-95392">
   <label class="item" for="p3">
     <div class="num"><span class="n">3</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">G4<span class="sep">·</span><span class="sku">G-4 2198</span><span class="sep">·</span><span class="cat">TOPS-1250</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Blue</div>
+        <div class="l3">Christian Siriano Short Sleeve Shirt WMNS M Teal Crewneck Pullover Soft Stretch</div>
+        <div class="l4"><b>eBay</b> · SHIP-1LB · ship by 8/11/2026</div>
+        <div class="mig unver"><span class="chip">UNVERIFIED</span><span>Register-only — the <span class="from">Loc:</span> note is absent or the bin is unset, and the overlay sweep found no move. Never physically confirmed.</span></div>
+      </div></div>
+    </div>
+  </label>
+
+  <div class="rack">POD 1 · RACK 10</div>
+  <input class="chk" type="checkbox" id="p4" data-key="Poshmark:6a76ba15d71e6f5ceecb7690">
+  <label class="item" for="p4">
+    <div class="num"><span class="n">4</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">G12<span class="sep">·</span><span class="sku">G-12 1210</span><span class="sep">·</span><span class="cat">PANTS-0282</span></div>
       <div class="detail"><div class="inner">
@@ -169,9 +183,9 @@
   </label>
 
   <div class="rack">POD 1 · ROLLING RACK 2</div>
-  <input class="chk" type="checkbox" id="p4" data-key="Poshmark:6a77184b4f065d15c92fe308">
-  <label class="item" for="p4">
-    <div class="num"><span class="n">4</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p5" data-key="Poshmark:6a77184b4f065d15c92fe308">
+  <label class="item" for="p5">
+    <div class="num"><span class="n">5</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">R19<span class="sep">·</span><span class="sku">H-12 2381</span><span class="sep">·</span><span class="cat">SKIRTS-0052</span></div>
       <div class="detail"><div class="inner">
@@ -183,9 +197,9 @@
       </div></div>
     </div>
   </label>
-  <input class="chk" type="checkbox" id="p5" data-key="Poshmark:6a77c3eb442c13e54043c6b9">
-  <label class="item" for="p5">
-    <div class="num"><span class="n">5</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p6" data-key="Poshmark:6a77c3eb442c13e54043c6b9">
+  <label class="item" for="p6">
+    <div class="num"><span class="n">6</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">R19<span class="sep">·</span><span class="sku">H-10 1788</span><span class="sep">·</span><span class="cat">SHORTS-0184</span></div>
       <div class="detail"><div class="inner">
@@ -199,9 +213,9 @@
   </label>
 
   <div class="rack">POD 1 · ROLLING RACK 3</div>
-  <input class="chk" type="checkbox" id="p6" data-key="Poshmark:6a77c45b1f24234523e9e95a">
-  <label class="item" for="p6">
-    <div class="num"><span class="n">6</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p7" data-key="Poshmark:6a77c45b1f24234523e9e95a">
+  <label class="item" for="p7">
+    <div class="num"><span class="n">7</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">Shorts 001 (bench)<span class="sep">·</span><span class="sku">Shorts-005</span><span class="sep">·</span><span class="cat">SHORTS-0005</span></div>
       <div class="detail"><div class="inner">
@@ -215,9 +229,9 @@
   </label>
 
   <div class="rack">POD 1 · RACK 2</div>
-  <input class="chk" type="checkbox" id="p7" data-key="Poshmark:6a76b0503dfc005a9c0919fb">
-  <label class="item" for="p7">
-    <div class="num"><span class="n">7</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p8" data-key="Poshmark:6a76b0503dfc005a9c0919fb">
+  <label class="item" for="p8">
+    <div class="num"><span class="n">8</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">Bin #12<span class="sep">·</span><span class="sku">B2-0876</span><span class="sep">·</span><span class="cat">PANTS-0227</span></div>
       <div class="detail"><div class="inner">
@@ -232,9 +246,9 @@
   </label>
 
   <div class="rack">POD 2 · RACK 3</div>
-  <input class="chk" type="checkbox" id="p8" data-key="Poshmark:6a7913a891fecd924d9a6584">
-  <label class="item" for="p8">
-    <div class="num"><span class="n">8</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p9" data-key="Poshmark:6a7913a891fecd924d9a6584">
+  <label class="item" for="p9">
+    <div class="num"><span class="n">9</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">C11<span class="sep">·</span><span class="sku">C-11 2133</span><span class="sep">·</span><span class="cat">TOPS-0448</span></div>
       <div class="detail"><div class="inner">
@@ -246,9 +260,9 @@
       </div></div>
     </div>
   </label>
-  <input class="chk" type="checkbox" id="p9" data-key="Poshmark:6a77d92708264001ddee5fb3">
-  <label class="item" for="p9">
-    <div class="num"><span class="n">9</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p10" data-key="Poshmark:6a77d92708264001ddee5fb3">
+  <label class="item" for="p10">
+    <div class="num"><span class="n">10</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">D3<span class="sep">·</span><span class="sku">D3 2606</span><span class="sep">·</span><span class="cat">DRESSES-0193</span></div>
       <div class="detail"><div class="inner">
@@ -262,9 +276,9 @@
   </label>
 
   <div class="rack">SHOES</div>
-  <input class="chk" type="checkbox" id="p10" data-key="Poshmark:6a772658ce6aacfc3f0ae40c">
-  <label class="item" for="p10">
-    <div class="num"><span class="n">10</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p11" data-key="Poshmark:6a772658ce6aacfc3f0ae40c">
+  <label class="item" for="p11">
+    <div class="num"><span class="n">11</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">SB24<span class="sep">·</span><span class="sku">SB-2</span><span class="sep">·</span><span class="cat">SHOES-1262</span></div>
       <div class="detail"><div class="inner">
@@ -278,9 +292,9 @@
   </label>
 
   <div class="rack">POD 3</div>
-  <input class="chk" type="checkbox" id="p11" data-key="FBMP:fbmp-2026-08-08-woodwallart">
-  <label class="item" for="p11">
-    <div class="num"><span class="n">11</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p12" data-key="FBMP:fbmp-2026-08-08-woodwallart">
+  <label class="item" for="p12">
+    <div class="num"><span class="n">12</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">—<span class="sep">·</span><span class="cat">HOMEGOODS-0308</span></div>
       <div class="detail"><div class="inner">
@@ -292,9 +306,9 @@
       </div></div>
     </div>
   </label>
-  <input class="chk" type="checkbox" id="p12" data-key="FBMP:fbmp-2026-08-03-matchbox">
-  <label class="item" for="p12">
-    <div class="num"><span class="n">12</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p13" data-key="FBMP:fbmp-2026-08-03-matchbox">
+  <label class="item" for="p13">
+    <div class="num"><span class="n">13</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">—<span class="sep">·</span><span class="cat">TOYS-0168</span></div>
       <div class="detail"><div class="inner">
@@ -306,9 +320,9 @@
       </div></div>
     </div>
   </label>
-  <input class="chk" type="checkbox" id="p13" data-key="Poshmark:6a78b23c1cc5efeb180eb481">
-  <label class="item" for="p13">
-    <div class="num"><span class="n">13</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p14" data-key="Poshmark:6a78b23c1cc5efeb180eb481">
+  <label class="item" for="p14">
+    <div class="num"><span class="n">14</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">—<span class="sep">·</span><span class="cat">HOMEGOODS-0305</span></div>
       <div class="detail"><div class="inner">
@@ -320,9 +334,9 @@
       </div></div>
     </div>
   </label>
-  <input class="chk" type="checkbox" id="p14" data-key="FBMP:teb52f2990578">
-  <label class="item" for="p14">
-    <div class="num"><span class="n">14</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p15" data-key="FBMP:teb52f2990578">
+  <label class="item" for="p15">
+    <div class="num"><span class="n">15</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">—<span class="sep">·</span><span class="cat">OTHER-0844</span></div>
       <div class="detail"><div class="inner">
@@ -333,9 +347,9 @@
       </div></div>
     </div>
   </label>
-  <input class="chk" type="checkbox" id="p15" data-key="FBMP:ted6c6df90b2b">
-  <label class="item" for="p15">
-    <div class="num"><span class="n">15</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p16" data-key="FBMP:ted6c6df90b2b">
+  <label class="item" for="p16">
+    <div class="num"><span class="n">16</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">—<span class="sep">·</span><span class="cat">OTHER-0849</span></div>
       <div class="detail"><div class="inner">
@@ -348,9 +362,9 @@
   </label>
 
   <div class="rack">UNKNOWN POD</div>
-  <input class="chk" type="checkbox" id="p16" data-key="FBMP:fbmp-pending-lululemon-tank">
-  <label class="item unknown" for="p16">
-    <div class="num"><span class="n">16</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p17" data-key="FBMP:fbmp-pending-lululemon-tank">
+  <label class="item unknown" for="p17">
+    <div class="num"><span class="n">17</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">UNRESOLVED</div>
       <div class="detail"><div class="inner">
@@ -362,9 +376,9 @@
       </div></div>
     </div>
   </label>
-  <input class="chk" type="checkbox" id="p17" data-key="Poshmark:6a794e180826406227aeb6b5">
-  <label class="item unknown" for="p17">
-    <div class="num"><span class="n">17</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p18" data-key="Poshmark:6a794e180826406227aeb6b5">
+  <label class="item unknown" for="p18">
+    <div class="num"><span class="n">18</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">UNRESOLVED</div>
       <div class="detail"><div class="inner">
@@ -378,29 +392,29 @@
 
   <div class="hint">Tap a row to mark it picked. Export picked → Save to Files → Daily_Pick_List\inbox\</div>
   <footer>
-    ✓ <b>Live queues + manual add</b> — platform_feeds/_status.json: 0; platform_feeds/depop_2026-08-09.json: 0; platform_feeds/ebay_2026-08-09.json: 1; platform_feeds/fbmp_2026-08-09.json: 3; platform_feeds/mercari_2026-08-09.json: 0; platform_feeds/poshmark_2026-08-09.json: 11; manual_add/Manual_Add_2026-08-09_recover_inperson.json: 2<br>
-    ✓ <b>eBay live queue</b> — PROVEN. Seller Hub live queue, filter=AWAITING_SHIPMENT: &#x27;Awaiting shipment (1)&#x27;, &#x27;Results: 1-1 of 1&#x27;. Order 27-14976-24522, SKU F-20 0823, Nike Tech Jogger, sold Aug 8, ship-by Aug 10, tracking NOT added (&#x27;+ Add tracking&#x27;). GAP: eBay_Sales_Fulfillment_08-09-26.csv still NEVER LANDED; newest on disk is 08-08-26. The live read is the source for this leg.<br>
-    ✓ <b>Poshmark live queue</b> — PROVEN COMPLETE -- the 2026-08-09 truncation gap is CLOSED. The status filter DOES take a JS .click() on the option leaf inside .my-sales-desktop-table__filter-select[1]; it navigates to ?status=to_ship and the footer reads &#x27;Showing 1-11 of 11&#x27;. 11 of 11 Awaiting Shipment read, no pagination needed, nothing hidden. All 11 order_ids match the ledger exactly.<br>
-    ✓ <b>Depop live queue</b> — PROVEN. depop.com/sellinghub/sold-items -&gt; &#x27;To ship&#x27; tab: EMPTY (&#x27;Once you&#x27;ve made a sale, you&#x27;ll be able to see your receipt here&#x27;). Zero open Depop orders.<br>
-    ✓ <b>Mercari live queue</b> — CHECKED THIS RUN (was NOT CHECKED at 21:25). mercari.com/mypage/listings/in_progress rendered fully: Sold &gt; In progress = 0, &#x27;No in progress orders yet&#x27;. Active 95, Complete 10. Consent banner was present and was NOT accepted -- content rendered underneath it.<br>
-    ✓ <b>FBMP live queue</b> — PROVEN NO CHANGE. Ship leg: Gmail from:marketplace.facebook.com newer_than:14d returns 3 label emails -- Aug 08 wood wall art and Aug 03 matchbox (both already open in the ledger) and Jul 28 paper lanterns (ship-by Aug 3, no longer in Pending, treated closed). In-person leg: live Active set scraped to &#x27;Showing 92 of 92&#x27;, SHA-256 of the sorted title set is IDENTICAL to the 21:15 baseline (e1740687...dedd3); Sold held at 799 and Pending at 1. Checksum holds -&gt; zero FBMP sales since 21:24. LIMIT: baseline first captured 2026-08-09 19:58, so in-person detection still only covers the last ~2 hours; anything sold before that is permanently undetectable by this method (see manual_add recovery).<br>
-    ✓ <b>eBay report</b> — eBay_Sales_Fulfillment_08-08-26.csv (13 in window) [SKU backfill only]<br>
-    ✓ <b>Poshmark report</b> — Poshmark_Sales_Finances_01-01-26_to_08-09-26.csv (71 in window) -- NOTE: completed/paid sales only, lags the to-ship queue [SKU backfill only]<br>
+    ✓ <b>Live queues + manual add</b> — platform_feeds/_status.json: 0; platform_feeds/depop_2026-08-10.json: 0; platform_feeds/ebay_2026-08-10.json: 2; platform_feeds/fbmp_2026-08-10.json: 3; platform_feeds/mercari_2026-08-10.json: 0; platform_feeds/poshmark_2026-08-10.json: 11; manual_add/Manual_Add_2026-08-09_recover_inperson.json: 2<br>
+    ✓ <b>eBay live queue</b> — PROVEN. TWO sources agree in part and the LIVE queue governs. Live Seller Hub filter=AWAITING_SHIPMENT reads 2 open: 05-15020-95392 Christian Siriano shirt (SKU G-4 2198, sold Aug 9, ship-by Aug 11) and 27-14976-24522 Nike Tech Jogger (SKU F-20 0823, sold Aug 8, ship-by Aug 10). NEITHER has tracking (&#x27;+ Add tracking&#x27; on both) so neither infers closed. NOTE: today&#x27;s eBay_Sales_Fulfillment_08-10-26.csv DID land but carries only 1 record (the Christian Siriano) -- the report is scoped to the recent sale window and does NOT contain the still-open Aug 8 Nike order. The report alone would have dropped a live order; the live read is authoritative for this leg.<br>
+    ✓ <b>Poshmark live queue</b> — PROVEN COMPLETE. poshmark.com/order/sales?status=to_ship footer reads &#x27;Showing 1-11 of 11&#x27; -- full set on one page, no pagination needed, nothing hidden. All 11 Awaiting Shipment rows match the ledger&#x27;s 11 Poshmark entries exactly by title, buyer, price and sold date. Zero new, zero advanced to In Transit.<br>
+    ✓ <b>Depop live queue</b> — PROVEN. depop.com/sellinghub/sold-items/ &#x27;All&#x27; view: every sold row carries Shipped or Payment refunded; no row is unshipped. Zero open Depop orders.<br>
+    ✓ <b>Mercari live queue</b> — NOT CHECKED -- mercari.com/mypage/listings/in_progress/ and /listings/ both failed to hydrate (div#__next rendered EMPTY, 0 bytes, after reload and 3 waits up to 9s). The consent banner was present and was NOT accepted. This differs from 2026-08-09 when the same page rendered under the banner. Mercari&#x27;s open-order count for 2026-08-10 is UNKNOWN; it was 0 yesterday but that is not carried forward as fact.<br>
+    ✓ <b>FBMP live queue</b> — PROVEN NO CHANGE. Ship leg: Gmail from:marketplace.facebook.com newer_than:7d returns exactly 2 label emails -- Aug 08 wood wall art (ship-by Aug 15) and Aug 03 matchbox (ship-by Aug 10). Both already open in the ledger; no new label email. In-person leg: live Active set loaded to &#x27;Showing 92 of 92 listings&#x27;; SHA-256 of the sorted title set = f6cc6509...082f, IDENTICAL to the 2026-08-09 21:55 baseline. Active 92, Sold 799, Pending 1 -- all three unchanged. Checksum holds -&gt; zero FBMP sales since the last run. Per rule 0b FBMP is NEVER inferred closed, so the 3 open FBMP entries all remain open.<br>
+    ✓ <b>eBay report</b> — eBay_Sales_Fulfillment_08-10-26.csv (1 in window) [SKU backfill only]<br>
+    ✓ <b>Poshmark report</b> — Poshmark_Sales_Finances_01-01-26_to_08-10-26.csv (72 in window) -- NOTE: completed/paid sales only, lags the to-ship queue [SKU backfill only]<br>
     ✓ <b>Depop report</b> — Depop Sales 05_01_2026 - 05_19_2026.csv (0 in window) [SKU backfill only]<br>
     ✓ <b>Mercari report</b> — Custom-sales-report_052025-051926_all.csv (0 in window) [SKU backfill only]<br>
-    ✓ <b>eBay unshipped (no Shipped On Date)</b> — 0 order(s)<br>
-    ✓ <b>Vendoo enrichment</b> — Vendoo_Inventory_Full_08-09-26.csv (color + SHIP- policy)<br>
+    ✓ <b>eBay unshipped (no Shipped On Date)</b> — 1 order(s)<br>
+    ✓ <b>Vendoo enrichment</b> — Vendoo_Inventory_Full_08-10-26.csv (color + SHIP- policy)<br>
     Format: item-locate v2.5 card · data: Master_SKU_v3 + Vendoo export<br>
   </footer>
   <div class="bar"><div class="barin">
     <span class="count"></span>
-    <span class="dots"><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i><i class="dot d5"></i><i class="dot d6"></i><i class="dot d7"></i><i class="dot d8"></i><i class="dot d9"></i><i class="dot d10"></i><i class="dot d11"></i><i class="dot d12"></i><i class="dot d13"></i><i class="dot d14"></i><i class="dot d15"></i><i class="dot d16"></i><i class="dot d17"></i></span>
+    <span class="dots"><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i><i class="dot d5"></i><i class="dot d6"></i><i class="dot d7"></i><i class="dot d8"></i><i class="dot d9"></i><i class="dot d10"></i><i class="dot d11"></i><i class="dot d12"></i><i class="dot d13"></i><i class="dot d14"></i><i class="dot d15"></i><i class="dot d16"></i><i class="dot d17"></i><i class="dot d18"></i></span>
     <input class="reset" type="reset" value="Reset">
     <button class="exp" type="button" onclick="exportPicked()">Export picked</button>
   </div></div>
 
 </form>
-<script>var DATEKEY="2026-08-09";
+<script>var DATEKEY="2026-08-10";
 function exportPicked(){
   var picked=[].slice.call(document.querySelectorAll('.chk:checked'))
               .map(function(c){return c.dataset.key;});
