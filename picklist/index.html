@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pick List — 2026-08-09</title>
+<style>
+  :root{
+    --bg:#f6f7f9; --card:#fff; --ink:#14181f; --mute:#6b7480;
+    --line:#e3e6ea; --key:#1f6feb; --warn:#b45309; --warnbg:#fff8ec;
+    --move:#7c3aed; --movebg:#f7f3ff; --done:#15803d; --donebg:#f2fbf5;
+    --local:#a4560a; --localbg:#fff7ed;
+    --unk:#b91c1c; --unkbg:#fef2f2;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;padding:24px 18px calc(86px + env(safe-area-inset-bottom));
+    background:var(--bg);color:var(--ink);
+    font:16px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;}
+  form{max-width:700px;margin:0 auto;counter-reset:picked}
+  h1{font-size:21px;margin:0 0 4px;letter-spacing:-.01em}
+  .sub{color:var(--mute);font-size:13.5px}
+  .rack{font-size:11.5px;font-weight:700;letter-spacing:.14em;color:var(--mute);
+    margin:24px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line);}
+  .chk{position:absolute;opacity:0;width:1px;height:1px;margin:0;padding:0;
+    border:0;pointer-events:none;appearance:none;-webkit-appearance:none;}
+  .item{display:flex;gap:15px;align-items:flex-start;background:var(--card);
+    border:1px solid var(--line);border-radius:10px;padding:15px 17px;margin-bottom:11px;
+    cursor:pointer;user-select:none;-webkit-user-select:none;
+    transition:background .2s ease,border-color .2s ease,padding .25s ease;}
+  .chk:focus-visible + .item{outline:2px solid var(--key);outline-offset:2px}
+  .num{flex:0 0 27px;height:27px;border-radius:50%;background:var(--ink);color:#fff;
+    font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;
+    margin-top:1px;transition:background .2s ease;position:relative;}
+  .num .tick{display:none;position:absolute;font-size:15px;line-height:1}
+  .body{flex:1;min-width:0}
+  .l1{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:17px;
+    font-weight:600;letter-spacing:-.01em}
+  .l1 .sku{color:var(--key)} .l1 .cat{color:var(--mute);font-weight:500}
+  .l1 .sep{color:#c4cad2;font-weight:400;padding:0 3px}
+  .detail{display:grid;grid-template-rows:1fr;margin-top:6px;
+    transition:grid-template-rows .25s ease,opacity .2s ease,margin .25s ease;}
+  .detail>.inner{overflow:hidden;min-height:0}
+  .l2{font-size:14px;font-weight:600;margin-bottom:3px}
+  .l3{font-size:13.5px;line-height:1.4;color:#3a424e;margin-bottom:5px}
+  .l4{font-size:12.5px;color:var(--mute)}
+  .l4 b{color:var(--ink);font-weight:600}
+  .mig{margin-top:7px;font-size:12px;color:var(--mute);display:flex;gap:7px;align-items:baseline}
+  .mig .chip{flex:0 0 auto;font-size:10px;font-weight:700;letter-spacing:.08em;
+    padding:2px 6px;border-radius:3px;background:#eef1f5;color:#69727e}
+  .mig.moved{color:#5b21b6} .mig.moved .chip{background:var(--movebg);color:var(--move)}
+  .mig.unver{color:#7c4a06} .mig.unver .chip{background:var(--warnbg);color:var(--warn)}
+  .mig.local{color:#7c4a06} .mig.local .chip{background:var(--localbg);color:var(--local)}
+  .mig.unknown{color:#991b1b} .mig.unknown .chip{background:var(--unkbg);color:var(--unk)}
+  .item.unknown{border-color:#f0b4b4;border-left:4px solid var(--unk);background:#fffcfc}
+  .item.unknown .num{background:var(--unk)}
+  .degraded{max-width:700px;margin:14px auto 0;padding:10px 13px;border-radius:9px;
+    background:var(--unkbg);border:1px solid #f4c2c2;color:#991b1b;font-size:12.5px}
+  .degraded b{color:#7f1d1d}
+  .inferred{max-width:700px;margin:14px auto 0;padding:10px 13px;border-radius:9px;
+    background:#f2fbf5;border:1px solid #cfead8;color:#14532d;font-size:12.5px}
+  .mig .from{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  .note{margin-top:9px;padding:7px 10px;background:var(--warnbg);border-left:3px solid var(--warn);
+    border-radius:0 5px 5px 0;font-size:12.5px;color:#7c4a06}
+  .chk:checked + .item{background:var(--donebg);border-color:#cfead8;
+    padding-top:11px;padding-bottom:11px;counter-increment:picked}
+  .chk:checked + .item .num{background:var(--done)}
+  .chk:checked + .item .num .n{display:none}
+  .chk:checked + .item .num .tick{display:block}
+  .chk:checked + .item .l1{opacity:.5;text-decoration:line-through;
+    text-decoration-color:rgba(21,128,61,.45)}
+  .chk:checked + .item .detail{grid-template-rows:0fr;opacity:0;margin-top:0}
+  .bar{position:fixed;left:0;right:0;bottom:0;z-index:9;
+    padding:12px 18px calc(12px + env(safe-area-inset-bottom));
+    background:rgba(255,255,255,.94);backdrop-filter:blur(10px);
+    border-top:1px solid var(--line);display:flex;align-items:center;gap:12px;}
+  .barin{max-width:700px;margin:0 auto;width:100%;display:flex;align-items:center;gap:10px}
+  .count{font-size:14px;font-weight:600;color:var(--ink);white-space:nowrap;
+    font-variant-numeric:tabular-nums}
+  .count::after{content:counter(picked) " of 13 picked"}
+  .dots{flex:1;display:flex;gap:5px}
+  .dot{flex:1;height:6px;border-radius:3px;background:#e0e4e9;transition:background .25s ease}
+  form:has(#p1:checked) .d1,
+  form:has(#p2:checked) .d2,
+  form:has(#p3:checked) .d3,
+  form:has(#p4:checked) .d4,
+  form:has(#p5:checked) .d5,
+  form:has(#p6:checked) .d6,
+  form:has(#p7:checked) .d7,
+  form:has(#p8:checked) .d8,
+  form:has(#p9:checked) .d9,
+  form:has(#p10:checked) .d10,
+  form:has(#p11:checked) .d11,
+  form:has(#p12:checked) .d12,
+  form:has(#p13:checked) .d13{background:var(--done)}
+  .reset,.exp{font:inherit;font-size:13px;border:1px solid var(--line);background:#fff;
+    color:var(--mute);border-radius:7px;padding:7px 13px;cursor:pointer;
+    -webkit-appearance:none;appearance:none;}
+  .exp{background:var(--key);border-color:var(--key);color:#fff;font-weight:600}
+  .hint{margin-top:16px;font-size:12px;color:var(--mute);text-align:center}
+  footer{margin-top:22px;font-size:12px;color:var(--mute);text-align:center;line-height:1.6}
+  @buyer print{
+    body{background:#fff;padding:0}
+    .bar,.hint{display:none}
+    .item{break-inside:avoid;cursor:auto}
+    .chk:checked + .item{background:#fff;padding:15px 17px}
+    .chk:checked + .item .detail{grid-template-rows:1fr;opacity:1;margin-top:6px}
+    .chk:checked + .item .l1{opacity:1;text-decoration:none}
+  }
+</style>
+</head>
+<body>
+<form>
+
+  <h1>Pick List — Sunday, Aug 9 2026</h1>
+  <div class="sub">13 items · Poshmark 10 · FBMP 3 · 2 in person</div>
+
+  <div class="rack">POD 1 · RACK 4</div>
+  <input class="chk" type="checkbox" id="p1" data-key="Poshmark:t265f497a9cbf">
+  <label class="item" for="p1">
+    <div class="num"><span class="n">1</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">LA27<span class="sep">·</span><span class="sku">LA27 940</span><span class="sep">·</span><span class="cat">DRESSES-0159</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Blue Dresses</div>
+        <div class="l3">J.Crew Short Sleeve Knit Mixy Midi Dress WMNS S Blue Crew Neck Stretch Pullover</div>
+        <div class="l4"><b>Poshmark</b> · SHIP-DISCOUNT</div>
+        <div class="mig"><span class="chip">NO MOVE</span><span><b>Overlay-swept clean.</b> VendooNotes <span class="from">Loc:</span> and the Master v3 columns agree, and the SKU appears in no recent changeset or commit log.</span></div>
+        <div class="note">Matched to Master v3 by <b>title, not SKU</b> — identity-match at the bin.</div>
+      </div></div>
+    </div>
+  </label>
+
+  <div class="rack">POD 1 · RACK 10</div>
+  <input class="chk" type="checkbox" id="p2" data-key="Poshmark:t41b07cc7e057">
+  <label class="item" for="p2">
+    <div class="num"><span class="n">2</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">G12<span class="sep">·</span><span class="sku">G-12 1210</span><span class="sep">·</span><span class="cat">PANTS-0282</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Red Pants</div>
+        <div class="l3">Loft Outlet Button-Up Skinny Jeans WMNS 8 Maroon Mid Rise #70273 Denim Cotton</div>
+        <div class="l4"><b>Poshmark</b> · SHIP-2LB</div>
+        <div class="mig"><span class="chip">NO MOVE</span><span><b>Overlay-swept clean.</b> VendooNotes <span class="from">Loc:</span> and the Master v3 columns agree, and the SKU appears in no recent changeset or commit log.</span></div>
+        <div class="note">Matched to Master v3 by <b>title, not SKU</b> — identity-match at the bin.</div>
+      </div></div>
+    </div>
+  </label>
+
+  <div class="rack">POD 1 · ROLLING RACK 2</div>
+  <input class="chk" type="checkbox" id="p3" data-key="Poshmark:t1a1d760678e9">
+  <label class="item" for="p3">
+    <div class="num"><span class="n">3</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">R19<span class="sep">·</span><span class="sku">H-12 2381</span><span class="sep">·</span><span class="cat">SKIRTS-0052</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Blue Skirts</div>
+        <div class="l3">Levi&#x27;s 527 Denim Skirt WMNS 30 Blue Raw Hem Zip Fly A-Line Reworked Upcycle Vtg</div>
+        <div class="l4"><b>Poshmark</b> · SHIP-2LB</div>
+        <div class="mig unver"><span class="chip">UNVERIFIED</span><span>Register-only — the <span class="from">Loc:</span> note is absent or the bin is unset, and the overlay sweep found no move. Never physically confirmed.</span></div>
+        <div class="note">Matched to Master v3 by <b>title, not SKU</b> — identity-match at the bin.</div>
+      </div></div>
+    </div>
+  </label>
+  <input class="chk" type="checkbox" id="p4" data-key="Poshmark:t42e286385440">
+  <label class="item" for="p4">
+    <div class="num"><span class="n">4</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">R19<span class="sep">·</span><span class="sku">H-10 1788</span><span class="sep">·</span><span class="cat">SHORTS-0184</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Gray Shorts</div>
+        <div class="l3">Universal Thread Vintage Midi Denim Short SZ 26 Gray Mid Rise Distressed Cut-Off</div>
+        <div class="l4"><b>Poshmark</b> · SHIP-1LB</div>
+        <div class="mig unver"><span class="chip">UNVERIFIED</span><span>Register-only — the <span class="from">Loc:</span> note is absent or the bin is unset, and the overlay sweep found no move. Never physically confirmed.</span></div>
+        <div class="note">Matched to Master v3 by <b>title, not SKU</b> — identity-match at the bin.</div>
+      </div></div>
+    </div>
+  </label>
+
+  <div class="rack">POD 1 · ROLLING RACK 3</div>
+  <input class="chk" type="checkbox" id="p5" data-key="Poshmark:tc121b246f7cd">
+  <label class="item" for="p5">
+    <div class="num"><span class="n">5</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">Shorts 001 (bench)<span class="sep">·</span><span class="sku">Shorts-005</span><span class="sep">·</span><span class="cat">SHORTS-0005</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Blue Shorts</div>
+        <div class="l3">J Crew Chino Shorts WMNS 4 Blue 4&quot; Cotton Stretch Straight Preppy Minimalist</div>
+        <div class="l4"><b>Poshmark</b> · SHIP-1LB</div>
+        <div class="mig unver"><span class="chip">UNVERIFIED</span><span>Register-only — the <span class="from">Loc:</span> note is absent or the bin is unset, and the overlay sweep found no move. Never physically confirmed.</span></div>
+        <div class="note">Matched to Master v3 by <b>title, not SKU</b> — identity-match at the bin.</div>
+      </div></div>
+    </div>
+  </label>
+
+  <div class="rack">POD 1 · RACK 2</div>
+  <input class="chk" type="checkbox" id="p6" data-key="Poshmark:tdb836ae096f4">
+  <label class="item" for="p6">
+    <div class="num"><span class="n">6</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">Bin #12<span class="sep">·</span><span class="sku">B2-0876</span><span class="sep">·</span><span class="cat">PANTS-0227</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Blue Pants</div>
+        <div class="l3">Levi&#x27;s 724 High Rise Straight Legs Crop Light Wash Jeans WMNS 32 Blue Denim Work</div>
+        <div class="l4"><b>Poshmark</b> · SHIP-2LB</div>
+        <div class="mig"><span class="chip">NO MOVE</span><span><b>Overlay-swept clean.</b> VendooNotes <span class="from">Loc:</span> and the Master v3 columns agree, and the SKU appears in no recent changeset or commit log.</span></div>
+        <div class="note">Walk-order gap — rack <b>Rack 2</b> is not in the SOP v1.2 POD 1 order. Insert by numeric position and patch the SOP.</div>
+        <div class="note">Matched to Master v3 by <b>title, not SKU</b> — identity-match at the bin.</div>
+      </div></div>
+    </div>
+  </label>
+
+  <div class="rack">POD 2 · RACK 3</div>
+  <input class="chk" type="checkbox" id="p7" data-key="Poshmark:ta3b60bdcffd2">
+  <label class="item" for="p7">
+    <div class="num"><span class="n">7</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">C11<span class="sep">·</span><span class="sku">C-11 2133</span><span class="sep">·</span><span class="cat">TOPS-0448</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Blue Tops</div>
+        <div class="l3">Velvet Heart Tencel Shirt Womens XL Blue Button Up Roll Tab Sleeve Lightweight</div>
+        <div class="l4"><b>Poshmark</b> · SHIP-1LB</div>
+        <div class="mig"><span class="chip">NO MOVE</span><span><b>Overlay-swept clean.</b> VendooNotes <span class="from">Loc:</span> and the Master v3 columns agree, and the SKU appears in no recent changeset or commit log.</span></div>
+        <div class="note">Matched to Master v3 by <b>title, not SKU</b> — identity-match at the bin.</div>
+      </div></div>
+    </div>
+  </label>
+  <input class="chk" type="checkbox" id="p8" data-key="Poshmark:t8cdcd51f806a">
+  <label class="item" for="p8">
+    <div class="num"><span class="n">8</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">D3<span class="sep">·</span><span class="sku">D3 2606</span><span class="sep">·</span><span class="cat">DRESSES-0193</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">White Dresses</div>
+        <div class="l3">J. Crew White Collared Short-Sleeve Tie-Waist Dress Womens Size 12 Button Front</div>
+        <div class="l4"><b>Poshmark</b> · SHIP-1LB</div>
+        <div class="mig"><span class="chip">NO MOVE</span><span><b>Overlay-swept clean.</b> VendooNotes <span class="from">Loc:</span> and the Master v3 columns agree, and the SKU appears in no recent changeset or commit log.</span></div>
+        <div class="note">Matched to Master v3 by <b>title, not SKU</b> — identity-match at the bin.</div>
+      </div></div>
+    </div>
+  </label>
+
+  <div class="rack">SHOES</div>
+  <input class="chk" type="checkbox" id="p9" data-key="Poshmark:t9d95b4029f83">
+  <label class="item" for="p9">
+    <div class="num"><span class="n">9</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">SB24<span class="sep">·</span><span class="sku">SB-2</span><span class="sep">·</span><span class="cat">SHOES-1262</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Blue Shoes</div>
+        <div class="l3">Oofos Slip On Sandals Women&#x27;s US Sz 10 Men&#x27;s 8 Navy Blue Open Toe Rubber Errands</div>
+        <div class="l4"><b>Poshmark</b> · SHIP-1LB</div>
+        <div class="mig"><span class="chip">NO MOVE</span><span><b>Overlay-swept clean.</b> VendooNotes <span class="from">Loc:</span> and the Master v3 columns agree, and the SKU appears in no recent changeset or commit log.</span></div>
+        <div class="note">Matched to Master v3 by <b>title, not SKU</b> — identity-match at the bin.</div>
+      </div></div>
+    </div>
+  </label>
+
+  <div class="rack">POD 3</div>
+  <input class="chk" type="checkbox" id="p10" data-key="FBMP:t85d802b05ee7">
+  <label class="item" for="p10">
+    <div class="num"><span class="n">10</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">—<span class="sep">·</span><span class="cat">HOMEGOODS-0308</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Homegoods</div>
+        <div class="l3">Set of 2 Geometric Triangle Wood Wall Art Hobby Lobby</div>
+        <div class="l4"><b>FBMP</b> · SHIP-PARCEL · ship by 8/15/2026</div>
+        <div class="mig unver"><span class="chip">UNVERIFIED</span><span>Register-only — the <span class="from">Loc:</span> note is absent or the bin is unset, and the overlay sweep found no move. Never physically confirmed.</span></div>
+        <div class="note">The platform already reports this <b>shipped</b> — it is not. A label was generated; the item has not been picked.</div>
+        <div class="note">Matched to Master v3 by <b>title, not SKU</b> — identity-match at the bin.</div>
+      </div></div>
+    </div>
+  </label>
+  <input class="chk" type="checkbox" id="p11" data-key="FBMP:teb52f2990578">
+  <label class="item" for="p11">
+    <div class="num"><span class="n">11</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">—<span class="sep">·</span><span class="cat">OTHER-0844</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Other</div>
+        <div class="l3">Baby Brezza Bottle Washer Pro Wash Sterilize Dry Baby Bottles</div>
+        <div class="l4"><b>FBMP</b> · IN PERSON — no label</div>
+        <div class="mig local"><span class="chip">IN PERSON</span><span>Sold for local handoff — pick it, but do not print a label.</span></div>
+      </div></div>
+    </div>
+  </label>
+  <input class="chk" type="checkbox" id="p12" data-key="FBMP:ted6c6df90b2b">
+  <label class="item" for="p12">
+    <div class="num"><span class="n">12</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">—<span class="sep">·</span><span class="cat">OTHER-0849</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Other</div>
+        <div class="l3">Donvier Electronic Yogurt Maker 8 Jar Timer Complete Extra Cup</div>
+        <div class="l4"><b>FBMP</b> · IN PERSON — no label</div>
+        <div class="mig local"><span class="chip">IN PERSON</span><span>Sold for local handoff — pick it, but do not print a label.</span></div>
+      </div></div>
+    </div>
+  </label>
+  <input class="chk" type="checkbox" id="p13" data-key="Poshmark:t836a16496aba">
+  <label class="item" for="p13">
+    <div class="num"><span class="n">13</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">—<span class="sep">·</span><span class="cat">HOMEGOODS-0305</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Beige Homegoods</div>
+        <div class="l3">Rattan Hanging Planter Bentwood Wicker Basket MCM Plant Holder Organic Modern</div>
+        <div class="l4"><b>Poshmark</b> · SHIP-PARCEL</div>
+        <div class="mig unver"><span class="chip">UNVERIFIED</span><span>Register-only — the <span class="from">Loc:</span> note is absent or the bin is unset, and the overlay sweep found no move. Never physically confirmed.</span></div>
+        <div class="note">Matched to Master v3 by <b>title, not SKU</b> — identity-match at the bin.</div>
+      </div></div>
+    </div>
+  </label>
+
+  <div class="hint">Tap a row to mark it picked. Export picked → Save to Files → Daily_Pick_List\inbox\</div>
+  <footer>
+    ✓ <b>Live queues + manual add</b> — platform_feeds/_locate_notes.json: 0; platform_feeds/_status.json: 0; platform_feeds/fbmp_2026-08-09.json: 3; platform_feeds/poshmark_awaiting_2026-08-09.json: 10<br>
+    ✓ <b>eBay live queue</b> — CHECKED via eBay_Sales_Fulfillment CSV -- every row carries a Shipped On Date, so 0 to pick. NOTE: today&#x27;s 08-09 file was never pulled; this reads the 08-08 file.<br>
+    ✓ <b>Poshmark live queue</b> — CHECKED live at poshmark.com/order/sales -- 10 Awaiting Shipment (Aug 7-9). Captured.<br>
+    ✓ <b>Depop live queue</b> — CHECKED live at depop.com/sellinghub -- Orders 0 / Revenue $0 for Aug 3-10; every Sold row shows &#x27;Shipped on&#x27;. Proven empty.<br>
+    ✓ <b>Mercari live queue</b> — CHECKED live at mercari.com/mypage/listings/in_progress -- Sold &gt; In progress = 0. Proven empty. (Earlier blank page was an un-dismissed cookie banner; Vaughn logged in.)<br>
+    ✓ <b>FBMP live queue</b> — CHECKED two ways -- Gmail label emails (ship leg, 1) + Listings&gt;Sold Delivery=Local, Vaughn-confirmed (in-person leg, 2). The FB Orders tab is USELESS: it showed Active orders (0) while an unshipped item sat in Shipped (414). The Sold tab has no date column and is NOT date-ordered.<br>
+    ✓ <b>eBay report</b> — eBay_Sales_Fulfillment_08-08-26.csv (13 in window) [SKU backfill only]<br>
+    ✓ <b>Poshmark report</b> — Poshmark_Sales_Finances_01-01-26_to_08-09-26.csv (71 in window) -- NOTE: completed/paid sales only, lags the to-ship queue [SKU backfill only]<br>
+    ✓ <b>Depop report</b> — Depop Sales 05_01_2026 - 05_19_2026.csv (0 in window) [SKU backfill only]<br>
+    ✓ <b>Mercari report</b> — Custom-sales-report_052025-051926_all.csv (0 in window) [SKU backfill only]<br>
+    ✓ <b>eBay unshipped (no Shipped On Date)</b> — 0 order(s)<br>
+    ✓ <b>Vendoo enrichment</b> — Vendoo_Inventory_Full_08-09-26.csv (color + SHIP- policy)<br>
+    Format: item-locate v2.5 card · data: Master_SKU_v3 + Vendoo export<br>
+  </footer>
+  <div class="bar"><div class="barin">
+    <span class="count"></span>
+    <span class="dots"><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i><i class="dot d5"></i><i class="dot d6"></i><i class="dot d7"></i><i class="dot d8"></i><i class="dot d9"></i><i class="dot d10"></i><i class="dot d11"></i><i class="dot d12"></i><i class="dot d13"></i></span>
+    <input class="reset" type="reset" value="Reset">
+    <button class="exp" type="button" onclick="exportPicked()">Export picked</button>
+  </div></div>
+
+</form>
+<script>var DATEKEY="2026-08-09";
+function exportPicked(){
+  var picked=[].slice.call(document.querySelectorAll('.chk:checked'))
+              .map(function(c){return c.dataset.key;});
+  if(!picked.length){alert('Nothing checked yet.');return;}
+  var doc={schema:'rrr-picked/1.0',exported_at:new Date().toISOString(),
+           list_date:DATEKEY,source:'iphone-export',picked:picked};
+  var name='picked-'+DATEKEY+'-'+new Date().toISOString().slice(11,19).replace(/:/g,'')+'.json';
+  var b=new Blob([JSON.stringify(doc,null,2)],{type:'application/json'});
+  var u=URL.createObjectURL(b),a=document.createElement('a');
+  a.href=u;a.download=name;document.body.appendChild(a);a.click();
+  setTimeout(function(){a.remove();URL.revokeObjectURL(u);},1500);
+}
+</script>
+</body>
+</html>
