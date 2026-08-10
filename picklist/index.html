@@ -78,7 +78,7 @@
   .barin{max-width:700px;margin:0 auto;width:100%;display:flex;align-items:center;gap:10px}
   .count{font-size:14px;font-weight:600;color:var(--ink);white-space:nowrap;
     font-variant-numeric:tabular-nums}
-  .count::after{content:counter(picked) " of 13 picked"}
+  .count::after{content:counter(picked) " of 15 picked"}
   .dots{flex:1;display:flex;gap:5px}
   .dot{flex:1;height:6px;border-radius:3px;background:#e0e4e9;transition:background .25s ease}
   form:has(#p1:checked) .d1,
@@ -93,7 +93,9 @@
   form:has(#p10:checked) .d10,
   form:has(#p11:checked) .d11,
   form:has(#p12:checked) .d12,
-  form:has(#p13:checked) .d13{background:var(--done)}
+  form:has(#p13:checked) .d13,
+  form:has(#p14:checked) .d14,
+  form:has(#p15:checked) .d15{background:var(--done)}
   .reset,.exp{font:inherit;font-size:13px;border:1px solid var(--line);background:#fff;
     color:var(--mute);border-radius:7px;padding:7px 13px;cursor:pointer;
     -webkit-appearance:none;appearance:none;}
@@ -114,10 +116,11 @@
 <form>
 
   <h1>Pick List — Sunday, Aug 9 2026</h1>
-  <div class="sub">13 items · Poshmark 10 · FBMP 3 · 2 in person</div>
+  <div class="sub">15 items · Poshmark 11 · FBMP 3 · eBay 1</div>
+  <div class="degraded"><b>Partial run — the list was built anyway.</b> These sources were missing or unreadable this morning, so anything they alone would have caught is not on this card: Mercari live queue. A missing input is never a reason to skip the walk.</div>
 
   <div class="rack">POD 1 · RACK 4</div>
-  <input class="chk" type="checkbox" id="p1" data-key="Poshmark:t265f497a9cbf">
+  <input class="chk" type="checkbox" id="p1" data-key="Poshmark:6a77c483740c5538220470ca">
   <label class="item" for="p1">
     <div class="num"><span class="n">1</span><span class="tick">✓</span></div>
     <div class="body">
@@ -126,32 +129,47 @@
         <div class="l2">Blue Dresses</div>
         <div class="l3">J.Crew Short Sleeve Knit Mixy Midi Dress WMNS S Blue Crew Neck Stretch Pullover</div>
         <div class="l4"><b>Poshmark</b> · SHIP-DISCOUNT</div>
-        <div class="mig"><span class="chip">NO MOVE</span><span><b>Overlay-swept clean.</b> VendooNotes <span class="from">Loc:</span> and the Master v3 columns agree, and the SKU appears in no recent changeset or commit log.</span></div>
+        <div class="mig unver"><span class="chip">UNVERIFIED</span><span>Register-only — the <span class="from">Loc:</span> note is absent or the bin is unset, and the overlay sweep found no move. Never physically confirmed.</span></div>
         <div class="note">Matched to Master v3 by <b>title, not SKU</b> — identity-match at the bin.</div>
       </div></div>
     </div>
   </label>
 
-  <div class="rack">POD 1 · RACK 10</div>
-  <input class="chk" type="checkbox" id="p2" data-key="Poshmark:t41b07cc7e057">
+  <div class="rack">POD 1 · RACK 9</div>
+  <input class="chk" type="checkbox" id="p2" data-key="eBay:27-14976-24522">
   <label class="item" for="p2">
     <div class="num"><span class="n">2</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">F20<span class="sep">·</span><span class="sku">F-20 0823</span><span class="sep">·</span><span class="cat">F-20 0823</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Red</div>
+        <div class="l3">Nike Tech Jogger Pants Men&#x27;s 32 Burgundy Red Tapered Leg Activewear Performance</div>
+        <div class="l4"><b>eBay</b> · SHIP-2LB · ship by 8/10/2026</div>
+        <div class="mig unver"><span class="chip">UNVERIFIED</span><span>Register-only — the <span class="from">Loc:</span> note is absent or the bin is unset, and the overlay sweep found no move. Never physically confirmed.</span></div>
+      </div></div>
+    </div>
+  </label>
+
+  <div class="rack">POD 1 · RACK 10</div>
+  <input class="chk" type="checkbox" id="p3" data-key="Poshmark:6a76ba15d71e6f5ceecb7690">
+  <label class="item" for="p3">
+    <div class="num"><span class="n">3</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">G12<span class="sep">·</span><span class="sku">G-12 1210</span><span class="sep">·</span><span class="cat">PANTS-0282</span></div>
       <div class="detail"><div class="inner">
         <div class="l2">Red Pants</div>
         <div class="l3">Loft Outlet Button-Up Skinny Jeans WMNS 8 Maroon Mid Rise #70273 Denim Cotton</div>
         <div class="l4"><b>Poshmark</b> · SHIP-2LB</div>
-        <div class="mig"><span class="chip">NO MOVE</span><span><b>Overlay-swept clean.</b> VendooNotes <span class="from">Loc:</span> and the Master v3 columns agree, and the SKU appears in no recent changeset or commit log.</span></div>
+        <div class="mig unver"><span class="chip">UNVERIFIED</span><span>Register-only — the <span class="from">Loc:</span> note is absent or the bin is unset, and the overlay sweep found no move. Never physically confirmed.</span></div>
         <div class="note">Matched to Master v3 by <b>title, not SKU</b> — identity-match at the bin.</div>
       </div></div>
     </div>
   </label>
 
   <div class="rack">POD 1 · ROLLING RACK 2</div>
-  <input class="chk" type="checkbox" id="p3" data-key="Poshmark:t1a1d760678e9">
-  <label class="item" for="p3">
-    <div class="num"><span class="n">3</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p4" data-key="Poshmark:6a77184b4f065d15c92fe308">
+  <label class="item" for="p4">
+    <div class="num"><span class="n">4</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">R19<span class="sep">·</span><span class="sku">H-12 2381</span><span class="sep">·</span><span class="cat">SKIRTS-0052</span></div>
       <div class="detail"><div class="inner">
@@ -163,9 +181,9 @@
       </div></div>
     </div>
   </label>
-  <input class="chk" type="checkbox" id="p4" data-key="Poshmark:t42e286385440">
-  <label class="item" for="p4">
-    <div class="num"><span class="n">4</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p5" data-key="Poshmark:6a77c3eb442c13e54043c6b9">
+  <label class="item" for="p5">
+    <div class="num"><span class="n">5</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">R19<span class="sep">·</span><span class="sku">H-10 1788</span><span class="sep">·</span><span class="cat">SHORTS-0184</span></div>
       <div class="detail"><div class="inner">
@@ -179,9 +197,9 @@
   </label>
 
   <div class="rack">POD 1 · ROLLING RACK 3</div>
-  <input class="chk" type="checkbox" id="p5" data-key="Poshmark:tc121b246f7cd">
-  <label class="item" for="p5">
-    <div class="num"><span class="n">5</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p6" data-key="Poshmark:6a77c45b1f24234523e9e95a">
+  <label class="item" for="p6">
+    <div class="num"><span class="n">6</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">Shorts 001 (bench)<span class="sep">·</span><span class="sku">Shorts-005</span><span class="sep">·</span><span class="cat">SHORTS-0005</span></div>
       <div class="detail"><div class="inner">
@@ -195,16 +213,16 @@
   </label>
 
   <div class="rack">POD 1 · RACK 2</div>
-  <input class="chk" type="checkbox" id="p6" data-key="Poshmark:tdb836ae096f4">
-  <label class="item" for="p6">
-    <div class="num"><span class="n">6</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p7" data-key="Poshmark:6a76b0503dfc005a9c0919fb">
+  <label class="item" for="p7">
+    <div class="num"><span class="n">7</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">Bin #12<span class="sep">·</span><span class="sku">B2-0876</span><span class="sep">·</span><span class="cat">PANTS-0227</span></div>
       <div class="detail"><div class="inner">
         <div class="l2">Blue Pants</div>
         <div class="l3">Levi&#x27;s 724 High Rise Straight Legs Crop Light Wash Jeans WMNS 32 Blue Denim Work</div>
         <div class="l4"><b>Poshmark</b> · SHIP-2LB</div>
-        <div class="mig"><span class="chip">NO MOVE</span><span><b>Overlay-swept clean.</b> VendooNotes <span class="from">Loc:</span> and the Master v3 columns agree, and the SKU appears in no recent changeset or commit log.</span></div>
+        <div class="mig unver"><span class="chip">UNVERIFIED</span><span>Register-only — the <span class="from">Loc:</span> note is absent or the bin is unset, and the overlay sweep found no move. Never physically confirmed.</span></div>
         <div class="note">Walk-order gap — rack <b>Rack 2</b> is not in the SOP v1.2 POD 1 order. Insert by numeric position and patch the SOP.</div>
         <div class="note">Matched to Master v3 by <b>title, not SKU</b> — identity-match at the bin.</div>
       </div></div>
@@ -212,55 +230,55 @@
   </label>
 
   <div class="rack">POD 2 · RACK 3</div>
-  <input class="chk" type="checkbox" id="p7" data-key="Poshmark:ta3b60bdcffd2">
-  <label class="item" for="p7">
-    <div class="num"><span class="n">7</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p8" data-key="Poshmark:6a7913a891fecd924d9a6584">
+  <label class="item" for="p8">
+    <div class="num"><span class="n">8</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">C11<span class="sep">·</span><span class="sku">C-11 2133</span><span class="sep">·</span><span class="cat">TOPS-0448</span></div>
       <div class="detail"><div class="inner">
         <div class="l2">Blue Tops</div>
         <div class="l3">Velvet Heart Tencel Shirt Womens XL Blue Button Up Roll Tab Sleeve Lightweight</div>
         <div class="l4"><b>Poshmark</b> · SHIP-1LB</div>
-        <div class="mig"><span class="chip">NO MOVE</span><span><b>Overlay-swept clean.</b> VendooNotes <span class="from">Loc:</span> and the Master v3 columns agree, and the SKU appears in no recent changeset or commit log.</span></div>
+        <div class="mig unver"><span class="chip">UNVERIFIED</span><span>Register-only — the <span class="from">Loc:</span> note is absent or the bin is unset, and the overlay sweep found no move. Never physically confirmed.</span></div>
         <div class="note">Matched to Master v3 by <b>title, not SKU</b> — identity-match at the bin.</div>
       </div></div>
     </div>
   </label>
-  <input class="chk" type="checkbox" id="p8" data-key="Poshmark:t8cdcd51f806a">
-  <label class="item" for="p8">
-    <div class="num"><span class="n">8</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p9" data-key="Poshmark:6a77d92708264001ddee5fb3">
+  <label class="item" for="p9">
+    <div class="num"><span class="n">9</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">D3<span class="sep">·</span><span class="sku">D3 2606</span><span class="sep">·</span><span class="cat">DRESSES-0193</span></div>
       <div class="detail"><div class="inner">
         <div class="l2">White Dresses</div>
         <div class="l3">J. Crew White Collared Short-Sleeve Tie-Waist Dress Womens Size 12 Button Front</div>
         <div class="l4"><b>Poshmark</b> · SHIP-1LB</div>
-        <div class="mig"><span class="chip">NO MOVE</span><span><b>Overlay-swept clean.</b> VendooNotes <span class="from">Loc:</span> and the Master v3 columns agree, and the SKU appears in no recent changeset or commit log.</span></div>
+        <div class="mig unver"><span class="chip">UNVERIFIED</span><span>Register-only — the <span class="from">Loc:</span> note is absent or the bin is unset, and the overlay sweep found no move. Never physically confirmed.</span></div>
         <div class="note">Matched to Master v3 by <b>title, not SKU</b> — identity-match at the bin.</div>
       </div></div>
     </div>
   </label>
 
   <div class="rack">SHOES</div>
-  <input class="chk" type="checkbox" id="p9" data-key="Poshmark:t9d95b4029f83">
-  <label class="item" for="p9">
-    <div class="num"><span class="n">9</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p10" data-key="Poshmark:6a772658ce6aacfc3f0ae40c">
+  <label class="item" for="p10">
+    <div class="num"><span class="n">10</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">SB24<span class="sep">·</span><span class="sku">SB-2</span><span class="sep">·</span><span class="cat">SHOES-1262</span></div>
       <div class="detail"><div class="inner">
         <div class="l2">Blue Shoes</div>
         <div class="l3">Oofos Slip On Sandals Women&#x27;s US Sz 10 Men&#x27;s 8 Navy Blue Open Toe Rubber Errands</div>
         <div class="l4"><b>Poshmark</b> · SHIP-1LB</div>
-        <div class="mig"><span class="chip">NO MOVE</span><span><b>Overlay-swept clean.</b> VendooNotes <span class="from">Loc:</span> and the Master v3 columns agree, and the SKU appears in no recent changeset or commit log.</span></div>
+        <div class="mig unver"><span class="chip">UNVERIFIED</span><span>Register-only — the <span class="from">Loc:</span> note is absent or the bin is unset, and the overlay sweep found no move. Never physically confirmed.</span></div>
         <div class="note">Matched to Master v3 by <b>title, not SKU</b> — identity-match at the bin.</div>
       </div></div>
     </div>
   </label>
 
   <div class="rack">POD 3</div>
-  <input class="chk" type="checkbox" id="p10" data-key="FBMP:t85d802b05ee7">
-  <label class="item" for="p10">
-    <div class="num"><span class="n">10</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p11" data-key="FBMP:fbmp-2026-08-08-woodwallart">
+  <label class="item" for="p11">
+    <div class="num"><span class="n">11</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">—<span class="sep">·</span><span class="cat">HOMEGOODS-0308</span></div>
       <div class="detail"><div class="inner">
@@ -268,38 +286,25 @@
         <div class="l3">Set of 2 Geometric Triangle Wood Wall Art Hobby Lobby</div>
         <div class="l4"><b>FBMP</b> · SHIP-PARCEL · ship by 8/15/2026</div>
         <div class="mig unver"><span class="chip">UNVERIFIED</span><span>Register-only — the <span class="from">Loc:</span> note is absent or the bin is unset, and the overlay sweep found no move. Never physically confirmed.</span></div>
-        <div class="note">The platform already reports this <b>shipped</b> — it is not. A label was generated; the item has not been picked.</div>
         <div class="note">Matched to Master v3 by <b>title, not SKU</b> — identity-match at the bin.</div>
       </div></div>
     </div>
   </label>
-  <input class="chk" type="checkbox" id="p11" data-key="FBMP:teb52f2990578">
-  <label class="item" for="p11">
-    <div class="num"><span class="n">11</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">—<span class="sep">·</span><span class="cat">OTHER-0844</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Other</div>
-        <div class="l3">Baby Brezza Bottle Washer Pro Wash Sterilize Dry Baby Bottles</div>
-        <div class="l4"><b>FBMP</b> · IN PERSON — no label</div>
-        <div class="mig local"><span class="chip">IN PERSON</span><span>Sold for local handoff — pick it, but do not print a label.</span></div>
-      </div></div>
-    </div>
-  </label>
-  <input class="chk" type="checkbox" id="p12" data-key="FBMP:ted6c6df90b2b">
+  <input class="chk" type="checkbox" id="p12" data-key="FBMP:fbmp-2026-08-03-matchbox">
   <label class="item" for="p12">
     <div class="num"><span class="n">12</span><span class="tick">✓</span></div>
     <div class="body">
-      <div class="l1">—<span class="sep">·</span><span class="cat">OTHER-0849</span></div>
+      <div class="l1">—<span class="sep">·</span><span class="cat">TOYS-0168</span></div>
       <div class="detail"><div class="inner">
-        <div class="l2">Other</div>
-        <div class="l3">Donvier Electronic Yogurt Maker 8 Jar Timer Complete Extra Cup</div>
-        <div class="l4"><b>FBMP</b> · IN PERSON — no label</div>
-        <div class="mig local"><span class="chip">IN PERSON</span><span>Sold for local handoff — pick it, but do not print a label.</span></div>
+        <div class="l2">—</div>
+        <div class="l3">Vintage Matchbox Lesney Die Cast Vehicle Lot Crane</div>
+        <div class="l4"><b>FBMP</b> · SHIP-PARCEL · ship by 8/10/2026</div>
+        <div class="mig unver"><span class="chip">UNVERIFIED</span><span>Register-only — the <span class="from">Loc:</span> note is absent or the bin is unset, and the overlay sweep found no move. Never physically confirmed.</span></div>
+        <div class="note">Matched to Master v3 by <b>title, not SKU</b> — identity-match at the bin.</div>
       </div></div>
     </div>
   </label>
-  <input class="chk" type="checkbox" id="p13" data-key="Poshmark:t836a16496aba">
+  <input class="chk" type="checkbox" id="p13" data-key="Poshmark:6a78b23c1cc5efeb180eb481">
   <label class="item" for="p13">
     <div class="num"><span class="n">13</span><span class="tick">✓</span></div>
     <div class="body">
@@ -314,14 +319,43 @@
     </div>
   </label>
 
+  <div class="rack">UNKNOWN POD</div>
+  <input class="chk" type="checkbox" id="p14" data-key="FBMP:fbmp-pending-lululemon-tank">
+  <label class="item unknown" for="p14">
+    <div class="num"><span class="n">14</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">UNRESOLVED</div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Purple</div>
+        <div class="l3">Purple lulu lemon tank top</div>
+        <div class="l4"><b>FBMP</b></div>
+        <div class="mig unknown"><span class="chip">UNKNOWN</span><span><b>No location.</b> Nothing in Master v3 matched this by SKU or by title, so there is no bin to send you to. Pick it by sight, then flag the SKU — this item is invisible to the registry.</span></div>
+        <div class="note">The platform already reports this <b>shipped</b> — it is not. A label was generated; the item has not been picked.</div>
+      </div></div>
+    </div>
+  </label>
+  <input class="chk" type="checkbox" id="p15" data-key="Poshmark:6a794e180826406227aeb6b5">
+  <label class="item unknown" for="p15">
+    <div class="num"><span class="n">15</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">UNRESOLVED</div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Purple</div>
+        <div class="l3">Abercrombie &amp; Fitch Skirt WMNS MP Burgundy Pleated Satin Midi Dark Academia</div>
+        <div class="l4"><b>Poshmark</b> · SHIP-1LB</div>
+        <div class="mig unknown"><span class="chip">UNKNOWN</span><span><b>No location.</b> Nothing in Master v3 matched this by SKU or by title, so there is no bin to send you to. Pick it by sight, then flag the SKU — this item is invisible to the registry.</span></div>
+      </div></div>
+    </div>
+  </label>
+
   <div class="hint">Tap a row to mark it picked. Export picked → Save to Files → Daily_Pick_List\inbox\</div>
   <footer>
-    ✓ <b>Live queues + manual add</b> — platform_feeds/_locate_notes.json: 0; platform_feeds/_status.json: 0; platform_feeds/fbmp_2026-08-09.json: 3; platform_feeds/poshmark_awaiting_2026-08-09.json: 10<br>
-    ✓ <b>eBay live queue</b> — CHECKED via eBay_Sales_Fulfillment CSV -- every row carries a Shipped On Date, so 0 to pick. NOTE: today&#x27;s 08-09 file was never pulled; this reads the 08-08 file.<br>
-    ✓ <b>Poshmark live queue</b> — CHECKED live at poshmark.com/order/sales -- 10 Awaiting Shipment (Aug 7-9). Captured.<br>
-    ✓ <b>Depop live queue</b> — CHECKED live at depop.com/sellinghub -- Orders 0 / Revenue $0 for Aug 3-10; every Sold row shows &#x27;Shipped on&#x27;. Proven empty.<br>
-    ✓ <b>Mercari live queue</b> — CHECKED live at mercari.com/mypage/listings/in_progress -- Sold &gt; In progress = 0. Proven empty. (Earlier blank page was an un-dismissed cookie banner; Vaughn logged in.)<br>
-    ✓ <b>FBMP live queue</b> — CHECKED two ways -- Gmail label emails (ship leg, 1) + Listings&gt;Sold Delivery=Local, Vaughn-confirmed (in-person leg, 2). The FB Orders tab is USELESS: it showed Active orders (0) while an unshipped item sat in Shipped (414). The Sold tab has no date column and is NOT date-ordered.<br>
+    ✓ <b>Live queues + manual add</b> — platform_feeds/_status.json: 0; platform_feeds/depop_2026-08-09.json: 0; platform_feeds/ebay_2026-08-09.json: 1; platform_feeds/fbmp_2026-08-09.json: 3; platform_feeds/poshmark_2026-08-09.json: 11<br>
+    ✓ <b>eBay live queue</b> — Seller Hub live queue read — Awaiting shipment (1). NOTE: eBay_Sales_Fulfillment_08-09-26.csv NEVER LANDED; newest export on disk is 08-08-26 and shows 0 unshipped. The live read is what caught today&#x27;s one order.<br>
+    ✓ <b>Poshmark live queue</b> — poshmark.com/order/sales read live — 11 Awaiting Shipment (Aug 07-09), 8 In Transit, 1 Order Complete. Page caps at 20 rows and the status/Show-100 filters would not take a synthetic click, so orders older than Aug 06 were NOT scanned for a straggler.<br>
+    ✓ <b>Depop live queue</b> — depop.com/sellinghub sold-items -&gt; To ship tab read live — EMPTY. Zero open Depop orders.<br>
+    ⚠ <b>Mercari live queue</b> — NOT FOUND -- NOT CHECKED: mercari.com/mypage/listings/in_progress rendered only the cookie/privacy consent banner. Consent banners are never accepted on Vaughn&#x27;s behalf, so the Mercari leg is unread this run.<br>
+    ✓ <b>FBMP live queue</b> — Ship leg from Gmail (2 labels: Aug 08 wood wall art, Aug 03 matchbox) + Pending tab (1 aged &#x27;Sold/Shipped&#x27; row, no label email in 45d). In-person leg: Active 93 -&gt; 92 vs the 19:58 baseline, Sold held at 799, so the checksum says NO FBMP sale — the one item that left Active is the A&amp;F skirt that sold on POSHMARK today. Zero in-person sales detected. Baseline was first captured 2026-08-09 19:58, so in-person detection only covers the last ~3 hours.<br>
     ✓ <b>eBay report</b> — eBay_Sales_Fulfillment_08-08-26.csv (13 in window) [SKU backfill only]<br>
     ✓ <b>Poshmark report</b> — Poshmark_Sales_Finances_01-01-26_to_08-09-26.csv (71 in window) -- NOTE: completed/paid sales only, lags the to-ship queue [SKU backfill only]<br>
     ✓ <b>Depop report</b> — Depop Sales 05_01_2026 - 05_19_2026.csv (0 in window) [SKU backfill only]<br>
@@ -332,7 +366,7 @@
   </footer>
   <div class="bar"><div class="barin">
     <span class="count"></span>
-    <span class="dots"><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i><i class="dot d5"></i><i class="dot d6"></i><i class="dot d7"></i><i class="dot d8"></i><i class="dot d9"></i><i class="dot d10"></i><i class="dot d11"></i><i class="dot d12"></i><i class="dot d13"></i></span>
+    <span class="dots"><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i><i class="dot d5"></i><i class="dot d6"></i><i class="dot d7"></i><i class="dot d8"></i><i class="dot d9"></i><i class="dot d10"></i><i class="dot d11"></i><i class="dot d12"></i><i class="dot d13"></i><i class="dot d14"></i><i class="dot d15"></i></span>
     <input class="reset" type="reset" value="Reset">
     <button class="exp" type="button" onclick="exportPicked()">Export picked</button>
   </div></div>
