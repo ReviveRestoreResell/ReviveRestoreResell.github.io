@@ -82,16 +82,10 @@
   .barin{max-width:700px;margin:0 auto;width:100%;display:flex;align-items:center;gap:10px}
   .count{font-size:14px;font-weight:600;color:var(--ink);white-space:nowrap;
     font-variant-numeric:tabular-nums}
-  .count::after{content:counter(picked) " of 7 picked"}
+  .count::after{content:counter(picked) " of 1 picked"}
   .dots{flex:1;display:flex;gap:5px}
   .dot{flex:1;height:6px;border-radius:3px;background:#e0e4e9;transition:background .25s ease}
-  form:has(#p1:checked) .d1,
-  form:has(#p2:checked) .d2,
-  form:has(#p3:checked) .d3,
-  form:has(#p4:checked) .d4,
-  form:has(#p5:checked) .d5,
-  form:has(#p6:checked) .d6,
-  form:has(#p7:checked) .d7{background:var(--done)}
+  form:has(#p1:checked) .d1{background:var(--done)}
   .reset,.exp{font:inherit;font-size:13px;border:1px solid var(--line);background:#fff;
     color:var(--mute);border-radius:7px;padding:7px 13px;cursor:pointer;
     -webkit-appearance:none;appearance:none;}
@@ -122,104 +116,13 @@
 <form>
 
   <h1>Pick List — Tuesday, Aug 11 2026</h1>
-  <div class="sub">7 items · eBay 5 · Poshmark 2</div>
-  <div class="build">build 7 · 1:43 pm · sold-pick-list v1.9</div>
-
-  <div class="rack">POD 1 · RACK 3</div>
-  <input class="chk" type="checkbox" id="p1" data-key="eBay:23-14993-07320">
-  <label class="item" for="p1">
-    <div class="num"><span class="n">1</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">LA17<span class="sep">·</span><span class="sku">LA17 539</span><span class="sep">·</span><span class="cat">TOPS-1277</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Cream</div>
-        <div class="l3">J.Crew Classic Mariner Cloth Boatneck T-Shirt WMNS S Cream Black Striped Cotton</div>
-        <div class="l4"><b>eBay</b> · SHIP-DISCOUNT · ship by 8/11/2026</div>
-        <div class="mig"><span class="chip">AGREES</span><span>VendooNotes <span class="from">Loc:</span> and the Master v3 columns point at the same bin.</span></div>
-      </div></div>
-    </div>
-  </label>
-
-  <div class="rack">POD 1 · RACK 10</div>
-  <input class="chk" type="checkbox" id="p2" data-key="eBay:11-15016-03507">
-  <label class="item" for="p2">
-    <div class="num"><span class="n">2</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">G19<span class="sep">·</span><span class="sku">G-19 1424</span><span class="sep">·</span><span class="cat">TOPS-0068</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Purple</div>
-        <div class="l3">J.Crew Silk Top WMNS S Button Up Purple Long Sleeve Lightweight Collared Blouse</div>
-        <div class="l4"><b>eBay</b> · SHIP-1LB · ship by 8/13/2026</div>
-        <div class="mig"><span class="chip">AGREES</span><span>VendooNotes <span class="from">Loc:</span> and the Master v3 columns point at the same bin.</span></div>
-      </div></div>
-    </div>
-  </label>
-
-  <div class="rack">POD 1 · RACK 11</div>
-  <input class="chk" type="checkbox" id="p3" data-key="eBay:17-15004-65908">
-  <label class="item" for="p3">
-    <div class="num"><span class="n">3</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">LA10<span class="sep">·</span><span class="sku">LA10 292</span><span class="sep">·</span><span class="cat">TOPS-0952</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">White</div>
-        <div class="l3">Madewell Sleeveless Crew Neck Bubble Top Womens XS White Pullover Stretch Cotton</div>
-        <div class="l4"><b>eBay</b> · SHIP-DISCOUNT · ship by 8/12/2026</div>
-        <div class="mig"><span class="chip">AGREES</span><span>VendooNotes <span class="from">Loc:</span> and the Master v3 columns point at the same bin.</span></div>
-      </div></div>
-    </div>
-  </label>
-
-  <div class="rack">POD 1 · ROLLING RACK 1</div>
-  <input class="chk" type="checkbox" id="p4" data-key="Poshmark:69cd7eb0555c14fdaafeb3de">
-  <label class="item" for="p4">
-    <div class="num"><span class="n">4</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">R3<span class="sep">·</span><span class="sku">A-11 - 0972</span><span class="sep">·</span><span class="cat">OUTERWEAR-0207</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Tan Outerwear</div>
-        <div class="l3">Madewell Tan Jean Jacket WMNS Small Long Sleeve Button-Up 100% Cotton Shirt LS</div>
-        <div class="l4"><b>Poshmark</b> · SHIP-2LB</div>
-        <div class="mig"><span class="chip">AGREES</span><span>VendooNotes <span class="from">Loc:</span> and the Master v3 columns point at the same bin.</span></div>
-      </div></div>
-    </div>
-  </label>
-
-  <div class="rack">POD 1 · ROLLING RACK 2</div>
-  <input class="chk" type="checkbox" id="p5" data-key="Poshmark:6a7a315b8e9e5e9bc12892d3">
-  <label class="item" for="p5">
-    <div class="num"><span class="n">5</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">R20<span class="sep">·</span><span class="sku">Bin C-9 1098</span><span class="sep">·</span><span class="cat">TOPS-0138</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Black Tops</div>
-        <div class="l3">Marvel T-Shirt Mens XL Impact Venom Spider Pullover Crew Neck Black Short Sleeve</div>
-        <div class="l4"><b>Poshmark</b> · SHIP-1LB</div>
-        <div class="mig"><span class="chip">AGREES</span><span>VendooNotes <span class="from">Loc:</span> and the Master v3 columns point at the same bin.</span></div>
-      </div></div>
-    </div>
-  </label>
-
-  <div class="rack">POD 1 · RACK 1</div>
-  <input class="chk" type="checkbox" id="p6" data-key="eBay:18-15001-40558">
-  <label class="item" for="p6">
-    <div class="num"><span class="n">6</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">Bin #9<span class="sep">·</span><span class="sku">Y-Z 0971</span><span class="sep">·</span><span class="cat">SHORTS-0116</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Cream</div>
-        <div class="l3">Regeneration by Celebrity Pink Short WMNS 5/27 Cream Denim Shortie Mid Rise Boho</div>
-        <div class="l4"><b>eBay</b> · SHIP-1LB · ship by 8/12/2026</div>
-        <div class="mig"><span class="chip">AGREES</span><span>VendooNotes <span class="from">Loc:</span> and the Master v3 columns point at the same bin.</span></div>
-        <div class="note">Walk-order gap — rack <b>Rack 1</b> is not in the SOP v1.2 POD 1 order. Insert by numeric position and patch the SOP.</div>
-      </div></div>
-    </div>
-  </label>
+  <div class="sub">1 items · eBay 1</div>
+  <div class="build">build 8 · 2:32 pm · sold-pick-list v2.0</div>
 
   <div class="rack">POD 3</div>
-  <input class="chk" type="checkbox" id="p7" data-key="eBay:23-14994-03606">
-  <label class="item" for="p7">
-    <div class="num"><span class="n">7</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p1" data-key="eBay:23-14994-03606">
+  <label class="item" for="p1">
+    <div class="num"><span class="n">1</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">Bin Home Goods 6<span class="sep">·</span><span class="sku">Home Goods 6</span><span class="sep">·</span><span class="cat">OTHER-0289</span></div>
       <div class="detail"><div class="inner">
@@ -235,7 +138,7 @@
   <div class="hint">Tap a row to mark it picked. Export picked → Save to Files → Daily_Pick_List\inbox\</div>
   <div class="bar"><div class="barin">
     <span class="count"></span>
-    <span class="dots"><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i><i class="dot d5"></i><i class="dot d6"></i><i class="dot d7"></i></span>
+    <span class="dots"><i class="dot d1"></i></span>
     <input class="reset" type="reset" value="Reset">
     <button class="exp" type="button" onclick="exportPicked()">Export picked</button>
   </div></div>
