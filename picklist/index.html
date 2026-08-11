@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Pick List — 2026-08-11</title>
+<title>Pick List — 2026-08-11 — done</title>
 <style>
   :root{
     --bg:#f6f7f9; --card:#fff; --ink:#14181f; --mute:#6b7480;
@@ -82,10 +82,10 @@
   .barin{max-width:700px;margin:0 auto;width:100%;display:flex;align-items:center;gap:10px}
   .count{font-size:14px;font-weight:600;color:var(--ink);white-space:nowrap;
     font-variant-numeric:tabular-nums}
-  .count::after{content:counter(picked) " of 1 picked"}
+  .count::after{content:counter(picked) " of 0 picked"}
   .dots{flex:1;display:flex;gap:5px}
   .dot{flex:1;height:6px;border-radius:3px;background:#e0e4e9;transition:background .25s ease}
-  form:has(#p1:checked) .d1{background:var(--done)}
+
   .reset,.exp{font:inherit;font-size:13px;border:1px solid var(--line);background:#fff;
     color:var(--mute);border-radius:7px;padding:7px 13px;cursor:pointer;
     -webkit-appearance:none;appearance:none;}
@@ -113,50 +113,13 @@
 </style>
 </head>
 <body>
-<form>
-
   <h1>Pick List — Tuesday, Aug 11 2026</h1>
-  <div class="sub">1 item · eBay 1</div>
-  <div class="build">build 9 · 2:34 pm · sold-pick-list v2.0</div>
-
-  <div class="rack">POD 3</div>
-  <input class="chk" type="checkbox" id="p1" data-key="eBay:23-14994-03606">
-  <label class="item" for="p1">
-    <div class="num"><span class="n">1</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">Bin Home Goods 6<span class="sep">·</span><span class="sku">Home Goods 6</span><span class="sep">·</span><span class="cat">OTHER-0289</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Multicolor</div>
-        <div class="l3">Infant CPR Anytime Kit American Heart Association DVD Training + Baby Manikin</div>
-        <div class="l4"><b>eBay</b> · SHIP-MEDIA · ship by 8/13/2026</div>
-        <div class="mig unver"><span class="chip">UNVERIFIED</span><span>Register-only — there is no full <span class="from">Loc:</span> note to check the columns against. Never physically confirmed.</span></div>
-        <div class="note">Matched to Master v3 by <b>title, not SKU</b> — identity-match at the bin.</div>
-      </div></div>
-    </div>
-  </label>
-
-  <div class="hint">Tap a row to mark it picked. Export picked → Save to Files → Daily_Pick_List\inbox\</div>
-  <div class="bar"><div class="barin">
-    <span class="count"></span>
-    <span class="dots"><i class="dot d1"></i></span>
-    <input class="reset" type="reset" value="Reset">
-    <button class="exp" type="button" onclick="exportPicked()">Export picked</button>
-  </div></div>
-
-</form>
-<script>var DATEKEY="2026-08-11";
-function exportPicked(){
-  var picked=[].slice.call(document.querySelectorAll('.chk:checked'))
-              .map(function(c){return c.dataset.key;});
-  if(!picked.length){alert('Nothing checked yet.');return;}
-  var doc={schema:'rrr-picked/1.0',exported_at:new Date().toISOString(),
-           list_date:DATEKEY,source:'iphone-export',picked:picked};
-  var name='picked-'+DATEKEY+'-'+new Date().toISOString().slice(11,19).replace(/:/g,'')+'.json';
-  var b=new Blob([JSON.stringify(doc,null,2)],{type:'application/json'});
-  var u=URL.createObjectURL(b),a=document.createElement('a');
-  a.href=u;a.download=name;document.body.appendChild(a);a.click();
-  setTimeout(function(){a.remove();URL.revokeObjectURL(u);},1500);
-}
-</script>
+  <div class="sub">Day complete — 7 picked</div>
+  <div class="build">build 10 · 2:38 pm · sold-pick-list v2.0</div>
+  <div class="wrap"><table>
+    <tr><td><span class="lab">Shipped</span><span class="det">eBay 5 · Poshmark 2</span></td><td class="n">7</td></tr>
+    <tr class="tot"><td>Total</td><td class="n">7</td></tr>
+  </table></div>
+  <div class="done-h">Nothing left to pull. Tomorrow's list builds at 4:50 am.</div>
 </body>
 </html>
