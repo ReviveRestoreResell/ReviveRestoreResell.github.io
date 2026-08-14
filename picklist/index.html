@@ -57,6 +57,9 @@
   .item.unknown .num{background:var(--unk)}
   .mig.aging .chip{background:#fef3c7;color:#92400e}
   .mig.aging{border-left-color:#f59e0b}
+  .rfr{font:inherit;font-size:13px;font-weight:600;margin-left:11px;padding:6px 14px;
+  border:1px solid var(--key);background:var(--key);color:#fff;border-radius:7px;
+  cursor:pointer;-webkit-appearance:none;appearance:none;vertical-align:middle;}
   .build{max-width:700px;margin:2px auto 0;font-size:12px;color:var(--mute);
     letter-spacing:.02em}
   .degraded{max-width:700px;margin:14px auto 0;padding:10px 13px;border-radius:9px;
@@ -104,7 +107,7 @@
   footer{margin-top:22px;font-size:12px;color:var(--mute);text-align:center;line-height:1.6}
   @media print{
     body{background:#fff;padding:0}
-    .bar,.hint{display:none}
+    .bar,.hint,.rfr{display:none}
     .item{break-inside:avoid;cursor:auto}
     .chk:checked + .item{background:#fff;padding:15px 17px}
     .chk:checked + .item .detail{grid-template-rows:1fr;opacity:1;margin-top:6px}
@@ -115,7 +118,7 @@
 <body>
   <h1>Pick List — Friday, Aug 14 2026</h1>
   <div class="sub">Day complete — 8 picked</div>
-  <div class="build">build 5 · 9:44 am · sold-pick-list v2.0</div>
+  <div class="build">build 6 · 10:08 am · sold-pick-list v2.0<button type="button" id="rfr" class="rfr">Refresh</button></div>
   <div class="wrap"><table>
     <tr><td><span class="lab">Shipped</span><span class="det">Poshmark 8</span></td><td class="n">8</td></tr>
     <tr class="tot"><td>Total</td><td class="n">8</td></tr>
@@ -127,5 +130,6 @@
   </table></div>
   <div class="gap">Gross &rarr; net is after marketplace fees and shipping. Week runs Monday.</div>
   <div class="done-h">Nothing left to pull. Tomorrow's list builds at 4:50 am.</div>
+<script>(function(){try{var w=location.protocol==='http:'||location.protocol==='https:';function bust(){if(w){location.replace(location.pathname+'?t='+Date.now());}else{location.reload();}}if(w&&!location.search){bust();return;}var b=document.getElementById('rfr');if(b){b.addEventListener('click',bust);}}catch(e){}})();</script>
 </body>
 </html>
