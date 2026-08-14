@@ -3,20 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Pick List — 2026-08-14 — done</title>
+<title>Pick List — 2026-08-12</title>
 <style>
-  /* Tracie, 2026-08-14: boho minimalist. Warm bone ground, terracotta accent,
-     serif headline and numerals. ONLY the neutrals and --key changed. The status
-     hues stay deliberately distinct -- red UNKNOWN, amber UNVERIFIED, purple
-     NO MOVE, green picked, orange IN PERSON each carry meaning (0c), so they were
-     warmed toward the palette and never merged toward each other. */
   :root{
-    --bg:#faf6f0; --card:#fffdfa; --ink:#3b352d; --mute:#94897a;
-    --line:#e9e0d3; --key:#b07253; --warn:#9d6b1f; --warnbg:#fbf3e6;
-    --move:#7a5ea8; --movebg:#f4f0fa; --done:#5f7452; --donebg:#f1f5ed;
-    --local:#a4560a; --localbg:#fdf2e6;
-    --unk:#a63d33; --unkbg:#fbeeec;
-    --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    --bg:#f6f7f9; --card:#fff; --ink:#14181f; --mute:#6b7480;
+    --line:#e3e6ea; --key:#1f6feb; --warn:#b45309; --warnbg:#fff8ec;
+    --move:#7c3aed; --movebg:#f7f3ff; --done:#15803d; --donebg:#f2fbf5;
+    --local:#a4560a; --localbg:#fff7ed;
+    --unk:#b91c1c; --unkbg:#fef2f2;
   }
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
@@ -25,8 +19,7 @@
     font:16px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     -webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;}
   form{max-width:700px;margin:0 auto;counter-reset:picked}
-  h1{font-family:var(--serif);font-size:25px;font-weight:600;line-height:1.2;
-  margin:0 0 6px;letter-spacing:-.01em}
+  h1{font-size:21px;margin:0 0 4px;letter-spacing:-.01em}
   .sub{color:var(--mute);font-size:13.5px}
   .rack{font-size:11.5px;font-weight:700;letter-spacing:.14em;color:var(--mute);
     margin:24px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line);}
@@ -64,16 +57,6 @@
   .item.unknown .num{background:var(--unk)}
   .mig.aging .chip{background:#fef3c7;color:#92400e}
   .mig.aging{border-left-color:#f59e0b}
-  .rfr{font:inherit;font-size:12.5px;font-weight:600;letter-spacing:.02em;
-  margin-left:12px;padding:7px 15px;border-radius:100px;border:1px solid var(--key);
-  background:transparent;color:var(--key);cursor:pointer;
-  -webkit-appearance:none;appearance:none;vertical-align:middle;}
-  .days{max-width:700px;margin:0 auto 20px;display:flex;flex-wrap:wrap;gap:7px;
-  padding-bottom:18px;border-bottom:1px solid var(--line)}
-  .day{flex:0 0 auto;font-size:13px;letter-spacing:.02em;padding:7px 13px;
-  border-radius:100px;border:1px solid var(--line);background:transparent;
-  color:var(--mute);text-decoration:none;white-space:nowrap}
-  .day.on{background:var(--key);border-color:var(--key);color:#fffdfa;font-weight:600}
   .build{max-width:700px;margin:2px auto 0;font-size:12px;color:var(--mute);
     letter-spacing:.02em}
   .degraded{max-width:700px;margin:14px auto 0;padding:10px 13px;border-radius:9px;
@@ -99,10 +82,11 @@
   .barin{max-width:700px;margin:0 auto;width:100%;display:flex;align-items:center;gap:10px}
   .count{font-size:14px;font-weight:600;color:var(--ink);white-space:nowrap;
     font-variant-numeric:tabular-nums}
-  .count::after{content:counter(picked) " of 0 picked"}
+  .count::after{content:counter(picked) " of 2 picked"}
   .dots{flex:1;display:flex;gap:5px}
   .dot{flex:1;height:6px;border-radius:3px;background:#e0e4e9;transition:background .25s ease}
-
+  form:has(#p1:checked) .d1,
+  form:has(#p2:checked) .d2{background:var(--done)}
   .reset,.exp{font:inherit;font-size:13px;border:1px solid var(--line);background:#fff;
     color:var(--mute);border-radius:7px;padding:7px 13px;cursor:pointer;
     -webkit-appearance:none;appearance:none;}
@@ -113,23 +97,15 @@
   .wrap table{width:100%;border-collapse:collapse;font-size:16px}
   .wrap td{padding:13px 4px;border-bottom:1px solid var(--line);vertical-align:top}
   .wrap td.n{text-align:right;font-weight:650;font-variant-numeric:tabular-nums;
-    white-space:nowrap;padding-left:16px;font-size:22px;font-family:var(--serif)}
+    white-space:nowrap;padding-left:14px;font-size:19px}
   .wrap tr.tot td{border-bottom:none;border-top:2px solid var(--ink);font-weight:700}
   .wrap .lab{font-weight:600}
   .wrap .det{display:block;font-size:13px;color:var(--mute);margin-top:3px;line-height:1.5}
-  /* Vaughn, 2026-08-14: "there is no gray line under Day 8 - picked." There was --
-  it was just CENTRED while the title above it was not, so it floated off to the
-  right and read as belonging to nothing. The pick card never showed this because
-  its <form> is the 700px auto-margin box that lines everything up; the recap has
-  no form, so h1/.sub sat at the body padding while .build and .wrap centred
-  themselves. .rhead gives the recap header the SAME box as .wrap. */
-  .rhead{max-width:640px;margin:0 auto;padding:0 16px}
-  .rhead .build{max-width:none;margin-left:0;margin-right:0}
   .done-h{max-width:640px;margin:22px auto 0;padding:0 16px;font-size:15px;color:var(--mute)}
   footer{margin-top:22px;font-size:12px;color:var(--mute);text-align:center;line-height:1.6}
   @media print{
     body{background:#fff;padding:0}
-    .bar,.hint,.rfr,.days{display:none}
+    .bar,.hint{display:none}
     .item{break-inside:avoid;cursor:auto}
     .chk:checked + .item{background:#fff;padding:15px 17px}
     .chk:checked + .item .detail{grid-template-rows:1fr;opacity:1;margin-top:6px}
@@ -138,29 +114,67 @@
 </style>
 </head>
 <body>
-  <nav class="days">
-    <span class="day on">Today</span>
-    <a class="day" href="./2026-08-13.html" target="_blank" rel="noopener">Thu 13</a>
-    <a class="day" href="./2026-08-12.html" target="_blank" rel="noopener">Wed 12</a>
-    <a class="day" href="./2026-08-11.html" target="_blank" rel="noopener">Tue 11</a>
-    <a class="day" href="./2026-08-10.html" target="_blank" rel="noopener">Mon 10</a>
-  </nav>
-  <div class="rhead">
-    <h1>Pick List — Friday, Aug 14 2026</h1>
-    <div class="sub">Day complete — 8 picked</div>
-    <div class="build">build 9 · 10:40 am · sold-pick-list v2.0<button type="button" id="rfr" class="rfr">Refresh</button></div>
-  </div>
-  <div class="wrap"><table>
-    <tr><td><span class="lab">Shipped</span><span class="det">Poshmark 8</span></td><td class="n">8</td></tr>
-    <tr class="tot"><td>Total</td><td class="n">8</td></tr>
-  </table></div>
-  <div class="wrap"><table>
-    <tr><td><span class="lab">Sold today</span><span class="det">$183.00 &rarr; $136.91</span></td><td class="n">4</td></tr>
-    <tr><td><span class="lab">Sold this week</span><span class="det">$726.80 &rarr; $578.89</span></td><td class="n">17</td></tr>
-    <tr><td><span class="lab">Picked today</span><span class="det">$449.00 &rarr; $346.71</span></td><td class="n">8</td></tr>
-  </table></div>
-  <div class="gap">Gross &rarr; net is after marketplace fees and shipping. Week runs Monday.</div>
-  <div class="done-h">Nothing left to pull. Tomorrow's list builds at 4:50 am.</div>
-<script>(function(){try{var w=location.protocol==='http:'||location.protocol==='https:';function bust(){if(w){location.replace(location.pathname+'?t='+Date.now());}else{location.reload();}}if(w&&!location.search){bust();return;}var b=document.getElementById('rfr');if(b){b.addEventListener('click',bust);}}catch(e){}})();</script>
+<form>
+
+  <h1>Pick List — Wednesday, Aug 12 2026</h1>
+  <div class="sub">2 items · Poshmark 1 · eBay 1</div>
+  <div class="build">build 1 · 5:07 am · sold-pick-list v2.0</div>
+
+  <div class="rack">POD 1 · ROLLING RACK 3</div>
+  <input class="chk" type="checkbox" id="p1" data-key="Poshmark:6a7be9c9e18a525045d239c7">
+  <label class="item" for="p1">
+    <div class="num"><span class="n">1</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">Pants 001 (bench)<span class="sep">·</span><span class="sku">Pants-016</span><span class="sep">·</span><span class="cat">PANTS-0016</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Cream Pants</div>
+        <div class="l3">Zara Trousers WMNS XL Cream Satin Flared High Rise Office Core Quiet Luxury</div>
+        <div class="l4"><b>Poshmark</b> · SHIP-2LB</div>
+        <div class="mig unver"><span class="chip">UNVERIFIED</span><span>Register-only — there is no full <span class="from">Loc:</span> note to check the columns against. Never physically confirmed.</span></div>
+      </div></div>
+    </div>
+  </label>
+
+  <div class="rack">POD 1 · RACK 7</div>
+  <input class="chk" type="checkbox" id="p2" data-key="eBay:12-15017-09043">
+  <label class="item" for="p2">
+    <div class="num"><span class="n">2</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">F2<span class="sep">·</span><span class="sku">F-2 0536</span><span class="sep">·</span><span class="cat">PANTS-0432</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Black</div>
+        <div class="l3">Simply Vera Wang Ponte Pants Women M Black Slim Fit High Rise Skinny Office Work</div>
+        <div class="l4"><b>eBay</b> · SHIP-2LB · ship by 8/12/2026</div>
+        <div class="mig"><span class="chip">AGREES</span><span>VendooNotes <span class="from">Loc:</span> and the Master v3 columns point at the same bin.</span></div>
+        <div class="note">Walk-order gap — rack <b>Rack 7</b> is not in the SOP v1.2 POD 1 order. Insert by numeric position and patch the SOP.</div>
+      </div></div>
+    </div>
+  </label>
+
+  <div class="gap">Not checked today: <b>Mercari</b></div>
+
+  <div class="hint">Tap a row to mark it picked. Export picked → Save to Files → Daily_Pick_List\inbox\</div>
+  <div class="bar"><div class="barin">
+    <span class="count"></span>
+    <span class="dots"><i class="dot d1"></i><i class="dot d2"></i></span>
+    <input class="reset" type="reset" value="Reset">
+    <button class="exp" type="button" onclick="exportPicked()">Export picked</button>
+  </div></div>
+
+</form>
+<script>var DATEKEY="2026-08-12";
+function exportPicked(){
+  var picked=[].slice.call(document.querySelectorAll('.chk:checked'))
+              .map(function(c){return c.dataset.key;});
+  if(!picked.length){alert('Nothing checked yet.');return;}
+  var doc={schema:'rrr-picked/1.0',exported_at:new Date().toISOString(),
+           list_date:DATEKEY,source:'iphone-export',picked:picked};
+  var name='picked-'+DATEKEY+'-'+new Date().toISOString().slice(11,19).replace(/:/g,'')+'.json';
+  var b=new Blob([JSON.stringify(doc,null,2)],{type:'application/json'});
+  var u=URL.createObjectURL(b),a=document.createElement('a');
+  a.href=u;a.download=name;document.body.appendChild(a);a.click();
+  setTimeout(function(){a.remove();URL.revokeObjectURL(u);},1500);
+}
+</script>
 </body>
 </html>
