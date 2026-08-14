@@ -82,13 +82,17 @@
   .barin{max-width:700px;margin:0 auto;width:100%;display:flex;align-items:center;gap:10px}
   .count{font-size:14px;font-weight:600;color:var(--ink);white-space:nowrap;
     font-variant-numeric:tabular-nums}
-  .count::after{content:counter(picked) " of 4 picked"}
+  .count::after{content:counter(picked) " of 8 picked"}
   .dots{flex:1;display:flex;gap:5px}
   .dot{flex:1;height:6px;border-radius:3px;background:#e0e4e9;transition:background .25s ease}
   form:has(#p1:checked) .d1,
   form:has(#p2:checked) .d2,
   form:has(#p3:checked) .d3,
-  form:has(#p4:checked) .d4{background:var(--done)}
+  form:has(#p4:checked) .d4,
+  form:has(#p5:checked) .d5,
+  form:has(#p6:checked) .d6,
+  form:has(#p7:checked) .d7,
+  form:has(#p8:checked) .d8{background:var(--done)}
   .reset,.exp{font:inherit;font-size:13px;border:1px solid var(--line);background:#fff;
     color:var(--mute);border-radius:7px;padding:7px 13px;cursor:pointer;
     -webkit-appearance:none;appearance:none;}
@@ -119,8 +123,8 @@
 <form>
 
   <h1>Pick List — Friday, Aug 14 2026</h1>
-  <div class="sub">4 items · Poshmark 4</div>
-  <div class="build">build 1 · 4:38 am · sold-pick-list v2.0</div>
+  <div class="sub">8 items · Poshmark 8</div>
+  <div class="build">build 3 · 8:40 am · sold-pick-list v2.0</div>
 
   <div class="rack">POD 1 · RACK 3</div>
   <input class="chk" type="checkbox" id="p1" data-key="Poshmark:6a7d58646427009c85998d02">
@@ -152,10 +156,38 @@
     </div>
   </label>
 
-  <div class="rack">POD 1 · RACK 10</div>
-  <input class="chk" type="checkbox" id="p3" data-key="Poshmark:6a7d55f11cc5ef375ddc5bc2">
+  <div class="rack">POD 1 · RACK 5</div>
+  <input class="chk" type="checkbox" id="p3" data-key="Poshmark:6a7f25f61fd55d6202308fb6">
   <label class="item" for="p3">
     <div class="num"><span class="n">3</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">LA40<span class="sep">·</span><span class="sku">LA40 1375</span><span class="sep">·</span><span class="cat">TOPS-0663</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">White Tops</div>
+        <div class="l3">J.Crew Étienne Maura Oversized Fit Shirt WMNS L White BY733 Button Up Relaxed LS</div>
+        <div class="l4"><b>Poshmark</b> · SHIP-DISCOUNT</div>
+        <div class="mig"><span class="chip">AGREES</span><span>VendooNotes <span class="from">Loc:</span> and the Master v3 columns point at the same bin.</span></div>
+      </div></div>
+    </div>
+  </label>
+
+  <div class="rack">POD 1 · RACK 10</div>
+  <input class="chk" type="checkbox" id="p4" data-key="Poshmark:6a7f26607dc2b378eeac271a">
+  <label class="item" for="p4">
+    <div class="num"><span class="n">4</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">G12<span class="sep">·</span><span class="sku">G-12 1320</span><span class="sep">·</span><span class="cat">OTHER-0235</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Black Other</div>
+        <div class="l3">Boys Clothing Lot Adidas Jeans Polo Athleticwear Top Swim L(10/12) Outfit Bundle</div>
+        <div class="l4"><b>Poshmark</b> · SHIP-PARCEL</div>
+        <div class="mig"><span class="chip">AGREES</span><span>VendooNotes <span class="from">Loc:</span> and the Master v3 columns point at the same bin.</span></div>
+      </div></div>
+    </div>
+  </label>
+  <input class="chk" type="checkbox" id="p5" data-key="Poshmark:6a7d55f11cc5ef375ddc5bc2">
+  <label class="item" for="p5">
+    <div class="num"><span class="n">5</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">G16<span class="sep">·</span><span class="sku">G-16 1266</span><span class="sep">·</span><span class="cat">DRESSES-0311</span></div>
       <div class="detail"><div class="inner">
@@ -167,10 +199,40 @@
     </div>
   </label>
 
+  <div class="rack">POD 1 · RACK 11</div>
+  <input class="chk" type="checkbox" id="p6" data-key="Poshmark:6a7f26778d1da048d2af63b3">
+  <label class="item" for="p6">
+    <div class="num"><span class="n">6</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">LA9<span class="sep">·</span><span class="sku">LA9 252</span><span class="sep">·</span><span class="cat">SKIRTS-0038</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Black Skirts</div>
+        <div class="l3">J.Crew Godet Mini Skirt SZ 6 Black Stretch Chino Lined Flouncy Back Zip Pleated</div>
+        <div class="l4"><b>Poshmark</b> · SHIP-DISCOUNT</div>
+        <div class="mig"><span class="chip">AGREES</span><span>VendooNotes <span class="from">Loc:</span> and the Master v3 columns point at the same bin.</span></div>
+      </div></div>
+    </div>
+  </label>
+
+  <div class="rack">POD 2 · RACK 1</div>
+  <input class="chk" type="checkbox" id="p7" data-key="Poshmark:6a7f25e161376832c0e3a783">
+  <label class="item" for="p7">
+    <div class="num"><span class="n">7</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">P2-100<span class="sep">·</span><span class="sku">Skirts-006</span><span class="sep">·</span><span class="cat">SKIRTS-0006</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Green Skirts</div>
+        <div class="l3">Pendleton Wool Skirt WMNS 8 Green Plaid Knee Structured Dark Academia Old Money</div>
+        <div class="l4"><b>Poshmark</b> · SHIP-2LB</div>
+        <div class="mig"><span class="chip">AGREES</span><span>VendooNotes <span class="from">Loc:</span> and the Master v3 columns point at the same bin.</span></div>
+      </div></div>
+    </div>
+  </label>
+
   <div class="rack">POD 3</div>
-  <input class="chk" type="checkbox" id="p4" data-key="Poshmark:6a7d16177933d659e7090349">
-  <label class="item" for="p4">
-    <div class="num"><span class="n">4</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p8" data-key="Poshmark:6a7d16177933d659e7090349">
+  <label class="item" for="p8">
+    <div class="num"><span class="n">8</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">—<span class="sep">·</span><span class="cat">HOMEGOODS-0304</span></div>
       <div class="detail"><div class="inner">
@@ -182,12 +244,10 @@
     </div>
   </label>
 
-  <div class="gap">Not checked today: <b>Mercari</b></div>
-
   <div class="hint">Tap a row to mark it picked. Export picked → Save to Files → Daily_Pick_List\inbox\</div>
   <div class="bar"><div class="barin">
     <span class="count"></span>
-    <span class="dots"><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i></span>
+    <span class="dots"><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i><i class="dot d5"></i><i class="dot d6"></i><i class="dot d7"></i><i class="dot d8"></i></span>
     <input class="reset" type="reset" value="Reset">
     <button class="exp" type="button" onclick="exportPicked()">Export picked</button>
   </div></div>
