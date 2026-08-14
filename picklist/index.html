@@ -103,6 +103,14 @@
   .wrap tr.tot td{border-bottom:none;border-top:2px solid var(--ink);font-weight:700}
   .wrap .lab{font-weight:600}
   .wrap .det{display:block;font-size:13px;color:var(--mute);margin-top:3px;line-height:1.5}
+  /* Vaughn, 2026-08-14: "there is no gray line under Day 8 - picked." There was --
+  it was just CENTRED while the title above it was not, so it floated off to the
+  right and read as belonging to nothing. The pick card never showed this because
+  its <form> is the 700px auto-margin box that lines everything up; the recap has
+  no form, so h1/.sub sat at the body padding while .build and .wrap centred
+  themselves. .rhead gives the recap header the SAME box as .wrap. */
+  .rhead{max-width:640px;margin:0 auto;padding:0 16px}
+  .rhead .build{max-width:none;margin-left:0;margin-right:0}
   .done-h{max-width:640px;margin:22px auto 0;padding:0 16px;font-size:15px;color:var(--mute)}
   footer{margin-top:22px;font-size:12px;color:var(--mute);text-align:center;line-height:1.6}
   @media print{
@@ -116,9 +124,11 @@
 </style>
 </head>
 <body>
-  <h1>Pick List — Friday, Aug 14 2026</h1>
-  <div class="sub">Day complete — 8 picked</div>
-  <div class="build">build 7 · 10:20 am · sold-pick-list v2.0<button type="button" id="rfr" class="rfr">Refresh</button></div>
+  <div class="rhead">
+    <h1>Pick List — Friday, Aug 14 2026</h1>
+    <div class="sub">Day complete — 8 picked</div>
+    <div class="build">build 8 · 10:26 am · sold-pick-list v2.0<button type="button" id="rfr" class="rfr">Refresh</button></div>
+  </div>
   <div class="wrap"><table>
     <tr><td><span class="lab">Shipped</span><span class="det">Poshmark 8</span></td><td class="n">8</td></tr>
     <tr class="tot"><td>Total</td><td class="n">8</td></tr>
