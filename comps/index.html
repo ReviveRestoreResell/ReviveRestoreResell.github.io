@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Quick Comp — RRR</title>
+<style>
+  /* House palette carried from the pick card (Tracie, 2026-08-14): warm bone
+     ground, terracotta key, serif headline. Evidence hues are deliberately
+     distinct and are NOT merged toward the palette -- sold green, ask amber and
+     tier-block red each carry meaning. */
+  :root{
+    --bg:#faf6f0; --card:#fffdfa; --ink:#3b352d; --mute:#94897a;
+    --line:#e9e0d3; --key:#b07253;
+    --sold:#5f7452; --soldbg:#f1f5ed;      /* real money  */
+    --ask:#9d6b1f;  --askbg:#fbf3e6;       /* asks only   */
+    --block:#a63d33; --blockbg:#fbeeec;    /* tier-blocked*/
+    --peer:#7a5ea8; --peerbg:#f4f0fa;      /* peer comps  */
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    --mono:ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;padding:20px 16px calc(40px + env(safe-area-inset-bottom));
+    background:var(--bg);color:var(--ink);
+    font:16px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;}
+  .wrap{max-width:760px;margin:0 auto}
+  h1{font-family:var(--serif);font-size:26px;font-weight:600;margin:0 0 3px;letter-spacing:-.01em}
+  .sub{color:var(--mute);font-size:13px;margin-bottom:14px}
+  .sub b{color:var(--ink);font-weight:600}
+
+  /* data status */
+  .status{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:14px;font-size:11.5px}
+  .chip{padding:3px 8px;border-radius:4px;background:#eef1f5;color:#69727e;
+    font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:10px}
+  .chip.ok{background:var(--soldbg);color:var(--sold)}
+  .chip.warn{background:var(--askbg);color:var(--ask)}
+  .chip.bad{background:var(--blockbg);color:var(--block)}
+
+  /* search */
+  .searchbar{position:sticky;top:0;z-index:5;background:var(--bg);
+    padding:8px 0 10px;margin-bottom:4px}
+  input[type=search]{width:100%;font:17px var(--mono);color:var(--ink);
+    background:var(--card);border:1px solid var(--line);border-radius:10px;
+    padding:13px 15px;outline:none;-webkit-appearance:none}
+  input[type=search]:focus{border-color:var(--key);box-shadow:0 0 0 3px rgba(176,114,83,.13)}
+  .hint{font-size:12px;color:var(--mute);margin-top:6px}
+  .filters{display:flex;gap:6px;margin-top:9px;flex-wrap:wrap}
+  .filters button{font:600 11.5px/1 inherit;letter-spacing:.03em;color:var(--mute);
+    background:var(--card);border:1px solid var(--line);border-radius:20px;
+    padding:7px 12px;cursor:pointer}
+  .filters button[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+  /* suggestions */
+  .sugg{list-style:none;margin:0;padding:0}
+  .sugg li{background:var(--card);border:1px solid var(--line);border-radius:9px;
+    padding:12px 14px;margin-bottom:7px;cursor:pointer}
+  .sugg li:hover{border-color:var(--key)}
+  .sugg .s1{font:600 15px var(--mono)} .sugg .s1 .sku{color:var(--key)}
+  .sugg .s2{font-size:12.5px;color:var(--mute);margin-top:3px}
+
+  /* subject card */
+  .subject{background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:16px 17px;margin:12px 0 6px}
+  .subject h2{font-family:var(--serif);font-size:20px;font-weight:600;margin:0 0 4px;line-height:1.25}
+  .idline{font-size:13px;color:var(--mute);margin-bottom:12px}
+  .idline .style{font-family:var(--mono);color:var(--ink);font-weight:600}
+
+  .money{display:flex;flex-wrap:wrap;gap:8px}
+  .box{flex:1 1 128px;border:1px solid var(--line);border-radius:9px;padding:10px 12px;background:var(--bg)}
+  .box .lbl{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+  .box .val{font:600 21px/1.2 var(--serif);margin-top:3px}
+  .box .note{font-size:11px;color:var(--mute);margin-top:2px}
+  .box.msrp{border-color:var(--key)} .box.msrp .val{color:var(--key)}
+  .box.missing{border-style:dashed;border-color:var(--block);background:var(--blockbg)}
+  .box.missing .val{color:var(--block);font-size:15px}
+  .box.ask{background:var(--askbg);border-color:#e8d5b0}
+  .box.ask .val{color:var(--ask)}
+
+  /* evidence levels */
+  .lvl{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-top:10px;overflow:hidden}
+  .lvl.locked{border-color:var(--sold);box-shadow:0 0 0 2px var(--soldbg)}
+  .lvl.blocked{border-color:#eccdc8;background:#fffcfb}
+  .lvl summary{list-style:none;cursor:pointer;padding:13px 15px;display:flex;
+    gap:10px;align-items:baseline;flex-wrap:wrap}
+  .lvl summary::-webkit-details-marker{display:none}
+  .lvl summary:hover{background:#fffaf4}
+  .rank{font:700 10px/1 inherit;letter-spacing:.09em;text-transform:uppercase;
+    padding:4px 7px;border-radius:4px;background:#eef1f5;color:#69727e;flex:0 0 auto}
+  .rank.exact{background:var(--soldbg);color:var(--sold)}
+  .rank.peer{background:var(--peerbg);color:var(--peer)}
+  .rank.none{background:var(--blockbg);color:var(--block)}
+  .lname{font-weight:600;font-size:14.5px;flex:1 1 auto;min-width:0}
+  .lmeta{font-size:12.5px;color:var(--mute);font-family:var(--mono)}
+  .lockchip{font:700 9.5px/1 inherit;letter-spacing:.08em;text-transform:uppercase;
+    background:var(--sold);color:#fff;padding:4px 7px;border-radius:4px}
+  .lbody{padding:0 15px 15px;border-top:1px solid var(--line);margin-top:2px;padding-top:13px}
+  .why{font-size:12.5px;color:var(--mute);margin-bottom:11px;line-height:1.5}
+
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th{text-align:left;font-size:10px;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--mute);font-weight:700;padding:0 8px 6px 0;border-bottom:1px solid var(--line)}
+  td{padding:8px 8px 8px 0;border-bottom:1px solid #f4ede2;vertical-align:top}
+  td.n{font-family:var(--mono);font-weight:600;white-space:nowrap}
+  tr.src-rrr td:first-child{color:var(--sold);font-weight:600}
+  tr.src-and td:first-child{color:var(--mute);font-weight:600}
+  .thin{font-family:var(--mono);font-size:12.5px;color:var(--ink)}
+  .thin .cap{color:var(--mute);font-family:inherit;font-size:11.5px;display:block;margin-bottom:2px}
+
+  .tierguard{margin-top:11px;font-size:12.5px;background:var(--peerbg);
+    border-left:3px solid var(--peer);padding:9px 11px;border-radius:0 6px 6px 0;line-height:1.5}
+  .tierguard b{color:var(--peer)}
+  .excluded{margin-top:11px;font-size:12.5px;background:var(--blockbg);
+    border-left:3px solid var(--block);padding:9px 11px;border-radius:0 6px 6px 0;line-height:1.5}
+  .excluded b{color:var(--block)}
+  .excluded .brands{font-family:var(--mono);font-size:12px;color:var(--ink);margin-top:3px;display:block}
+
+  .rows{margin-top:11px;font-size:12.5px}
+  .rows summary{cursor:pointer;color:var(--key);font-weight:600;padding:4px 0}
+  .rows li{list-style:none;padding:6px 0;border-bottom:1px solid #f4ede2;
+    display:flex;gap:9px;align-items:baseline}
+  .rows .p{font-family:var(--mono);font-weight:600;flex:0 0 58px}
+  .rows .t{flex:1 1 auto;min-width:0;color:var(--mute);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .rows .s{flex:0 0 auto;font-size:10px;font-weight:700;letter-spacing:.05em;color:var(--mute)}
+
+  .empty{background:var(--card);border:1px dashed var(--line);border-radius:12px;
+    padding:26px 18px;text-align:center;color:var(--mute);font-size:14px;margin-top:12px}
+  .foot{margin-top:26px;padding-top:14px;border-top:1px solid var(--line);
+    font-size:11.5px;color:var(--mute);line-height:1.6}
+  .loadbtn{display:inline-block;margin-top:9px;font:600 13px inherit;color:#fff;
+    background:var(--key);border:0;border-radius:7px;padding:10px 15px;cursor:pointer}
+  input[type=file]{display:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Quick Comp</h1>
+  <div class="sub">Built on RRR sold history and the prices already ruled. <b>Exact style first</b> — peers only within the same brand tier.</div>
+  <div class="status" id="status"></div>
+
+  <div class="searchbar">
+    <input type="search" id="q" placeholder="Brand, style code, SKU, or words from the title"
+           autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search">
+    <div class="filters" id="condfilters">
+      <button data-cond="match" aria-pressed="true">Match condition</button>
+      <button data-cond="new" aria-pressed="false">New / NWT</button>
+      <button data-cond="used" aria-pressed="false">Pre-owned</button>
+      <button data-cond="all" aria-pressed="false">Any condition</button>
+    </div>
+    <div class="hint" id="hint">Type at least 2 characters.</div>
+  </div>
+
+  <div id="out"></div>
+
+  <div class="foot" id="foot"></div>
+</div>
+
+<input type="file" id="file" accept=".json,application/json">
+
+<script>
+"use strict";
+/* ------------------------------------------------------------------ *
+ * RRR Quick Comp
+ *
+ * Two foundations, kept apart on purpose:
+ *   SOLD  -- the Comp CaNNon. RRR (E2) and Anderson (E3) are reported
+ *            with their own n and never silently pooled.
+ *   RULED -- prices we have already ruled. These are ASKS. An ask is a
+ *            ceiling and context, never an anchor, so they are rendered
+ *            in a different colour and never enter a median.
+ *
+ * The comp ladder walks most-specific to broadest and stops at the first
+ * level holding n >= LOCK_N. Peer level is tier-guarded: a brand outside
+ * the subject's tier is excluded and NAMED, so the block is visible
+ * rather than silent.
+ * ------------------------------------------------------------------ */
+
+var LOCK_N = 5;
+var D = null, SOLD = [], COND = "match";
+var el = function(id){ return document.getElementById(id); };
+var esc = function(s){ return String(s==null?"":s).replace(/[&<>"]/g,
+  function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); };
+var usd = function(n){ return "$" + Number(n).toFixed(Number(n)%1?2:0); };
+
+/* brand join key -- mirrors norm_brand() in build_comps_index.py so that
+   "J. Crew" and "J.Crew" are one brand on both sides. */
+function normBrand(b){
+  if(!b) return "";
+  return String(b).toLowerCase().replace(/&/g," and ").replace(/[^a-z0-9]+/g,"");
+}
+var STOP = {the:1,and:1,a:1,an:1,in:1,of:1,with:1,size:1,nwt:1,euc:1,new:1,
+            womens:1,women:1,mens:1,men:1,for:1};
+function words(s){
+  return String(s||"").toLowerCase().replace(/[^a-z0-9 ]+/g," ").split(/\s+/)
+    .filter(function(w){ return w.length>2 && !STOP[w]; });
+}
+function condBand(c){ return /nwt|nib|\bnew\b/i.test(c||"") ? "new" : "used"; }
+
+/* ---- statistics ---- */
+function median(a){ var s=a.slice().sort(function(x,y){return x-y;}), m=s.length>>1;
+  return s.length%2 ? s[m] : (s[m-1]+s[m])/2; }
+function pct(a,p){ var s=a.slice().sort(function(x,y){return x-y;});
+  var i=Math.min(s.length-1, Math.max(0, Math.ceil(p*s.length)-1)); return s[i]; }
+
+/* ------------------------------------------------------------------ *
+ * Ladder construction
+ * ------------------------------------------------------------------ */
+function tierOf(bkey){
+  var t = D.brand_tiers[bkey];
+  return t ? t.tier : "tier_unknown";
+}
+/* Canon first-of-brand handling: when a brand has too little sold history
+   to classify, infer the tier from MSRP rather than guessing a peer set. */
+function inferTierFromMsrp(m){
+  if(!m) return null;
+  if(m >= 200) return "premium";
+  if(m >= 100) return "mid-high";
+  if(m >= 50)  return "mid-low";
+  return "value";
+}
+
+function buildLadder(subj){
+  var band = COND==="match" ? condBand(subj.cond) : COND;
+  var pool = SOLD.filter(function(r){
+    return band==="all" ? true : condBand(r.cond)===band;
+  });
+
+  var anchor = words(subj.model || subj.title || "");
+  var levels = [];
+
+  function lvl(key,name,why,rows,extra){
+    var o = {key:key,name:name,why:why,rows:rows};
+    for(var k in (extra||{})) o[k]=extra[k];
+    levels.push(o); return o;
+  }
+
+  /* 1 -- exact: same brand AND same style code. The tightest comp we can
+         make from our own data. Style codes are recovered from the
+         description body, so this is a free-text match on free text. */
+  if(subj.bkey && subj.style){
+    lvl("exact","Exact — brand + style code",
+      "Same brand, same style code ("+esc(subj.style)+"). The closest thing to the item itself.",
+      pool.filter(function(r){ return r.bkey===subj.bkey && r.style===subj.style; }));
+  }
+  /* 2 -- same style code, brand spelled differently or missing. The cannon
+         carries 13.5% brand='UNKNOWN' rows; those rows are real solds that
+         would otherwise remove themselves from the cohort. */
+  if(subj.style){
+    lvl("style","Same style code, brand not matched",
+      "Style "+esc(subj.style)+" where the brand column disagrees or is UNKNOWN. Real solds the brand filter would drop.",
+      pool.filter(function(r){ return r.style===subj.style && r.bkey!==subj.bkey; }));
+  }
+  /* 3 -- same brand + model wording */
+  if(subj.bkey && anchor.length){
+    lvl("model","Same brand + same model",
+      "Same brand, title carrying the model wording. Use when the style code is thin or absent.",
+      pool.filter(function(r){
+        if(r.bkey!==subj.bkey) return false;
+        if(subj.style && r.style===subj.style) return false;   /* already in L1 */
+        var t = (r.title||"").toLowerCase();
+        var hit = anchor.filter(function(w){ return t.indexOf(w)>=0; }).length;
+        return hit >= Math.min(2, anchor.length);
+      }));
+  }
+  /* 4 -- same brand, same sub-category */
+  if(subj.bkey && subj.subcat){
+    lvl("brand","Same brand, same category",
+      "Everything this brand has sold in "+esc(subj.subcat)+". Brand-level pricing power, not the same garment.",
+      pool.filter(function(r){ return r.bkey===subj.bkey && r.subcat===subj.subcat; }));
+  }
+  /* 5 -- PEERS. Tier-guarded. This is the level the guard exists for. */
+  var myTier = tierOf(subj.bkey), inferred = false;
+  if(myTier==="tier_unknown"){
+    var g = inferTierFromMsrp(subj.msrp);
+    if(g){ myTier = g; inferred = true; }
+  }
+  if(subj.subcat && myTier!=="tier_unknown"){
+    /* A brand that never sells this category was never a candidate, so listing
+       it as "excluded" is noise. Both lists are restricted to brands that
+       actually sell the subject's category -- then every excluded brand is a
+       real competitor that the tier guard genuinely blocked. */
+    var sellsCat = {};
+    SOLD.forEach(function(r){ if(r.subcat===subj.subcat && r.bkey) sellsCat[r.bkey]=1; });
+
+    var peers = {}, blocked = {};
+    for(var k in D.brand_tiers){
+      if(k===subj.bkey || !sellsCat[k]) continue;
+      var bt = D.brand_tiers[k];
+      if(bt.tier==="tier_unknown") continue;      /* unclassified is never a peer */
+      (bt.tier===myTier ? peers : blocked)[k] = bt;
+    }
+    var rows = pool.filter(function(r){
+      return peers[r.bkey] && r.subcat===subj.subcat;
+    });
+    var live = {};
+    rows.forEach(function(r){ live[r.bkey]=1; });
+    lvl("peer","Competing brands — "+myTier+" tier only",
+      "Different brands at the same tier selling "+esc(subj.subcat)+". Used only when the levels above are thin.",
+      rows, {
+        tier: myTier, inferred: inferred, inferredFrom: subj.msrp, subcat: subj.subcat,
+        peers: Object.keys(live).map(function(k){ return D.brand_tiers[k]; })
+                 .sort(function(a,b){ return b.median-a.median; }),
+        blocked: Object.keys(blocked).map(function(k){ return blocked[k]; })
+                 .sort(function(a,b){ return b.median-a.median; })
+      });
+  } else if(subj.subcat){
+    lvl("peer","Competing brands — unavailable", "", [], {
+      tier:null, noTier:true,
+      reason: subj.msrp ? "This brand has fewer than "+D.policy.min_n_for_tier+
+              " sold rows and no tier could be inferred."
+            : "This brand has fewer than "+D.policy.min_n_for_tier+
+              " sold rows, and there is no MSRP to infer a tier from. Capture the MSRP and a tier-safe peer set becomes available."
+    });
+  }
+
+  /* lock at the first level reaching n >= LOCK_N */
+  for(var i=0;i<levels.length;i++){
+    if(levels[i].rows.length >= LOCK_N){ levels[i].locked = true; break; }
+  }
+  return {levels:levels, band:band};
+}
+
+/* ------------------------------------------------------------------ *
+ * Rendering
+ * ------------------------------------------------------------------ */
+function splitStats(rows){
+  var out = {};
+  ["RRR","Anderson"].forEach(function(s){
+    var p = rows.filter(function(r){ return r.src===s; }).map(function(r){ return r.price; });
+    out[s] = {n:p.length, prices:p};
+    if(p.length){ out[s].median=median(p); out[s].p75=pct(p,.75); out[s].max=Math.max.apply(null,p); }
+  });
+  return out;
+}
+
+function statsTable(rows){
+  var st = splitStats(rows);
+  var h = '<table><tr><th>Source</th><th>n</th><th>Median</th><th>p75</th><th>High</th></tr>';
+  [["RRR","E2 · our own sold","src-rrr"],["Anderson","E3 · Anderson sold","src-and"]].forEach(function(x){
+    var s = st[x[0]];
+    if(!s.n){
+      h += '<tr class="'+x[2]+'"><td>'+x[1]+'</td><td class="n">0</td>'+
+           '<td colspan="3" style="color:var(--mute)">no sold rows in this cohort</td></tr>';
+      return;
+    }
+    if(s.n <= 4){
+      /* canon: n<=4 shows every price, never a median -- four numbers do not
+         make a distribution and a median over them reads as more than it is */
+      h += '<tr class="'+x[2]+'"><td>'+x[1]+'</td><td class="n">'+s.n+'</td>'+
+           '<td colspan="3"><span class="thin"><span class="cap">too thin for a median — every price:</span>'+
+           s.prices.slice().sort(function(a,b){return a-b;}).map(usd).join("  ·  ")+'</span></td></tr>';
+    } else {
+      h += '<tr class="'+x[2]+'"><td>'+x[1]+'</td><td class="n">'+s.n+'</td>'+
+           '<td class="n">'+usd(s.median)+'</td><td class="n">'+usd(s.p75)+'</td>'+
+           '<td class="n">'+usd(s.max)+'</td></tr>';
+    }
+  });
+  return h + '</table>';
+}
+
+function rowList(rows){
+  if(!rows.length) return "";
+  var sorted = rows.slice().sort(function(a,b){ return b.price-a.price; });
+  var show = sorted.slice(0,60);
+  return '<details class="rows"><summary>Show the '+rows.length+' sold row'+
+    (rows.length>1?"s":"")+'</summary><ul style="margin:6px 0 0;padding:0">' +
+    show.map(function(r){
+      return '<li><span class="p">'+usd(r.price)+'</span>'+
+             '<span class="t">'+esc(r.title||"(no title)")+'</span>'+
+             '<span class="s">'+esc(r.src==="RRR"?"RRR":"AND")+
+             (r.date?" · "+esc(r.date.slice(0,7)):"")+'</span></li>';
+    }).join("") +
+    (rows.length>show.length ? '<li style="color:var(--mute);border:0">…and '+
+      (rows.length-show.length)+' more</li>' : "") +
+    '</ul></details>';
+}
+
+function renderLevel(L){
+  var n = L.rows.length;
+  var cls = "lvl" + (L.locked?" locked":"") + (L.noTier?" blocked":"");
+  var rank = L.key==="exact"||L.key==="style" ? "exact" : (L.key==="peer" ? "peer" : "");
+  if(L.noTier) rank = "none";
+
+  var h = '<details class="'+cls+'"'+(L.locked||L.noTier?" open":"")+'><summary>'+
+    '<span class="rank '+rank+'">'+(L.key==="peer"?"peer":L.key)+'</span>'+
+    '<span class="lname">'+esc(L.name)+'</span>'+
+    (L.noTier ? '' : '<span class="lmeta">n='+n+'</span>')+
+    (L.locked ? '<span class="lockchip">anchor</span>' : '')+
+    '</summary><div class="lbody">';
+
+  if(L.noTier){
+    return h + '<div class="excluded"><b>No tier-safe peer set.</b> '+esc(L.reason)+
+      ' Rather than offer comps from another tier, this level is left empty on purpose.</div></div></details>';
+  }
+
+  if(L.why) h += '<div class="why">'+L.why+'</div>';
+
+  if(!n){
+    h += '<div class="why" style="margin:0">No sold rows at this level in the current condition band. '+
+         'That is a measured zero, not an unrun query.</div>';
+  } else {
+    h += statsTable(L.rows);
+  }
+
+  if(L.key==="peer"){
+    /* the tier statement is always shown -- including when the peer set is
+       empty, because "no peer at this tier sells this category" is itself the
+       answer, and the inferred-tier disclosure must never be swallowed */
+    h += '<div class="tierguard"><b>Tier guard — '+esc(L.tier)+'</b>'+
+      (L.inferred ? ' (inferred from MSRP'+(L.inferredFrom?' '+usd(L.inferredFrom):'')+
+        ' — this brand has too little sold history to classify)' : '')+'. '+
+      (L.peers && L.peers.length
+        ? 'Peers used: ' + L.peers.map(function(b){ return esc(b.brand)+' ('+usd(b.median)+')'; }).join(" · ")
+        : 'No brand at this tier has sold '+esc(L.subcat||"this category")+
+          ' — so there is nothing tier-safe to comp against, and nothing is offered.')+
+      '</div>';
+    if(L.blocked && L.blocked.length){
+      h += '<div class="excluded"><b>Excluded — wrong tier, never comped:</b>'+
+        '<span class="brands">'+ L.blocked.map(function(b){
+          return esc(b.brand)+' — '+esc(b.tier)+', median '+usd(b.median);
+        }).join("<br>") +'</span></div>';
+    }
+  }
+
+  h += rowList(L.rows);
+  return h + '</div></details>';
+}
+
+function renderSubject(s){
+  var h = '<div class="subject">';
+  h += '<h2>'+esc(s.brand || "(brand not identified)")+
+       (s.model?' '+esc(s.model):'')+'</h2>';
+  var bits = [];
+  if(s.style) bits.push('<span class="style">'+esc(s.style)+'</span>');
+  if(s.sku)   bits.push(esc(s.sku));
+  if(s.size)  bits.push('Size '+esc(s.size));
+  if(s.color) bits.push(esc(s.color));
+  if(s.cond)  bits.push(esc(s.cond));
+  if(s.subcat)bits.push(esc(s.subcat));
+  h += '<div class="idline">'+bits.join(" · ")+'</div>';
+
+  h += '<div class="money">';
+  /* MSRP first -- asked for by name, and the field most often missing */
+  if(s.msrp){
+    h += '<div class="box msrp"><div class="lbl">Original MSRP</div><div class="val">'+usd(s.msrp)+
+         '</div><div class="note">'+esc(s.msrp_src||"from the ruled file")+'</div></div>';
+  } else {
+    h += '<div class="box missing"><div class="lbl">Original MSRP</div>'+
+         '<div class="val">not captured</div><div class="note">needed for Posh Original Price</div></div>';
+  }
+  if(s.rungs){
+    if(s.rungs.BIN) h += '<div class="box ask"><div class="lbl">eBay BIN — ruled</div><div class="val">'+
+      usd(s.rungs.BIN)+'</div><div class="note">our ask, not a sold</div></div>';
+    if(s.rungs.POSH) h += '<div class="box ask"><div class="lbl">Poshmark — ruled</div><div class="val">'+
+      usd(s.rungs.POSH)+'</div><div class="note">our ask, not a sold</div></div>';
+    if(s.rungs.DEPOP) h += '<div class="box ask"><div class="lbl">Depop — ruled</div><div class="val">'+
+      usd(s.rungs.DEPOP)+'</div><div class="note">our ask, not a sold</div></div>';
+  }
+  h += '</div>';
+  if(s.ruled_date) h += '<div class="idline" style="margin:10px 0 0">Ruled '+esc(s.ruled_date)+
+    ' · '+esc(s.file||"")+'</div>';
+  return h + '</div>';
+}
+
+/* ------------------------------------------------------------------ *
+ * Query resolution
+ * ------------------------------------------------------------------ */
+var STYLE_RE = /\b([A-Z]{1,3}\d{3,6})\b/;
+
+function subjectFromRuled(r){
+  return {sku:r.sku, brand:r.brand, bkey:r.bkey, model:r.model, style:r.style,
+          size:r.size, color:r.color, cond:r.cond, msrp:r.msrp, msrp_src:r.msrp_src,
+          rungs:r.rungs, ruled_date:r.ruled_date, file:r.file,
+          subcat:subcatFor(r.bkey, r.style)};
+}
+/* ruled artifacts carry no sub-category; take it from the brand+style's own
+   sold rows, falling back to the brand's most common category */
+function subcatFor(bkey, style){
+  var hits = SOLD.filter(function(r){
+    return r.bkey===bkey && (style ? r.style===style : true) && r.subcat; });
+  if(!hits.length) hits = SOLD.filter(function(r){ return r.bkey===bkey && r.subcat; });
+  if(!hits.length) return "";
+  var c = {};
+  hits.forEach(function(r){ c[r.subcat]=(c[r.subcat]||0)+1; });
+  return Object.keys(c).sort(function(a,b){ return c[b]-c[a]; })[0];
+}
+
+/* Free text carries its own category signal: "smocked midi" is a dress even
+   when the brand sells more denim. Weight the sub-category by the rows whose
+   titles actually match the words typed, and only fall back to brand
+   frequency when the words match nothing. */
+function subcatForText(bkey, style, text){
+  var anchor = words(text);
+  if(anchor.length){
+    var c = {}, any = false;
+    SOLD.forEach(function(r){
+      if(!r.subcat) return;
+      if(bkey && r.bkey!==bkey) return;
+      var t = (r.title||"").toLowerCase();
+      var hit = anchor.filter(function(w){ return t.indexOf(w)>=0; }).length;
+      if(hit){ c[r.subcat]=(c[r.subcat]||0)+hit; any=true; }
+    });
+    if(any) return Object.keys(c).sort(function(a,b){ return c[b]-c[a]; })[0];
+  }
+  return subcatFor(bkey, style);
+}
+
+function subjectFromText(q){
+  var up = q.toUpperCase(), m = STYLE_RE.exec(up);
+  var style = m ? m[1] : "";
+  /* longest brand name appearing in the query wins */
+  var bkey="", brand="", best=0;
+  for(var k in D.brand_tiers){
+    var b = D.brand_tiers[k].brand;
+    if(normBrand(q).indexOf(k)>=0 && k.length>best){ best=k.length; bkey=k; brand=b; }
+  }
+  var rest = q.replace(STYLE_RE,"");
+  if(brand) rest = rest.replace(new RegExp(brand.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"),"ig"),"");
+  var model = rest.trim();
+  return {brand:brand, bkey:bkey, style:style, model:model,
+          cond:"", msrp:null, subcat:subcatForText(bkey, style, model), title:q};
+}
+
+function search(q){
+  var out = el("out");
+  if(q.length < 2){ out.innerHTML=""; el("hint").textContent="Type at least 2 characters."; return; }
+
+  var nq = q.toLowerCase(), nb = normBrand(q);
+  /* ruled SKUs matching the query -- these are the richest subjects because
+     they carry MSRP and the ruled rungs */
+  var hits = D.ruled.filter(function(r){
+    return (r.sku||"").toLowerCase().indexOf(nq)>=0 ||
+           (r.style||"").toLowerCase().indexOf(nq)>=0 ||
+           ((r.brand+" "+r.model).toLowerCase().indexOf(nq)>=0) ||
+           (nb && r.bkey.indexOf(nb)>=0);
+  });
+
+  if(hits.length > 1){
+    el("hint").textContent = hits.length+" ruled items match — pick one, or keep typing.";
+    out.innerHTML = '<ul class="sugg">' + hits.slice(0,25).map(function(r,i){
+      return '<li data-i="'+D.ruled.indexOf(r)+'"><div class="s1"><span class="sku">'+esc(r.sku)+
+        '</span> · '+esc(r.brand)+' '+esc(r.model)+'</div><div class="s2">'+
+        [r.style,r.size,r.color,r.cond, r.msrp?("MSRP "+usd(r.msrp)):"MSRP not captured"]
+          .filter(Boolean).map(esc).join(" · ")+'</div></li>';
+    }).join("") + '</ul>';
+    Array.prototype.forEach.call(out.querySelectorAll("li[data-i]"), function(li){
+      li.onclick = function(){ show(subjectFromRuled(D.ruled[+li.dataset.i])); };
+    });
+    return;
+  }
+  show(hits.length===1 ? subjectFromRuled(hits[0]) : subjectFromText(q));
+}
+
+function show(subj){
+  var L = buildLadder(subj);
+  var band = {new:"new / NWT", used:"pre-owned", all:"any condition"}[L.band] || L.band;
+  el("hint").textContent = "Comping against " + band + " sold rows.";
+  var anyRows = L.levels.some(function(x){ return x.rows.length; });
+  var h = renderSubject(subj);
+  if(!subj.bkey && !subj.style){
+    h += '<div class="empty">No brand or style code recognised in that search. '+
+         'Try a brand name, a style code, or a ruled SKU.</div>';
+  } else if(!anyRows){
+    h += '<div class="empty">Nothing in our own sold history matches this yet. '+
+         'That is a real zero for RRR and Anderson — it is not a failed query. '+
+         'External comps (eBay / Poshmark sold) are the next step, outside this tool.</div>';
+  }
+  h += L.levels.map(renderLevel).join("");
+  el("out").innerHTML = h;
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+/* ------------------------------------------------------------------ *
+ * Boot
+ * ------------------------------------------------------------------ */
+function boot(doc){
+  D = doc;
+  SOLD = D.sold.map(function(r){
+    var o = {}; for(var i=0;i<D.cols.length;i++) o[D.cols[i]] = r[i]; return o;
+  });
+  var f = D.freshness || {}, st = [];
+  if(D.is_demo) st.push('<span class="chip bad">demo data — not RRR figures</span>');
+  st.push('<span class="chip ok">'+SOLD.length.toLocaleString()+' sold rows</span>');
+  ["RRR","Anderson"].forEach(function(s){
+    if(f[s]) st.push('<span class="chip">'+s+' n='+f[s].n+
+      (f[s].max_date_sold?' thru '+f[s].max_date_sold:'')+'</span>');
+  });
+  st.push('<span class="chip">'+D.ruled.length+' ruled</span>');
+  if(D.msrp_gap && D.msrp_gap.length)
+    st.push('<span class="chip warn">'+D.msrp_gap.length+' ruled without MSRP</span>');
+  /* Demo data must never be mistaken for the real cannon, so the swap to a
+     real file stays one tap away for as long as demo data is loaded. */
+  if(D.is_demo) st.push('<button class="loadbtn" id="swap" style="margin:0;padding:5px 10px;'+
+    'font-size:11px">Load real comps-data.json</button>');
+  el("status").innerHTML = st.join("");
+  if(el("swap")) el("swap").onclick = function(){ el("file").click(); };
+
+  var foot = 'Built '+esc((D.built_at||"").replace("T"," ").replace("+00:00"," UTC"))+
+    '. Sold rows come from the Comp CaNNon — RRR (E2) and Anderson (E3) are counted separately and never pooled. '+
+    'Ruled prices are <b>asks</b>, shown in amber; they are context and a ceiling, never an anchor. '+
+    'A cohort locks at n&nbsp;&ge;&nbsp;'+LOCK_N+'; at n&nbsp;&le;&nbsp;4 every price is listed instead of a median. '+
+    'Peer brands are restricted to the subject brand’s tier — a brand in another tier is excluded and named. '+
+    'Acquisition cost and margin are never included in this file.';
+  if(D.msrp_gap && D.msrp_gap.length){
+    foot += '<br><br><b>MSRP still to capture ('+D.msrp_gap.length+'):</b> '+
+      esc(D.msrp_gap.slice(0,80).join(", ")) + (D.msrp_gap.length>80?", …":"");
+  }
+  el("foot").innerHTML = foot;
+  el("q").focus();
+}
+
+function askForFile(msg){
+  el("status").innerHTML = '<span class="chip bad">no data loaded</span>';
+  el("out").innerHTML = '<div class="empty">'+esc(msg)+
+    '<br><br>Run <code>build_comps_index.py</code> on the machine holding the CaNNon, '+
+    'then load the <code>comps-data.json</code> it writes.<br>'+
+    '<button class="loadbtn" id="pick">Load comps-data.json</button></div>';
+  el("pick").onclick = function(){ el("file").click(); };
+}
+el("file").onchange = function(e){
+  var f = e.target.files[0]; if(!f) return;
+  var fr = new FileReader();
+  fr.onload = function(){
+    try { boot(JSON.parse(fr.result)); }
+    catch(err){ askForFile("That file could not be read as comp data: "+err.message); }
+  };
+  fr.readAsText(f);
+};
+
+el("q").addEventListener("input", function(){ search(this.value.trim()); });
+el("condfilters").addEventListener("click", function(e){
+  var b = e.target.closest("button"); if(!b) return;
+  Array.prototype.forEach.call(this.querySelectorAll("button"), function(x){
+    x.setAttribute("aria-pressed", String(x===b)); });
+  COND = b.dataset.cond;
+  var q = el("q").value.trim(); if(q.length>=2) search(q);
+});
+
+/* Real data first, demo second, picker last. comps-data.json is gitignored,
+   so a local build is picked up here and never rides along to the public site. */
+function grab(url){
+  return fetch(url, {cache:"no-store"}).then(function(r){
+    if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); });
+}
+grab("comps-data.json")
+  .catch(function(){ return grab("comps-data.demo.json"); })
+  .then(boot)
+  .catch(function(){
+    askForFile("No comp data found beside this page.");
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+# Real comp data is never committed -- this is a public GitHub Pages site.
+# The builder writes these; only comps-data.demo.json is tracked.
+comps-data.json
+msrp-gap.txt
