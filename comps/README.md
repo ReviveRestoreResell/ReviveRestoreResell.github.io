@@ -125,3 +125,83 @@ at what our own data already knows.
 
 It also holds no external comps — eBay/Terapeak and Poshmark sold (**E1**) are
 gathered live during a pricing run and are outside this surface.
+
+---
+
+## Backfilling style codes into the CaNNon
+
+`comp_items.style_code` is NULL on every row, so CaNNon cascade **tier 1
+(brand + style_code) has never fired** — every comp lookup has silently started
+at tier 2 or lower. The codes are not missing; they sit in `raw_description`.
+
+```bash
+python backfill_style_codes.py --cannon "…\rrr_comp_cannon.sqlite"            # dry run
+python backfill_style_codes.py --cannon "…\rrr_comp_cannon.sqlite" --review   # + held queue
+python backfill_style_codes.py --cannon "…\rrr_comp_cannon.sqlite" --apply    # write
+python backfill_style_codes.py --cannon "…\rrr_comp_cannon.sqlite" --rollback RUN_ID
+```
+
+**Dry run is the default and writes nothing.** Read its report first — it shows
+what would be written, why each candidate was rejected, and how many brand+style
+cohorts would actually reach n ≥ 5 and let tier 1 lock.
+
+### Why precision is the whole job
+
+The cascade locks at the **first** tier reaching n ≥ 5. A wrong code at tier 1
+therefore anchors a price on the wrong garment, and nothing downstream catches
+it. A NULL is only the status quo; a wrong value is a new silent error. Every
+rule in `style_codes.py` is biased to reject, and only **HIGH** confidence is
+ever written.
+
+Three defences, weakest to strongest:
+
+1. **Denylist.** Garment tags are full of numbers shaped exactly like style
+   codes — `RN`, `CA`, `WPL` registration numbers, measurements (`W28`, `26 in`),
+   size systems (`US29`), platform ids (`UPC`, `SKU`, `ASIN`). Rejected on the
+   token *and* on the word in front of it.
+2. **Marker.** `Style`, `Style #`, `Style No.` introduces a trusted candidate.
+   This is the only path that accepts a digits-only code.
+3. **Consensus.** The strongest signal, and the reason this beats a regex: a real
+   style code recurs across rows of the same brand. Seen on ≥ 2 rows of one
+   brand → corroborated. A one-off is not written unless its prefix is already
+   established for that brand. Consensus is **per-brand**, so a Madewell code
+   appearing on a Levi's row is not written — the brand column carries 311
+   measured contradictions.
+
+Two competing equally-supported candidates on one row → **nothing is written**.
+An ambiguous row is where a wrong code does the most damage.
+
+Measured on a 58-case labelled corpus (`tests/test_style_codes.py`), half of it
+adversarial: **100% precision, 100% recall.** Run it with
+`python tests/test_style_codes.py`.
+
+### Safety
+
+- Dry run by default; `--apply` required to write.
+- `--apply` **refuses** unless `style_code` is 100% NULL, so the write is purely
+  additive and cannot overwrite anyone's work. `--force` to override deliberately.
+- A timestamped file backup is taken before any write.
+- The write is a single transaction — it commits fully or not at all.
+- Every decision (written, held, rejected) lands in the `style_code_backfill`
+  audit table with its run id and reasoning.
+- `--rollback RUN_ID` restores exactly.
+- Re-running is safe: rows already carrying a code are skipped.
+- Dry run always works, even on an already-backfilled CaNNon.
+
+### The silent-failure guard
+
+If a brand genuinely numbers its styles with a denylisted prefix (`CA100`,
+`CA101`…), the denylist would silence it and the result would look identical to
+a brand with no codes at all. The report flags these as **possible denylist
+collisions** — a brand that yielded no codes while one prefix was rejected
+repeatedly. Their doctrine 12 applies: an empty tier is a claim and must be
+proven.
+
+### After a CaNNon re-import
+
+New rows arrive with `style_code` NULL. Re-run the backfill after each import;
+it only fills NULLs, so it is safe to run every time.
+
+`build_comps_index.py` uses the **same** extraction engine, so the tool and the
+CaNNon always agree. It prefers the real column and falls back to free-text
+recovery only where the column is still NULL.

@@ -2,3 +2,6 @@
 # The builder writes these; only comps-data.demo.json is tracked.
 comps-data.json
 msrp-gap.txt
+__pycache__/
+*.pyc
+*.bak-*

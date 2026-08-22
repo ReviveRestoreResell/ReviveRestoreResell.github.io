@@ -30,6 +30,8 @@ Usage
 """
 
 import argparse, json, os, re, sqlite3, statistics, sys, glob
+sys_path_added = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, sys_path_added)
 from collections import defaultdict
 from datetime import datetime, timezone
 
@@ -44,9 +46,11 @@ MIN_N_FOR_TIER = 5
 # Cannon locks a cohort at the first level reaching this pooled n (_universal.md).
 LOCK_N = 5
 
-# style codes live in raw_description free text; comp_items.style_code is NULL
-# across all rows (SKILL.md schema hazards). Match NP124 / NQ890 / G1234 shapes.
-STYLE_RE = re.compile(r"\b([A-Z]{1,3}\d{3,6})\b")
+# Style-code recovery is delegated to style_codes.py -- the SAME engine the
+# CaNNon backfill uses. A local regex here previously had no denylist and wrote
+# RN registration numbers into the index as style codes; two extractors that
+# disagree is one extractor too many.
+from style_codes import Extractor as _StyleExtractor
 
 # Column-name candidates. The cannon has been rebuilt more than once; detect
 # rather than assume, and fail loudly naming what was missing.
@@ -134,7 +138,7 @@ def load_sold(path, limit=None, schema_only=False):
     if limit:
         sql += f" LIMIT {int(limit)}"
 
-    rows, dropped = [], 0
+    rows, dropped, pending = [], 0, []
     for r in conn.execute(sql):
         d = dict(r)
         price = money(d.get("price"))
@@ -143,17 +147,11 @@ def load_sold(path, limit=None, schema_only=False):
             continue
         title = (d.get("title") or "").strip()
 
-        # style_code column is NULL cannon-wide; recover it from the
-        # description body, then the title. Free-text match on free text --
-        # logged as such, never presented as a structured field.
+        # Prefer the real column (populated once backfill_style_codes.py has
+        # run). Where it is still NULL, recover below via the shared extractor.
         style = (d.get("style") or "").strip().upper()
         if not style:
-            for blob in (d.get("description"), title):
-                if blob:
-                    m = STYLE_RE.search(str(blob).upper())
-                    if m:
-                        style = m.group(1)
-                        break
+            pending.append((len(rows), d.get("brand"), d.get("description"), title))
 
         src = (d.get("source") or "").strip()
         src = "RRR" if src.upper() == "RRR" else ("Anderson" if src else "?")
@@ -174,6 +172,21 @@ def load_sold(path, limit=None, schema_only=False):
             "plat": (d.get("platform") or "").strip(),
         })
     conn.close()
+
+    # Two-pass recovery for rows whose style_code is still NULL. Consensus
+    # needs the whole corpus, so it cannot run row-by-row. HIGH confidence
+    # only -- the same bar the backfill writes at.
+    if pending:
+        ex = _StyleExtractor()
+        for i, brand, desc, title in pending:
+            ex.add(i, brand, desc, title)
+        recovered = 0
+        for res in ex.run():
+            if res["confidence"] == "HIGH" and res["code"]:
+                rows[res["id"]]["style"] = res["code"]
+                recovered += 1
+        print("  style codes recovered from free text: %d of %d NULL rows"
+              % (recovered, len(pending)))
     return rows, dropped, mapping
 
 
