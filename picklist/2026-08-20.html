@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Pick List — 2026-08-22</title>
+<title>Pick List — 2026-08-20</title>
 <style>
   /* Tracie, 2026-08-14: boho minimalist. Warm bone ground, terracotta accent,
      serif headline and numerals. ONLY the neutrals and --key changed. The status
@@ -99,10 +99,12 @@
   .barin{max-width:700px;margin:0 auto;width:100%;display:flex;align-items:center;gap:10px}
   .count{font-size:14px;font-weight:600;color:var(--ink);white-space:nowrap;
     font-variant-numeric:tabular-nums}
-  .count::after{content:counter(picked) " of 1 picked"}
+  .count::after{content:counter(picked) " of 3 picked"}
   .dots{flex:1;display:flex;gap:5px}
   .dot{flex:1;height:6px;border-radius:3px;background:#e0e4e9;transition:background .25s ease}
-  form:has(#p1:checked) .d1{background:var(--done)}
+  form:has(#p1:checked) .d1,
+  form:has(#p2:checked) .d2,
+  form:has(#p3:checked) .d3{background:var(--done)}
   .reset,.exp{font:inherit;font-size:13px;border:1px solid var(--line);background:#fff;
     color:var(--mute);border-radius:7px;padding:7px 13px;cursor:pointer;
     -webkit-appearance:none;appearance:none;}
@@ -140,22 +142,51 @@
 <body>
 <form>
 
-  <h1>Pick List — Saturday, Aug 22 2026</h1>
-  <div class="sub">1 item · Poshmark 1</div>
-  <div class="build">build 1 · 6:59 pm · sold-pick-list v2.1<button type="button" id="rfr" class="rfr">Refresh</button></div>
+  <h1>Pick List — Thursday, Aug 20 2026</h1>
+  <div class="sub">3 items · Poshmark 2 · eBay 1</div>
+  <div class="build">build 1 · 4:38 am · sold-pick-list v2.1<button type="button" id="rfr" class="rfr">Refresh</button></div>
 
-  <div class="rack">POD 1 · ROLLING RACK 1</div>
-  <input class="chk" type="checkbox" id="p1" data-key="Poshmark:6a87dcf9ac87daf5642fc126">
+  <div class="rack">POD 1 · RACK 9</div>
+  <input class="chk" type="checkbox" id="p1" data-key="Poshmark:6a85ffd85a3f518ad489fa44">
   <label class="item" for="p1">
     <div class="num"><span class="n">1</span><span class="tick">✓</span></div>
     <div class="body">
-      <div class="l1">R8<span class="sep">·</span><span class="sku">Kids-1 0964</span><span class="sep">·</span><span class="cat">OTHER-0138</span></div>
+      <div class="l1">G9<span class="sep">·</span><span class="sku">G-9 1120</span><span class="sep">·</span><span class="cat">TOPS-1060</span></div>
       <div class="detail"><div class="inner">
-        <div class="l2">Red Other</div>
-        <div class="l3">7 for All Mankind Pants Old Navy Fleece Jacket Outwear Bundle Baby Girls 18-24M</div>
-        <div class="l4"><b>Poshmark</b> · SHIP-PARCEL · ship by 8/25/2026</div>
+        <div class="l2">Green Tops</div>
+        <div class="l3">Columbia Half-Zip Pullover WMNS L Green Leaf/Floral Fleece Long Sleeve Mock Neck</div>
+        <div class="l4"><b>Poshmark</b> · SHIP-2LB</div>
         <div class="mig"><span class="chip">AGREES</span><span>VendooNotes <span class="from">Loc:</span> and the Master v3 columns point at the same bin.</span></div>
-        <div class="note"><b>BUNDLE - one label, TWO garments: 7 For All Mankind pants + Old Navy fleece jacket. Both go in the one package.</b></div>
+      </div></div>
+    </div>
+  </label>
+
+  <div class="rack">POD 1 · ROLLING RACK 2</div>
+  <input class="chk" type="checkbox" id="p2" data-key="Poshmark:6a862326fa577bd50f6366c3">
+  <label class="item" for="p2">
+    <div class="num"><span class="n">2</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">R19<span class="sep">·</span><span class="sku">H-13 2398</span><span class="sep">·</span><span class="cat">SKIRTS-0091</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Black Skirts</div>
+        <div class="l3">A New Day Skirt Wrap Midi WMNS 2XL Black A-Line Adjustable Waist Tie Linen Blend</div>
+        <div class="l4"><b>Poshmark</b> · SHIP-1LB</div>
+        <div class="mig"><span class="chip">AGREES</span><span>VendooNotes <span class="from">Loc:</span> and the Master v3 columns point at the same bin.</span></div>
+      </div></div>
+    </div>
+  </label>
+
+  <div class="rack">SHOES</div>
+  <input class="chk" type="checkbox" id="p3" data-key="eBay:07-15060-14973">
+  <label class="item" for="p3">
+    <div class="num"><span class="n">3</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">SB15<span class="sep">·</span><span class="sku">2989</span><span class="sep">·</span><span class="cat">SHOES-1173</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Brown Shoes</div>
+        <div class="l3">Kenneth Cole Reaction Sandals Womens US 7 Brown Black Leopard Print Ankle Strap</div>
+        <div class="l4"><b>eBay</b> · SHIP-1LB · ship by 8/20/2026</div>
+        <div class="mig"><span class="chip">AGREES</span><span>VendooNotes <span class="from">Loc:</span> and the Master v3 columns point at the same bin.</span></div>
       </div></div>
     </div>
   </label>
@@ -165,13 +196,13 @@
   <div class="hint">Tap a row to mark it picked. Export picked → Save to Files → Daily_Pick_List\inbox\</div>
   <div class="bar"><div class="barin">
     <span class="count"></span>
-    <span class="dots"><i class="dot d1"></i></span>
+    <span class="dots"><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i></span>
     <input class="reset" type="reset" value="Reset">
     <button class="exp" type="button" onclick="exportPicked()">Export picked</button>
   </div></div>
 
 </form>
-<script>var DATEKEY="2026-08-22";
+<script>var DATEKEY="2026-08-20";
 function exportPicked(){
   var picked=[].slice.call(document.querySelectorAll('.chk:checked'))
               .map(function(c){return c.dataset.key;});
