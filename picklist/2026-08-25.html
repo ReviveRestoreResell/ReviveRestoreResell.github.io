@@ -99,14 +99,13 @@
   .barin{max-width:700px;margin:0 auto;width:100%;display:flex;align-items:center;gap:10px}
   .count{font-size:14px;font-weight:600;color:var(--ink);white-space:nowrap;
     font-variant-numeric:tabular-nums}
-  .count::after{content:counter(picked) " of 5 picked"}
+  .count::after{content:counter(picked) " of 4 picked"}
   .dots{flex:1;display:flex;gap:5px}
   .dot{flex:1;height:6px;border-radius:3px;background:#e0e4e9;transition:background .25s ease}
   form:has(#p1:checked) .d1,
   form:has(#p2:checked) .d2,
   form:has(#p3:checked) .d3,
-  form:has(#p4:checked) .d4,
-  form:has(#p5:checked) .d5{background:var(--done)}
+  form:has(#p4:checked) .d4{background:var(--done)}
   .reset,.exp{font:inherit;font-size:13px;border:1px solid var(--line);background:#fff;
     color:var(--mute);border-radius:7px;padding:7px 13px;cursor:pointer;
     -webkit-appearance:none;appearance:none;}
@@ -145,29 +144,13 @@
 <form>
 
   <h1>Pick List — Tuesday, Aug 25 2026</h1>
-  <div class="sub">5 items · Poshmark 4 · eBay 1</div>
-  <div class="build">build 1 · 4:12 am · sold-pick-list v2.1<button type="button" id="rfr" class="rfr">Refresh</button></div>
-
-  <div class="rack">POD 1 · RACK 3</div>
-  <input class="chk" type="checkbox" id="p1" data-key="Poshmark:td361aa4a34a9">
-  <label class="item" for="p1">
-    <div class="num"><span class="n">1</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">LA19<span class="sep">·</span><span class="sku">LA19 623</span><span class="sep">·</span><span class="cat">SKIRTS-0116</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">White Skirts</div>
-        <div class="l3">J.Crew Smocked-Waist Pleated Skirt SZ S White Pull On Knee Length A-Line Stretch</div>
-        <div class="l4"><b>Poshmark</b> · SHIP-DISCOUNT</div>
-        <div class="mig"><span class="chip">AGREES</span><span>VendooNotes <span class="from">Loc:</span> and the Master v3 columns point at the same bin.</span></div>
-        <div class="note"><b>SECOND DAY OPEN, register-derived both days - no Poshmark session since Saturday, so nothing has re-read the queue. Still absent from the completed-sales export, which is weak evidence, not proof. Verify in the app before you walk; if it already shipped, tap it picked.</b></div>
-      </div></div>
-    </div>
-  </label>
+  <div class="sub">4 items · Poshmark 3 · eBay 1</div>
+  <div class="build">build 4 · 12:32 pm · sold-pick-list v2.3<button type="button" id="rfr" class="rfr">Refresh</button></div>
 
   <div class="rack">POD 1 · RACK 5</div>
-  <input class="chk" type="checkbox" id="p2" data-key="Poshmark:t64e1212b484f">
-  <label class="item" for="p2">
-    <div class="num"><span class="n">2</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p1" data-key="Poshmark:t64e1212b484f">
+  <label class="item" for="p1">
+    <div class="num"><span class="n">1</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">LA36<span class="sep">·</span><span class="sku">LA36 1244</span><span class="sep">·</span><span class="cat">PANTS-0278</span></div>
       <div class="detail"><div class="inner">
@@ -175,15 +158,15 @@
         <div class="l3">JCrew 770 Straight-Fit Stretch Chino Pants Mens Sz 31 x 32 Light Tan Flat Front</div>
         <div class="l4"><b>Poshmark</b> · SHIP-DISCOUNT</div>
         <div class="mig"><span class="chip">AGREES</span><span>VendooNotes <span class="from">Loc:</span> and the Master v3 columns point at the same bin.</span></div>
-        <div class="note"><b>REGISTER-DERIVED, not read off the Poshmark queue - no platform session this run. New in the 08-25 Vendoo register, sold Aug 24. No order id, no buyer, no ship-by; none was invented.</b></div>
+        <div class="note"><b>PROVEN UNSHIPPED - live Poshmark queue reads Awaiting Shipment, label not yet downloaded.</b></div>
       </div></div>
     </div>
   </label>
 
   <div class="rack">POD 1 · RACK 6</div>
-  <input class="chk" type="checkbox" id="p3" data-key="eBay:18-15058-07384">
-  <label class="item" for="p3">
-    <div class="num"><span class="n">3</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p2" data-key="eBay:18-15058-07384">
+  <label class="item" for="p2">
+    <div class="num"><span class="n">2</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">Bin LA Extra (Pallet 1 lot)<span class="sep">·</span><span class="sku">LA Extra 2165</span><span class="sep">·</span><span class="cat">TOPS-0791</span></div>
       <div class="detail"><div class="inner">
@@ -191,16 +174,16 @@
         <div class="l3">J.Crew Double-Gauze Button Up Shirt WMNS PXS White Cotton Collared Long Sleeves</div>
         <div class="l4"><b>eBay</b> · SHIP-DISCOUNT · ship by 8/24/2026</div>
         <div class="mig unver"><span class="chip">UNVERIFIED</span><span>Register-only — there is no full <span class="from">Loc:</span> note to check the columns against. Never physically confirmed.</span></div>
-        <div class="note"><b>SHIP-BY WAS YESTERDAY - THIS IS LATE. Still unshipped in the 08-25 Fulfillment export (03:12): Shipped On Date blank, no tracking. Carried from yesterday&#x27;s card untapped. eBay&#x27;s live queue is unreadable for a third day (bot-verification interstitial), so the export is the only read.</b></div>
+        <div class="note"><b>SHIP-BY WAS YESTERDAY - eBay itself now labels this order SHIPPING OVERDUE. Live queue read confirms it: no tracking, label not bought. It is the only open eBay order in 90 days and the most urgent row on the card.</b></div>
         <div class="note"><b>Still on the list after a while</b> — ship-by was 8/24 — 1d ago. If it already went out, say so and it closes; nothing here is auto-closed, because a wrong close is how a real item goes missing.</div>
       </div></div>
     </div>
   </label>
 
   <div class="rack">POD 1 · ROLLING RACK 1</div>
-  <input class="chk" type="checkbox" id="p4" data-key="Poshmark:t6fed001e9d73">
-  <label class="item" for="p4">
-    <div class="num"><span class="n">4</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p3" data-key="Poshmark:t6fed001e9d73">
+  <label class="item" for="p3">
+    <div class="num"><span class="n">3</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">R3<span class="sep">·</span><span class="sku">A10 2513</span><span class="sep">·</span><span class="cat">PANTS-1064</span></div>
       <div class="detail"><div class="inner">
@@ -208,13 +191,13 @@
         <div class="l3">Express Black Pinstripe Editor Flared Dress Pants Womens 6R Mid Rise Fall Career</div>
         <div class="l4"><b>Poshmark</b> · SHIP-2LB</div>
         <div class="mig"><span class="chip">AGREES</span><span>VendooNotes <span class="from">Loc:</span> and the Master v3 columns point at the same bin.</span></div>
-        <div class="note"><b>REGISTER-DERIVED, not read off the Poshmark queue - no platform session this run. New in the 08-25 Vendoo register, sold Aug 24. No order id, no buyer, no ship-by; none was invented.</b></div>
+        <div class="note"><b>PROVEN UNSHIPPED - live Poshmark queue reads Awaiting Shipment, label not yet downloaded. Poshmark shows no ship-by date on the queue row.</b></div>
       </div></div>
     </div>
   </label>
-  <input class="chk" type="checkbox" id="p5" data-key="Poshmark:t61b5869b059f">
-  <label class="item" for="p5">
-    <div class="num"><span class="n">5</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p4" data-key="Poshmark:t61b5869b059f">
+  <label class="item" for="p4">
+    <div class="num"><span class="n">4</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">R4<span class="sep">·</span><span class="sku">0595- A-13</span><span class="sep">·</span><span class="cat">SHORTS-0128</span></div>
       <div class="detail"><div class="inner">
@@ -222,17 +205,17 @@
         <div class="l3">Mavi Black Bermuda Karly Shorts Women&#x27;s 27 Mid Rise Jean Cuffed Casual Summer</div>
         <div class="l4"><b>Poshmark</b> · SHIP-1LB</div>
         <div class="mig"><span class="chip">AGREES</span><span>VendooNotes <span class="from">Loc:</span> and the Master v3 columns point at the same bin.</span></div>
-        <div class="note"><b>REGISTER-DERIVED, not read off the Poshmark queue - no platform session this run. New in the 08-25 Vendoo register, sold Aug 24. No order id, no buyer, no ship-by; none was invented.</b></div>
+        <div class="note"><b>PROVEN UNSHIPPED - live Poshmark queue reads Awaiting Shipment, label not yet downloaded.</b></div>
       </div></div>
     </div>
   </label>
 
-  <div class="gap">Not checked today: <b>Depop, FBMP, Mercari, Poshmark, eBay</b></div>
+  <div class="gap">Not checked today: <b>Mercari</b></div>
 
   <div class="hint">Tap a row to mark it picked. Export picked → Save to Files → Daily_Pick_List\inbox\</div>
   <div class="bar"><div class="barin">
     <span class="count"></span>
-    <span class="dots"><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i><i class="dot d5"></i></span>
+    <span class="dots"><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i></span>
     <input class="reset" type="reset" value="Reset">
     <button class="exp" type="button" onclick="exportPicked()">Export picked</button>
   </div></div>
