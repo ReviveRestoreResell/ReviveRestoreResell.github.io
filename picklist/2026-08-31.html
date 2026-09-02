@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Pick List — 2026-09-01</title>
+<title>Pick List — 2026-08-31</title>
 <style>
   /* Tracie, 2026-08-14: boho minimalist. Warm bone ground, terracotta accent,
      serif headline and numerals. ONLY the neutrals and --key changed. The status
@@ -99,11 +99,17 @@
   .barin{max-width:700px;margin:0 auto;width:100%;display:flex;align-items:center;gap:10px}
   .count{font-size:14px;font-weight:600;color:var(--ink);white-space:nowrap;
     font-variant-numeric:tabular-nums}
-  .count::after{content:counter(picked) " of 2 picked"}
+  .count::after{content:counter(picked) " of 8 picked"}
   .dots{flex:1;display:flex;gap:5px}
   .dot{flex:1;height:6px;border-radius:3px;background:#e0e4e9;transition:background .25s ease}
   form:has(#p1:checked) .d1,
-  form:has(#p2:checked) .d2{background:var(--done)}
+  form:has(#p2:checked) .d2,
+  form:has(#p3:checked) .d3,
+  form:has(#p4:checked) .d4,
+  form:has(#p5:checked) .d5,
+  form:has(#p6:checked) .d6,
+  form:has(#p7:checked) .d7,
+  form:has(#p8:checked) .d8{background:var(--done)}
   .reset,.exp{font:inherit;font-size:13px;border:1px solid var(--line);background:#fff;
     color:var(--mute);border-radius:7px;padding:7px 13px;cursor:pointer;
     -webkit-appearance:none;appearance:none;}
@@ -141,42 +147,133 @@
 <body>
 <form>
 
-  <h1>Pick List — Tuesday, Sep 1 2026</h1>
-  <div class="sub">2 items · eBay 1 · Poshmark 1</div>
-  <div class="build">build 2 · 4:15 am · sold-pick-list v2.3<button type="button" id="rfr" class="rfr">Refresh</button></div>
+  <h1>Pick List — Monday, Aug 31 2026</h1>
+  <div class="sub">8 items · Poshmark 8</div>
+  <div class="build">build 2 · 11:36 am · sold-pick-list v2.3<button type="button" id="rfr" class="rfr">Refresh</button></div>
 
   <div class="rack">POD 1 · RACK 5</div>
-  <input class="chk" type="checkbox" id="p1" data-key="eBay:ta8865d557d9c">
+  <input class="chk" type="checkbox" id="p1" data-key="Poshmark:t34c274974b68">
   <label class="item" for="p1">
     <div class="num"><span class="n">1</span><span class="tick">✓</span></div>
     <div class="body">
-      <div class="l1">D20<span class="sep">·</span><span class="sku">D-20 0229</span><span class="sep">·</span><span class="cat">OUTERWEAR-0166</span></div>
+      <div class="l1">LA40<span class="sep">·</span><span class="sku">LA40 1376</span><span class="sep">·</span><span class="cat">TOPS-1007</span></div>
       <div class="detail"><div class="inner">
-        <div class="l2">Gray Outerwear</div>
-        <div class="l3">Lane Bryant Striped Blazer WMNS 22 Gray One Button Linen Blend Jacket Suit Coat</div>
-        <div class="l4"><b>eBay</b> · SHIP-2LB · ship by 9/1/2026</div>
-        <div class="mig unver"><span class="chip">LOC CONFLICT</span><span><b>Two sources disagree.</b> The VendooNotes <span class="from">Loc:</span> note and the Master v3 columns name different places. v3 is the registry and is what is printed above — if it is not there, say so and do not re-file it.</span></div>
-        <div class="note"><b>SHIP BY TODAY (Sep 1). No tracking on the order - not inferable closed.</b></div>
-        <div class="note">VendooNotes <b>Loc:</b> disagrees with the Pod/Rack/Bin/Slot columns. Both are shown; the fresher write wins pending a physical look.</div>
-        <div class="note">Walk-order gap — rack <b>5</b> is not in the SOP v1.2 POD 1 order. Insert by numeric position and patch the SOP.</div>
+        <div class="l2">White Tops</div>
+        <div class="l3">Madewell Shirred Bubble-Sleeve Button-Up Shirt WMNS L White Black Striped Cotton</div>
+        <div class="l4"><b>Poshmark</b> · SHIP-DISCOUNT</div>
+        <div class="mig"><span class="chip">AGREES</span><span>VendooNotes <span class="from">Loc:</span> and the Master v3 columns point at the same bin.</span></div>
+        <div class="note"><b>PROVEN UNSHIPPED - live Poshmark to_ship queue reads Awaiting Shipment. Poshmark shows no ship-by date on the queue row.</b></div>
       </div></div>
     </div>
   </label>
 
-  <div class="rack">POD 1 · RACK 13.1</div>
-  <input class="chk" type="checkbox" id="p2" data-key="Poshmark:t4348bc74da53">
+  <div class="rack">POD 1 · RACK 11</div>
+  <input class="chk" type="checkbox" id="p2" data-key="Poshmark:t1288d7a80d4a">
   <label class="item" for="p2">
     <div class="num"><span class="n">2</span><span class="tick">✓</span></div>
     <div class="body">
-      <div class="l1">P2-100<span class="sep">·</span><span class="sku">Skirts-005</span><span class="sep">·</span><span class="cat">SKIRTS-0005</span></div>
+      <div class="l1">G3<span class="sep">·</span><span class="sku">G-3 0967</span><span class="sep">·</span><span class="cat">PANTS-0390</span></div>
       <div class="detail"><div class="inner">
-        <div class="l2">Black Skirts</div>
-        <div class="l3">Athleta Skirt WMNS 6 Black Knee High Rise Quick Dry Athleisure Soft Minimalist</div>
-        <div class="l4"><b>Poshmark</b> · SHIP-1LB</div>
+        <div class="l2">Black Pants</div>
+        <div class="l3">7 For All Mankind Bootcut Jeans SZ 27 Dark Wash Black Designer Pockets Flare Leg</div>
+        <div class="l4"><b>Poshmark</b> · SHIP-2LB</div>
         <div class="mig unver"><span class="chip">LOC CONFLICT</span><span><b>Two sources disagree.</b> The VendooNotes <span class="from">Loc:</span> note and the Master v3 columns name different places. v3 is the registry and is what is printed above — if it is not there, say so and do not re-file it.</span></div>
         <div class="note"><b>PROVEN UNSHIPPED - live Poshmark to_ship queue reads Awaiting Shipment. Poshmark shows no ship-by date on the queue row.</b></div>
         <div class="note">VendooNotes <b>Loc:</b> disagrees with the Pod/Rack/Bin/Slot columns. Both are shown; the fresher write wins pending a physical look.</div>
-        <div class="note">Walk-order gap — rack <b>Rack 13.1</b> is not in the SOP v1.2 POD 1 order. Insert by numeric position and patch the SOP.</div>
+      </div></div>
+    </div>
+  </label>
+
+  <div class="rack">POD 1 · RACK 1</div>
+  <input class="chk" type="checkbox" id="p3" data-key="Poshmark:tad49a39fdeae">
+  <label class="item" for="p3">
+    <div class="num"><span class="n">3</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">Bin M<span class="sep">·</span><span class="sku">M 0613</span><span class="sep">·</span><span class="cat">SHORTS-0066</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Blue Shorts</div>
+        <div class="l3">Old Navy Light Wash Destructed Slim Fit Jean Shorts Mens 38 High Rise Distressed</div>
+        <div class="l4"><b>Poshmark</b> · SHIP-1LB</div>
+        <div class="mig unver"><span class="chip">UNVERIFIED</span><span>Register-only — there is no full <span class="from">Loc:</span> note to check the columns against. Never physically confirmed.</span></div>
+        <div class="note"><b>PROVEN UNSHIPPED - live Poshmark to_ship queue reads Awaiting Shipment. Poshmark shows no ship-by date on the queue row.</b></div>
+        <div class="note">Walk-order gap — rack <b>Rack 1</b> is not in the SOP v1.2 POD 1 order. Insert by numeric position and patch the SOP.</div>
+      </div></div>
+    </div>
+  </label>
+
+  <div class="rack">POD 2 · CUSTOM</div>
+  <input class="chk" type="checkbox" id="p4" data-key="Poshmark:tef63e83ad37b">
+  <label class="item" for="p4">
+    <div class="num"><span class="n">4</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">57<span class="sep">·</span><span class="sku">R11 5179</span><span class="sep">·</span><span class="cat">TOPS-2275</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">White Tops</div>
+        <div class="l3">J.Crew T-Shirt WMNS S White USA Swimming Graphic Cotton Retro Athletic Americana</div>
+        <div class="l4"><b>Poshmark</b> · SHIP-DISCOUNT</div>
+        <div class="mig unver"><span class="chip">UNVERIFIED</span><span>Register-only — there is no full <span class="from">Loc:</span> note to check the columns against. Never physically confirmed.</span></div>
+        <div class="note"><b>PROVEN UNSHIPPED - live Poshmark to_ship queue reads Awaiting Shipment. Poshmark shows no ship-by date on the queue row.</b></div>
+      </div></div>
+    </div>
+  </label>
+
+  <div class="rack">SHOES</div>
+  <input class="chk" type="checkbox" id="p5" data-key="Poshmark:t0ed2e33518b5">
+  <label class="item" for="p5">
+    <div class="num"><span class="n">5</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">SB02<span class="sep">·</span><span class="sku">2749</span><span class="sep">·</span><span class="cat">SHOES-0958</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Beige Shoes</div>
+        <div class="l3">Jeffrey Campbell Karlen Sandal Cut Out Back Zip Ankle Boots WMNS US9 Tan/Silver</div>
+        <div class="l4"><b>Poshmark</b> · SHIP-PARCEL</div>
+        <div class="mig"><span class="chip">AGREES</span><span>VendooNotes <span class="from">Loc:</span> and the Master v3 columns point at the same bin.</span></div>
+        <div class="note"><b>PROVEN UNSHIPPED - live Poshmark to_ship queue reads Awaiting Shipment. Poshmark shows no ship-by date on the queue row.</b></div>
+      </div></div>
+    </div>
+  </label>
+
+  <div class="rack">POD 3</div>
+  <input class="chk" type="checkbox" id="p6" data-key="Poshmark:t4c3269b6b476">
+  <label class="item" for="p6">
+    <div class="num"><span class="n">6</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">Bin Bin HG-8 2311<span class="sep">·</span><span class="sku">Bin HG-8 2311</span><span class="sep">·</span><span class="cat">HOMEGOODS-0210</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">White Homegoods</div>
+        <div class="l3">IKEA ANVÄNDBAR Plant Hanger White Cotton Natural Wood Beads Macrame Boho Decor</div>
+        <div class="l4"><b>Poshmark</b> · SHIP-PARCEL</div>
+        <div class="mig unver"><span class="chip">UNVERIFIED</span><span>Register-only — there is no full <span class="from">Loc:</span> note to check the columns against. Never physically confirmed.</span></div>
+        <div class="note"><b>PROVEN UNSHIPPED - live Poshmark to_ship queue reads Awaiting Shipment. Poshmark shows no ship-by date on the queue row.</b></div>
+      </div></div>
+    </div>
+  </label>
+  <input class="chk" type="checkbox" id="p7" data-key="Poshmark:tc95b150c240b">
+  <label class="item" for="p7">
+    <div class="num"><span class="n">7</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">—<span class="sep">·</span><span class="cat">HOMEGOODS-0310</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Pink Homegoods</div>
+        <div class="l3">Thirty-One Dessert Bowls Set of 3 Yellow Pink Black Striped Ceramic Tableware</div>
+        <div class="l4"><b>Poshmark</b> · SHIP-PARCEL</div>
+        <div class="mig unver"><span class="chip">UNVERIFIED</span><span>Register-only — there is no full <span class="from">Loc:</span> note to check the columns against. Never physically confirmed.</span></div>
+        <div class="note"><b>PROVEN UNSHIPPED - live Poshmark to_ship queue reads Awaiting Shipment. Poshmark shows no ship-by date on the queue row.</b></div>
+      </div></div>
+    </div>
+  </label>
+  <input class="chk" type="checkbox" id="p8" data-key="Poshmark:tdbe895e77306">
+  <label class="item" for="p8">
+    <div class="num"><span class="n">8</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">—<span class="sep">·</span><span class="cat">HOMEGOODS-0330</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Brown Homegoods</div>
+        <div class="l3">Pottery Stoneware Salt Pepper Shakers Speckled Cream Glazed VTG Japandi Kitchen</div>
+        <div class="l4"><b>Poshmark</b> · SHIP-PARCEL</div>
+        <div class="mig"><span class="chip">AGREES</span><span>VendooNotes <span class="from">Loc:</span> and the Master v3 columns point at the same bin.</span></div>
+        <div class="note"><b>PROVEN UNSHIPPED - live Poshmark to_ship queue reads Awaiting Shipment. Poshmark shows no ship-by date on the queue row.</b></div>
+        <div class="note"><b>POD 3 — bin unverified, and the registry is wrong here.</b> Master v3 and the Vendoo note both place this non-wearable at <b>Pod 2 / Rack Shoes / Bin SB01 / Slot 6</b>, which is a shoe slot belonging to another item — inherited by the 2026-07-28 SKU dedup, which copied one shoe's location onto 32 unrelated rows. Non-wearables live in POD 3, so that bin is not printed. <b>No bin is guessed</b> — pick by sight in POD 3 and flag the SKU.</div>
       </div></div>
     </div>
   </label>
@@ -184,13 +281,13 @@
   <div class="hint">Tap a row to mark it picked. Export picked → Save to Files → Daily_Pick_List\inbox\</div>
   <div class="bar"><div class="barin">
     <span class="count"></span>
-    <span class="dots"><i class="dot d1"></i><i class="dot d2"></i></span>
+    <span class="dots"><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i><i class="dot d5"></i><i class="dot d6"></i><i class="dot d7"></i><i class="dot d8"></i></span>
     <input class="reset" type="reset" value="Reset">
     <button class="exp" type="button" onclick="exportPicked()">Export picked</button>
   </div></div>
 
 </form>
-<script>var DATEKEY="2026-09-01";
+<script>var DATEKEY="2026-08-31";
 function exportPicked(){
   var picked=[].slice.call(document.querySelectorAll('.chk:checked'))
               .map(function(c){return c.dataset.key;});
