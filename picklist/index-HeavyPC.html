@@ -99,13 +99,14 @@
   .barin{max-width:700px;margin:0 auto;width:100%;display:flex;align-items:center;gap:10px}
   .count{font-size:14px;font-weight:600;color:var(--ink);white-space:nowrap;
     font-variant-numeric:tabular-nums}
-  .count::after{content:counter(picked) " of 4 picked"}
+  .count::after{content:counter(picked) " of 5 picked"}
   .dots{flex:1;display:flex;gap:5px}
   .dot{flex:1;height:6px;border-radius:3px;background:#e0e4e9;transition:background .25s ease}
   form:has(#p1:checked) .d1,
   form:has(#p2:checked) .d2,
   form:has(#p3:checked) .d3,
-  form:has(#p4:checked) .d4{background:var(--done)}
+  form:has(#p4:checked) .d4,
+  form:has(#p5:checked) .d5{background:var(--done)}
   .reset,.exp{font:inherit;font-size:13px;border:1px solid var(--line);background:#fff;
     color:var(--mute);border-radius:7px;padding:7px 13px;cursor:pointer;
     -webkit-appearance:none;appearance:none;}
@@ -144,8 +145,8 @@
 <form>
 
   <h1>Pick List — Friday, Sep 4 2026</h1>
-  <div class="sub">4 items · Poshmark 4</div>
-  <div class="build">build 2 · 5:04 am · sold-pick-list v2.3<button type="button" id="rfr" class="rfr">Refresh</button></div>
+  <div class="sub">5 items · Poshmark 4 · eBay 1</div>
+  <div class="build">build 1 · 5:03 am · sold-pick-list v2.3<button type="button" id="rfr" class="rfr">Refresh</button></div>
 
   <div class="rack">POD 1 · RACK 4</div>
   <input class="chk" type="checkbox" id="p1" data-key="Poshmark:t0c480c6a9add">
@@ -179,10 +180,29 @@
     </div>
   </label>
 
-  <div class="rack">POD 1 · RACK 12</div>
-  <input class="chk" type="checkbox" id="p3" data-key="Poshmark:t4d4280e363fc">
+  <div class="rack">POD 1 · RACK 7</div>
+  <input class="chk" type="checkbox" id="p3" data-key="eBay:t592284f0995d">
   <label class="item" for="p3">
     <div class="num"><span class="n">3</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">D8<span class="sep">·</span><span class="sku">D-8 2044</span><span class="sep">·</span><span class="cat">PANTS-0808</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Black Pants</div>
+        <div class="l3">Abercrombie &amp; Fitch The Jean Leggings Womens 24 Black High Rise Stretch Zip Fly</div>
+        <div class="l4"><b>eBay</b> · SHIP-2LB · ship by 9/3/2026</div>
+        <div class="mig unver"><span class="chip">LOC CONFLICT</span><span><b>Two sources disagree.</b> The VendooNotes <span class="from">Loc:</span> note and the Master v3 columns name different places. v3 is the registry and is what is printed above — if it is not there, say so and do not re-file it.</span></div>
+        <div class="note"><b>Carried from yesterday, still Awaiting Shipment on day 2. SHIP BY TODAY. &#x27;+ Add tracking&#x27; means NO tracking - not inferable closed.</b></div>
+        <div class="note">VendooNotes <b>Loc:</b> disagrees with the Pod/Rack/Bin/Slot columns. Both are shown; the fresher write wins pending a physical look.</div>
+        <div class="note">Walk-order gap — rack <b>Rack 7</b> is not in the SOP v1.2 POD 1 order. Insert by numeric position and patch the SOP.</div>
+        <div class="note"><b>Still on the list after a while</b> — ship-by was 9/3 — 1d ago. If it already went out, say so and it closes; nothing here is auto-closed, because a wrong close is how a real item goes missing.</div>
+      </div></div>
+    </div>
+  </label>
+
+  <div class="rack">POD 1 · RACK 12</div>
+  <input class="chk" type="checkbox" id="p4" data-key="Poshmark:t4d4280e363fc">
+  <label class="item" for="p4">
+    <div class="num"><span class="n">4</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">G11<span class="sep">·</span><span class="sku">G-11 1147</span><span class="sep">·</span><span class="cat">SKIRTS-0086</span></div>
       <div class="detail"><div class="inner">
@@ -198,9 +218,9 @@
   </label>
 
   <div class="rack">POD 2 · CUSTOM</div>
-  <input class="chk" type="checkbox" id="p4" data-key="Poshmark:t76a6ace46b7e">
-  <label class="item" for="p4">
-    <div class="num"><span class="n">4</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p5" data-key="Poshmark:t76a6ace46b7e">
+  <label class="item" for="p5">
+    <div class="num"><span class="n">5</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">75<span class="sep">·</span><span class="sku">r4 6779</span><span class="sep">·</span><span class="cat">PANTS-1858</span></div>
       <div class="detail"><div class="inner">
@@ -218,7 +238,7 @@
   <div class="hint">Tap a row to mark it picked. Export picked → Save to Files → Daily_Pick_List\inbox\</div>
   <div class="bar"><div class="barin">
     <span class="count"></span>
-    <span class="dots"><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i></span>
+    <span class="dots"><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i><i class="dot d5"></i></span>
     <input class="reset" type="reset" value="Reset">
     <button class="exp" type="button" onclick="exportPicked()">Export picked</button>
   </div></div>
