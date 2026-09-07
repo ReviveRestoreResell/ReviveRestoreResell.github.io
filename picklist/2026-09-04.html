@@ -99,13 +99,15 @@
   .barin{max-width:700px;margin:0 auto;width:100%;display:flex;align-items:center;gap:10px}
   .count{font-size:14px;font-weight:600;color:var(--ink);white-space:nowrap;
     font-variant-numeric:tabular-nums}
-  .count::after{content:counter(picked) " of 4 picked"}
+  .count::after{content:counter(picked) " of 6 picked"}
   .dots{flex:1;display:flex;gap:5px}
   .dot{flex:1;height:6px;border-radius:3px;background:#e0e4e9;transition:background .25s ease}
   form:has(#p1:checked) .d1,
   form:has(#p2:checked) .d2,
   form:has(#p3:checked) .d3,
-  form:has(#p4:checked) .d4{background:var(--done)}
+  form:has(#p4:checked) .d4,
+  form:has(#p5:checked) .d5,
+  form:has(#p6:checked) .d6{background:var(--done)}
   .reset,.exp{font:inherit;font-size:13px;border:1px solid var(--line);background:#fff;
     color:var(--mute);border-radius:7px;padding:7px 13px;cursor:pointer;
     -webkit-appearance:none;appearance:none;}
@@ -144,8 +146,8 @@
 <form>
 
   <h1>Pick List — Friday, Sep 4 2026</h1>
-  <div class="sub">4 items · Poshmark 4</div>
-  <div class="build">build 2 · 5:04 am · sold-pick-list v2.3<button type="button" id="rfr" class="rfr">Refresh</button></div>
+  <div class="sub">6 items · Poshmark 4 · Depop 2</div>
+  <div class="build">build 20 · 11:37 am · sold-pick-list v2.6<button type="button" id="rfr" class="rfr">Refresh</button></div>
 
   <div class="rack">POD 1 · RACK 4</div>
   <input class="chk" type="checkbox" id="p1" data-key="Poshmark:t0c480c6a9add">
@@ -156,69 +158,78 @@
       <div class="detail"><div class="inner">
         <div class="l2">White Shorts</div>
         <div class="l3">J.Crew 3.5&quot; Classic Chino Short Womens Size 6 White Mid Rise Flat Front Cotton</div>
-        <div class="l4"><b>Poshmark</b> · SHIP-DISCOUNT</div>
-        <div class="mig"><span class="chip">AGREES</span><span>VendooNotes <span class="from">Loc:</span> and the Master v3 columns point at the same bin.</span></div>
-        <div class="note"><b>PROVEN UNSHIPPED - live to_ship queue reads Awaiting Shipment. Location double-verified (7h): Master v3 and live Vendoo notes both read POD 1 | Rack 4 | Bin LA22. Highest-value row on the card.</b></div>
-      </div></div>
-    </div>
-  </label>
-
-  <div class="rack">POD 1 · ROLLING RACK 2</div>
-  <input class="chk" type="checkbox" id="p2" data-key="Poshmark:t6ac0a286665e">
-  <label class="item" for="p2">
-    <div class="num"><span class="n">2</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">R17<span class="sep">·</span><span class="sku">H-10 1819</span><span class="sep">·</span><span class="cat">PANTS-0143</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Black Pants</div>
-        <div class="l3">Simply Vera Vera Wang Jeans Womens 12 Black Denim Mid Rise Stretchy Bootcut Leg</div>
-        <div class="l4"><b>Poshmark</b> · SHIP-2LB</div>
-        <div class="mig"><span class="chip">AGREES</span><span>VendooNotes <span class="from">Loc:</span> and the Master v3 columns point at the same bin.</span></div>
-        <div class="note"><b>PROVEN UNSHIPPED - live to_ship queue reads Awaiting Shipment. Location double-verified (7h): Master v3 and live Vendoo notes both read POD 1 | Rolling Rack 2 | Bin R17.</b></div>
       </div></div>
     </div>
   </label>
 
   <div class="rack">POD 1 · RACK 12</div>
-  <input class="chk" type="checkbox" id="p3" data-key="Poshmark:t4d4280e363fc">
-  <label class="item" for="p3">
-    <div class="num"><span class="n">3</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p2" data-key="Poshmark:t4d4280e363fc">
+  <label class="item" for="p2">
+    <div class="num"><span class="n">2</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">G11<span class="sep">·</span><span class="sku">G-11 1147</span><span class="sep">·</span><span class="cat">SKIRTS-0086</span></div>
       <div class="detail"><div class="inner">
         <div class="l2">Black Skirts</div>
         <div class="l3">Grace Elements Pencil Skirt Womens 14 Black White Houndstooth Pleated Academia</div>
-        <div class="l4"><b>Poshmark</b> · SHIP-1LB</div>
-        <div class="mig unver"><span class="chip">LOC CONFLICT</span><span><b>Two sources disagree.</b> The VendooNotes <span class="from">Loc:</span> note and the Master v3 columns name different places. v3 is the registry and is what is printed above — if it is not there, say so and do not re-file it.</span></div>
-        <div class="note"><b>PROVEN UNSHIPPED - live to_ship queue reads Awaiting Shipment. Location double-verified (7h): Master v3 and live Vendoo notes both read POD 1 | Rack 12 | Bin G11.</b></div>
-        <div class="note">VendooNotes <b>Loc:</b> disagrees with the Pod/Rack/Bin/Slot columns. Both are shown; the fresher write wins pending a physical look.</div>
-        <div class="note">Walk-order gap — rack <b>Rack 12</b> is not in the SOP v1.2 POD 1 order. Insert by numeric position and patch the SOP.</div>
+      </div></div>
+    </div>
+  </label>
+
+  <div class="rack">POD 1 · ROLLING RACK 2</div>
+  <input class="chk" type="checkbox" id="p3" data-key="Poshmark:t6ac0a286665e">
+  <label class="item" for="p3">
+    <div class="num"><span class="n">3</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">R17<span class="sep">·</span><span class="sku">H-10 1819</span><span class="sep">·</span><span class="cat">PANTS-0143</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Black Pants</div>
+        <div class="l3">Simply Vera Vera Wang Jeans Womens 12 Black Denim Mid Rise Stretchy Bootcut Leg</div>
       </div></div>
     </div>
   </label>
 
   <div class="rack">POD 2 · CUSTOM</div>
-  <input class="chk" type="checkbox" id="p4" data-key="Poshmark:t76a6ace46b7e">
+  <input class="chk" type="checkbox" id="p4" data-key="Depop:474276150700">
   <label class="item" for="p4">
     <div class="num"><span class="n">4</span><span class="tick">✓</span></div>
     <div class="body">
-      <div class="l1">75<span class="sep">·</span><span class="sku">r4 6779</span><span class="sep">·</span><span class="cat">PANTS-1858</span></div>
+      <div class="l1">BIN 41<span class="sep">·</span><span class="sku">HHH 5261</span><span class="sep">·</span><span class="cat">TOPS-2358</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Black Tops</div>
+        <div class="l3">J.Crew Squareneck Cap-sleeve Top WMNS M Black Stretch Cotton Blend</div>
+        <div class="note"><b>If not in BIN 41, check BIN 6.</b></div>
+      </div></div>
+    </div>
+  </label>
+  <input class="chk" type="checkbox" id="p5" data-key="Poshmark:t76a6ace46b7e">
+  <label class="item" for="p5">
+    <div class="num"><span class="n">5</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">BIN 75<span class="sep">·</span><span class="sku">r4 6779</span><span class="sep">·</span><span class="cat">PANTS-1858</span></div>
       <div class="detail"><div class="inner">
         <div class="l2">Blue Pants</div>
         <div class="l3">J.Crew Pants WMNS 0 Blue City Fit Straight Leg Cotton Stretch Modern Preppy</div>
-        <div class="l4"><b>Poshmark</b> · SHIP-2LB</div>
-        <div class="mig unver"><span class="chip">UNVERIFIED</span><span>Register-only — there is no full <span class="from">Loc:</span> note to check the columns against. Never physically confirmed.</span></div>
-        <div class="note"><b>PROVEN UNSHIPPED - live to_ship queue reads Awaiting Shipment. Location double-verified (7h): Master v3 and live Vendoo notes both read POD 2 | Custom | Bin 75. No slot on file in either source - pick by sight in bin 75.</b></div>
       </div></div>
     </div>
   </label>
 
-  <div class="gap">Not checked today: <b>Mercari</b></div>
+  <div class="rack">SHOES</div>
+  <input class="chk" type="checkbox" id="p6" data-key="Depop:474269186500">
+  <label class="item" for="p6">
+    <div class="num"><span class="n">6</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">SB21<span class="sep">·</span><span class="sku">SLOT 12</span><span class="sep">·</span><span class="cat">SHOES-1199</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Black Shoes</div>
+        <div class="l3">Cappagallo Suede Button Loafers Pointed Toes WMNS US Size 7W VTG Black Shoes</div>
+      </div></div>
+    </div>
+  </label>
 
   <div class="hint">Tap a row to mark it picked. Export picked → Save to Files → Daily_Pick_List\inbox\</div>
   <div class="bar"><div class="barin">
     <span class="count"></span>
-    <span class="dots"><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i></span>
+    <span class="dots"><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i><i class="dot d5"></i><i class="dot d6"></i></span>
     <input class="reset" type="reset" value="Reset">
     <button class="exp" type="button" onclick="exportPicked()">Export picked</button>
   </div></div>
