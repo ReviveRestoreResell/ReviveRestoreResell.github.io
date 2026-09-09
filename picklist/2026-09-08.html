@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Pick List — 2026-09-08</title>
+<title>Pick List — 2026-09-08 — done</title>
 <style>
   /* Tracie, 2026-08-14: boho minimalist. Warm bone ground, terracotta accent,
      serif headline and numerals. ONLY the neutrals and --key changed. The status
@@ -99,26 +99,10 @@
   .barin{max-width:700px;margin:0 auto;width:100%;display:flex;align-items:center;gap:10px}
   .count{font-size:14px;font-weight:600;color:var(--ink);white-space:nowrap;
     font-variant-numeric:tabular-nums}
-  .count::after{content:counter(picked) " of 17 picked"}
+  .count::after{content:counter(picked) " of 0 picked"}
   .dots{flex:1;display:flex;gap:5px}
   .dot{flex:1;height:6px;border-radius:3px;background:#e0e4e9;transition:background .25s ease}
-  form:has(#p1:checked) .d1,
-  form:has(#p2:checked) .d2,
-  form:has(#p3:checked) .d3,
-  form:has(#p4:checked) .d4,
-  form:has(#p5:checked) .d5,
-  form:has(#p6:checked) .d6,
-  form:has(#p7:checked) .d7,
-  form:has(#p8:checked) .d8,
-  form:has(#p9:checked) .d9,
-  form:has(#p10:checked) .d10,
-  form:has(#p11:checked) .d11,
-  form:has(#p12:checked) .d12,
-  form:has(#p13:checked) .d13,
-  form:has(#p14:checked) .d14,
-  form:has(#p15:checked) .d15,
-  form:has(#p16:checked) .d16,
-  form:has(#p17:checked) .d17{background:var(--done)}
+
   .reset,.exp{font:inherit;font-size:13px;border:1px solid var(--line);background:#fff;
     color:var(--mute);border-radius:7px;padding:7px 13px;cursor:pointer;
     -webkit-appearance:none;appearance:none;}
@@ -154,249 +138,29 @@
 </style>
 </head>
 <body>
-<form>
-
-  <h1>Pick List — Tuesday, Sep 8 2026</h1>
-  <div class="sub">17 items · Poshmark 10 · eBay 6 · FBMP 1</div>
-  <div class="build">build 3 · 5:08 am · sold-pick-list v2.6<button type="button" id="rfr" class="rfr">Refresh</button></div>
-
-  <div class="rack">POD 1 · RACK 3</div>
-  <input class="chk" type="checkbox" id="p1" data-key="Poshmark:6a9dbe850c8f42f67ad44ebe">
-  <label class="item" for="p1">
-    <div class="num"><span class="n">1</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">LA13<span class="sep">·</span><span class="sku">LA13 402</span><span class="sep">·</span><span class="cat">PANTS-0330</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">White Pants</div>
-        <div class="l3">J.Crew Carolina Flare Pants Womens 20 White Stretch Linen Blend High Rise Lined</div>
-      </div></div>
-    </div>
-  </label>
-
-  <div class="rack">POD 1 · RACK 4</div>
-  <input class="chk" type="checkbox" id="p2" data-key="Poshmark:6a9cc665ce85ba6b589782fb">
-  <label class="item" for="p2">
-    <div class="num"><span class="n">2</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">LA23<span class="sep">·</span><span class="sku">LA23 798</span><span class="sep">·</span><span class="cat">TOPS-0103</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Cream Tops</div>
-        <div class="l3">Madewell Pointelle-Stitch Mock Neck Sweater WMNS S Cream Merino Wool Relaxed Fit</div>
-      </div></div>
-    </div>
-  </label>
-  <input class="chk" type="checkbox" id="p3" data-key="Poshmark:6a9e3f9d152b8a28753b9ee2">
-  <label class="item" for="p3">
-    <div class="num"><span class="n">3</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">LA27<span class="sep">·</span><span class="sku">LA27 937</span><span class="sep">·</span><span class="cat">TOPS-1142</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Tan Tops</div>
-        <div class="l3">Madewell Linen Pleated Shell Top WMNS M Creamy Gray Wide Swing Hem Keyhole Back</div>
-      </div></div>
-    </div>
-  </label>
-  <input class="chk" type="checkbox" id="p4" data-key="Poshmark:6a9f1349253621567c5f07b9">
-  <label class="item" for="p4">
-    <div class="num"><span class="n">4</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">LA29<span class="sep">·</span><span class="sku">LA29 1007</span><span class="sep">·</span><span class="cat">SKIRTS-0060</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Black Skirts</div>
-        <div class="l3">Madewell Denim Button-Front Midi Skirt WMNS 25 Clean Black Wash</div>
-      </div></div>
-    </div>
-  </label>
-
-  <div class="rack">POD 1 · RACK 5</div>
-  <input class="chk" type="checkbox" id="p5" data-key="eBay:09-15128-91744">
-  <label class="item" for="p5">
-    <div class="num"><span class="n">5</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">LA35<span class="sep">·</span><span class="sku">LA35 1207</span><span class="sep">·</span><span class="cat">DRESSES-0007</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Black Dresses</div>
-        <div class="l3">J.Crew Square Neck Midi Dress Womens 2 Black White Block Print Sleeveless A-Line</div>
-      </div></div>
-    </div>
-  </label>
-
-  <div class="rack">POD 1 · RACK 6</div>
-  <input class="chk" type="checkbox" id="p6" data-key="Poshmark:6a9edeec8fa33379587111fd">
-  <label class="item" for="p6">
-    <div class="num"><span class="n">6</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">LA Extra (Pallet 1 lot)<span class="sep">·</span><span class="sku">LA Extra 2176</span><span class="sep">·</span><span class="cat">TOPS-1065</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">White Tops</div>
-        <div class="l3">Madewell Linen Scoopneck Cutaway Vest Sz 4 White Button Front</div>
-      </div></div>
-    </div>
-  </label>
-
-  <div class="rack">POD 1 · RACK 7</div>
-  <input class="chk" type="checkbox" id="p7" data-key="Poshmark:6a9d4d2cc1cdc8dbd174a999">
-  <label class="item" for="p7">
-    <div class="num"><span class="n">7</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">D9<span class="sep">·</span><span class="sku">D-12 1349</span><span class="sep">·</span><span class="cat">TOPS-1088</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Blue Tops</div>
-        <div class="l3">Columbia Shirt Mens L PFG Terminal Tackle Heather Long Sleeve Blue Crew Neck</div>
-        <div class="note">If not in D9, check D12.</div>
-      </div></div>
-    </div>
-  </label>
-
-  <div class="rack">POD 1 · RACK 10</div>
-  <input class="chk" type="checkbox" id="p8" data-key="Poshmark:6a9f5a40642700c1dc2bf4f4">
-  <label class="item" for="p8">
-    <div class="num"><span class="n">8</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">F12<span class="sep">·</span><span class="sku">F-12 2719</span><span class="sep">·</span><span class="cat">TOPS-0499</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Pink Tops</div>
-        <div class="l3">Free People Movement X Hatch Maternity Bra WMNS XS Purple Never Better Racerback</div>
-      </div></div>
-    </div>
-  </label>
-
-  <div class="rack">POD 1 · RACK 11</div>
-  <input class="chk" type="checkbox" id="p9" data-key="Poshmark:6a9f3ceb383e6050ac631cdb">
-  <label class="item" for="p9">
-    <div class="num"><span class="n">9</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">G6<span class="sep">·</span><span class="sku">G-6 1039</span><span class="sep">·</span><span class="cat">DRESSES-0148</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Red Dresses</div>
-        <div class="l3">Old Navy Mini Dress WMNS XL Tall Pleated V-Neck Pintuck Burgundy Long Sleeves</div>
-      </div></div>
-    </div>
-  </label>
-  <input class="chk" type="checkbox" id="p10" data-key="eBay:04-15140-19749">
-  <label class="item" for="p10">
-    <div class="num"><span class="n">10</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">G9<span class="sep">·</span><span class="sku">G-9 2123</span><span class="sep">·</span><span class="cat">TOPS-0638</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Black Tops</div>
-        <div class="l3">Joie Fitted T-Shirt WMNS XS Black Crew Neck Short Sleeve Cotton Lyocell</div>
-      </div></div>
-    </div>
-  </label>
-
-  <div class="rack">POD 1 · RACK 13.1</div>
-  <input class="chk" type="checkbox" id="p11" data-key="eBay:08-15140-60476">
-  <label class="item" for="p11">
-    <div class="num"><span class="n">11</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">P2-105<span class="sep">·</span><span class="sku">Pants-002</span><span class="sep">·</span><span class="cat">PANTS-0002</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Green Pants</div>
-        <div class="l3">Counterparts Crop Pants WMNS XL Lime Green Mid Rise Modern Minimalist</div>
-      </div></div>
-    </div>
-  </label>
-
-  <div class="rack">POD 2 · RACK 2</div>
-  <input class="chk" type="checkbox" id="p12" data-key="Poshmark:6a9dd958d71e6fc815ebb67a">
-  <label class="item" for="p12">
-    <div class="num"><span class="n">12</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">E2<span class="sep">·</span><span class="sku">E-3 1593</span><span class="sep">·</span><span class="cat">SHORTS-0205</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Blue Shorts</div>
-        <div class="l3">Isabel Maternity Midi Jean Short SZ 16 Medium Wash Denim Crossover Panel Stretch</div>
-      </div></div>
-    </div>
-  </label>
-
-  <div class="rack">POD 2 · CUSTOM</div>
-  <input class="chk" type="checkbox" id="p13" data-key="eBay:27-15098-06154">
-  <label class="item" for="p13">
-    <div class="num"><span class="n">13</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">BIN 65<span class="sep">·</span><span class="sku">X4 4295</span><span class="sep">·</span><span class="cat">PANTS-2009</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Blue Pants</div>
-        <div class="l3">J.Crew Trouser Jeans WMNS 26 Dark Wash Stretchy High Rise Slim Flare</div>
-      </div></div>
-    </div>
-  </label>
-
-  <div class="rack">SHOES</div>
-  <input class="chk" type="checkbox" id="p14" data-key="eBay:01-15146-57119">
-  <label class="item" for="p14">
-    <div class="num"><span class="n">14</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">SB18<span class="sep">·</span><span class="sku">1575</span><span class="sep">·</span><span class="cat">SHOES-0912</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Pink Shoes</div>
-        <div class="l3">Converse Chuck Taylor All Star Sneakers Baby Shoes US 10 Pink/White</div>
-      </div></div>
-    </div>
-  </label>
-  <input class="chk" type="checkbox" id="p15" data-key="Poshmark:6a9fa3e8470ac190de6de44d">
-  <label class="item" for="p15">
-    <div class="num"><span class="n">15</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">Shoe Boxes<span class="sep">·</span><span class="cat">SHOES-1325</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Black Shoes</div>
-        <div class="l3">Oasis Society Emersyn Cowboy Boots WMNS US 8.5 Black Snip Toe Western Festival</div>
-      </div></div>
-    </div>
-  </label>
-
-  <div class="rack">POD 3</div>
-  <input class="chk" type="checkbox" id="p16" data-key="eBay:08-15141-96366">
-  <label class="item" for="p16">
-    <div class="num"><span class="n">16</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">Home Goods 6<span class="sep">·</span><span class="sku">Home Goods 6</span><span class="sep">·</span><span class="cat">OTHER-0150</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Black Other</div>
-        <div class="l3">Matrix Quartz Deluxe Metronome MR-500 Convenient Pocket Size</div>
-        <div class="note"><b>Single source.</b> Only one of Master v3 and the live Vendoo note speaks for this bin, so it is not double-verified (SS7h). Never physically confirmed.</div>
-      </div></div>
-    </div>
-  </label>
-  <input class="chk" type="checkbox" id="p17" data-key="FBMP:t3c1042079d73">
-  <label class="item" for="p17">
-    <div class="num"><span class="n">17</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">POD 3<span class="sep">·</span><span class="cat">HOMEGOODS-0350</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Homegoods</div>
-        <div class="l3">Metal Shoe Rack 50 Pair Shoe Organizer</div>
-        <div class="note"><b>Register-sourced, unverified. No bin on file - pick by sight in POD 3.</b></div>
-      </div></div>
-    </div>
-  </label>
-
-  <div class="hint">Tap a row to mark it picked. Export picked → Save to Files → Daily_Pick_List\inbox\</div>
-  <div class="bar"><div class="barin">
-    <span class="count"></span>
-    <span class="dots"><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i><i class="dot d5"></i><i class="dot d6"></i><i class="dot d7"></i><i class="dot d8"></i><i class="dot d9"></i><i class="dot d10"></i><i class="dot d11"></i><i class="dot d12"></i><i class="dot d13"></i><i class="dot d14"></i><i class="dot d15"></i><i class="dot d16"></i><i class="dot d17"></i></span>
-    <input class="reset" type="reset" value="Reset">
-    <button class="exp" type="button" onclick="exportPicked()">Export picked</button>
-  </div></div>
-
-</form>
-<script>var DATEKEY="2026-09-08";
-function exportPicked(){
-  var picked=[].slice.call(document.querySelectorAll('.chk:checked'))
-              .map(function(c){return c.dataset.key;});
-  if(!picked.length){alert('Nothing checked yet.');return;}
-  var doc={schema:'rrr-picked/1.0',exported_at:new Date().toISOString(),
-           list_date:DATEKEY,source:'iphone-export',picked:picked};
-  var name='picked-'+DATEKEY+'-'+new Date().toISOString().slice(11,19).replace(/:/g,'')+'.json';
-  var b=new Blob([JSON.stringify(doc,null,2)],{type:'application/json'});
-  var u=URL.createObjectURL(b),a=document.createElement('a');
-  a.href=u;a.download=name;document.body.appendChild(a);a.click();
-  setTimeout(function(){a.remove();URL.revokeObjectURL(u);},1500);
-}
-</script>
+  <nav class="days">
+    <span class="day on">Today</span>
+    <a class="day" href="./2026-09-07.html" target="_blank" rel="noopener">Mon 7</a>
+    <a class="day" href="./2026-09-04.html" target="_blank" rel="noopener">Fri 4</a>
+    <a class="day" href="./2026-09-03.html" target="_blank" rel="noopener">Thu 3</a>
+    <a class="day" href="./2026-09-02.html" target="_blank" rel="noopener">Wed 2</a>
+  </nav>
+  <div class="rhead">
+    <h1>Pick List — Tuesday, Sep 8 2026</h1>
+    <div class="sub">Day complete — 18 picked</div>
+    <div class="build">build 6 · 3:36 pm · sold-pick-list v2.8<button type="button" id="rfr" class="rfr">Refresh</button></div>
+  </div>
+  <div class="wrap"><table>
+    <tr><td><span class="lab">Shipped</span><span class="det">Poshmark 10 · eBay 8</span></td><td class="n">18</td></tr>
+    <tr class="tot"><td>Total</td><td class="n">18</td></tr>
+  </table></div>
+  <div class="wrap"><table>
+    <tr><td><span class="lab">Sold today</span><span class="det">$36.88 &rarr; $0.00 <b>(net known for 0 of 2)</b></span></td><td class="n">2</td></tr>
+    <tr><td><span class="lab">Sold this week</span><span class="det">$188.48 &rarr; $58.71 <b>(net known for 2 of 9)</b></span></td><td class="n">9</td></tr>
+    <tr><td><span class="lab">Picked today</span><span class="det">$396.48 &rarr; $397.22 <b>(net known for 11 of 18)</b></span></td><td class="n">18</td></tr>
+  </table></div>
+  <div class="gap">Gross &rarr; net is after marketplace fees and shipping. Week runs Monday.</div>
+  <div class="done-h">Nothing left to pull. Tomorrow's list builds at 4:50 am.</div>
 <script>(function(){try{var w=location.protocol==='http:'||location.protocol==='https:';function bust(){if(w){location.replace(location.pathname+'?t='+Date.now());}else{location.reload();}}if(w&&!location.search){bust();return;}var b=document.getElementById('rfr');if(b){b.addEventListener('click',bust);}}catch(e){}})();</script>
 </body>
 </html>
