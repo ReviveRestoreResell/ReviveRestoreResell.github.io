@@ -99,7 +99,7 @@
   .barin{max-width:700px;margin:0 auto;width:100%;display:flex;align-items:center;gap:10px}
   .count{font-size:14px;font-weight:600;color:var(--ink);white-space:nowrap;
     font-variant-numeric:tabular-nums}
-  .count::after{content:counter(picked) " of 11 picked"}
+  .count::after{content:counter(picked) " of 10 picked"}
   .dots{flex:1;display:flex;gap:5px}
   .dot{flex:1;height:6px;border-radius:3px;background:#e0e4e9;transition:background .25s ease}
   form:has(#p1:checked) .d1,
@@ -111,8 +111,7 @@
   form:has(#p7:checked) .d7,
   form:has(#p8:checked) .d8,
   form:has(#p9:checked) .d9,
-  form:has(#p10:checked) .d10,
-  form:has(#p11:checked) .d11{background:var(--done)}
+  form:has(#p10:checked) .d10{background:var(--done)}
   .reset,.exp{font:inherit;font-size:13px;border:1px solid var(--line);background:#fff;
     color:var(--mute);border-radius:7px;padding:7px 13px;cursor:pointer;
     -webkit-appearance:none;appearance:none;}
@@ -151,8 +150,8 @@
 <form>
 
   <h1>Pick List — Monday, Sep 14 2026</h1>
-  <div class="sub">11 items · Poshmark 6 · eBay 4 · FBMP 1</div>
-  <div class="build">build 3 · 6:23 am · sold-pick-list v2.8<button type="button" id="rfr" class="rfr">Refresh</button></div>
+  <div class="sub">10 items · Poshmark 6 · eBay 4</div>
+  <div class="build">build 5 · 1:49 pm · sold-pick-list v2.8<button type="button" id="rfr" class="rfr">Refresh</button></div>
 
   <div class="rack">POD 1 · RACK 10</div>
   <input class="chk" type="checkbox" id="p1" data-key="Poshmark:6aa6c0c727fd251aca633ec2">
@@ -234,11 +233,11 @@
   <label class="item" for="p7">
     <div class="num"><span class="n">7</span><span class="tick">✓</span></div>
     <div class="body">
-      <div class="l1">J5<span class="sep">·</span><span class="sku">5804</span><span class="sep">·</span><span class="cat">TOPS-0801</span></div>
+      <div class="l1">UNRESOLVED<span class="sep">·</span><span class="sku">J5 5804</span><span class="sep">·</span><span class="cat">TOPS-0801</span></div>
       <div class="detail"><div class="inner">
         <div class="l2">White Tops</div>
         <div class="l3">J.Crew Classic Secret Wash Cotton Poplin Shirt Mens M Blue White Striped Button</div>
-        <div class="note">LOST/CHASE: absent from J5. Check J5 / letter-bin Rack 1; placement unconfirmed.</div>
+        <div class="note">SEARCH LEAD: LA6, Pod 1 / Rack 13; same Pallet1 work group. Exact bin unconfirmed.</div>
       </div></div>
     </div>
   </label>
@@ -279,25 +278,10 @@
     </div>
   </label>
 
-  <div class="rack">POD 3</div>
-  <input class="chk" type="checkbox" id="p11" data-key="FBMP:HOMEGOODS-0301">
-  <label class="item" for="p11">
-    <div class="num"><span class="n">11</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">POD 3<span class="sep">·</span><span class="cat">HOMEGOODS-0301</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Cream Homegoods</div>
-        <div class="l3">Metal Bedframe Full Cream Scrolled Metal Bed Witb Rails</div>
-        <div class="note"><b>Sold 5 days ago and FBMP never closes itself — is it still on the shelf?</b> Say the word and it closes.</div>
-        <div class="note"><b>Pick by sight in POD 3 — no bin on file.</b></div>
-      </div></div>
-    </div>
-  </label>
-
   <div class="hint">Tap a row to mark it picked. Export picked → Save to Files → Daily_Pick_List\inbox\</div>
   <div class="bar"><div class="barin">
     <span class="count"></span>
-    <span class="dots"><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i><i class="dot d5"></i><i class="dot d6"></i><i class="dot d7"></i><i class="dot d8"></i><i class="dot d9"></i><i class="dot d10"></i><i class="dot d11"></i></span>
+    <span class="dots"><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i><i class="dot d5"></i><i class="dot d6"></i><i class="dot d7"></i><i class="dot d8"></i><i class="dot d9"></i><i class="dot d10"></i></span>
     <input class="reset" type="reset" value="Reset">
     <button class="exp" type="button" onclick="exportPicked()">Export picked</button>
   </div></div>
