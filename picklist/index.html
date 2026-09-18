@@ -99,10 +99,10 @@
   .barin{max-width:700px;margin:0 auto;width:100%;display:flex;align-items:center;gap:10px}
   .count{font-size:14px;font-weight:600;color:var(--ink);white-space:nowrap;
     font-variant-numeric:tabular-nums}
-  .count::after{content:counter(picked) " of 0 picked"}
+  .count::after{content:counter(picked) " of 1 picked"}
   .dots{flex:1;display:flex;gap:5px}
   .dot{flex:1;height:6px;border-radius:3px;background:#e0e4e9;transition:background .25s ease}
-
+  form:has(#p1:checked) .d1{background:var(--done)}
   .reset,.exp{font:inherit;font-size:13px;border:1px solid var(--line);background:#fff;
     color:var(--mute);border-radius:7px;padding:7px 13px;cursor:pointer;
     -webkit-appearance:none;appearance:none;}
@@ -141,13 +141,27 @@
 <form>
 
   <h1>Pick List — Friday, Sep 18 2026</h1>
-  <div class="sub">0 items · </div>
-  <div class="build">build 1 · 9:59 am · sold-pick-list v2.8<button type="button" id="rfr" class="rfr">Refresh</button></div>
+  <div class="sub">1 item · FBMP 1</div>
+  <div class="build">build 2 · 10:59 am · sold-pick-list v2.8<button type="button" id="rfr" class="rfr">Refresh</button></div>
+
+  <div class="rack">POD 3</div>
+  <input class="chk" type="checkbox" id="p1" data-key="FBMP:10168093544250550">
+  <label class="item" for="p1">
+    <div class="num"><span class="n">1</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">POD 3<span class="sep">·</span><span class="cat">OTHER-0856</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Other</div>
+        <div class="l3">Pampered Chef Family Heritage Classics Stoneware Rectangular Bakers Set of 2</div>
+        <div class="note">Pick by sight in Pod 3; bin unverified.</div>
+      </div></div>
+    </div>
+  </label>
 
   <div class="hint">Tap a row to mark it picked. Export picked → Save to Files → Daily_Pick_List\inbox\</div>
   <div class="bar"><div class="barin">
     <span class="count"></span>
-    <span class="dots"></span>
+    <span class="dots"><i class="dot d1"></i></span>
     <input class="reset" type="reset" value="Reset">
     <button class="exp" type="button" onclick="exportPicked()">Export picked</button>
   </div></div>
