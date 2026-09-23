@@ -99,11 +99,13 @@
   .barin{max-width:700px;margin:0 auto;width:100%;display:flex;align-items:center;gap:10px}
   .count{font-size:14px;font-weight:600;color:var(--ink);white-space:nowrap;
     font-variant-numeric:tabular-nums}
-  .count::after{content:counter(picked) " of 2 picked"}
+  .count::after{content:counter(picked) " of 4 picked"}
   .dots{flex:1;display:flex;gap:5px}
   .dot{flex:1;height:6px;border-radius:3px;background:#e0e4e9;transition:background .25s ease}
   form:has(#p1:checked) .d1,
-  form:has(#p2:checked) .d2{background:var(--done)}
+  form:has(#p2:checked) .d2,
+  form:has(#p3:checked) .d3,
+  form:has(#p4:checked) .d4{background:var(--done)}
   .reset,.exp{font:inherit;font-size:13px;border:1px solid var(--line);background:#fff;
     color:var(--mute);border-radius:7px;padding:7px 13px;cursor:pointer;
     -webkit-appearance:none;appearance:none;}
@@ -142,13 +144,28 @@
 <form>
 
   <h1>Pick List — Wednesday, Sep 23 2026</h1>
-  <div class="sub">2 items · Depop 1 · FBMP 1</div>
-  <div class="build">build 1 · 6:23 am · sold-pick-list v3.0<button type="button" id="rfr" class="rfr">Refresh</button></div>
+  <div class="sub">4 items · eBay 2 · Depop 1 · FBMP 1</div>
+  <div class="build">build 2 · 12:31 pm · sold-pick-list v3.0<button type="button" id="rfr" class="rfr">Refresh</button></div>
 
-  <div class="rack">POD 1 · RACK 13</div>
-  <input class="chk" type="checkbox" id="p1" data-key="Depop:475880366779">
+  <div class="rack">POD 1 · RACK 1</div>
+  <input class="chk" type="checkbox" id="p1" data-key="eBay:09-15203-70569">
   <label class="item" for="p1">
     <div class="num"><span class="n">1</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">BIN 9<span class="sep">·</span><span class="sku">Y-Z 0978</span><span class="sep">·</span><span class="cat">SHORTS-0246</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Blue</div>
+        <div class="l3">DKNY Jeans Shorts WMNS 12P Rolled Cuff Dark Wash Blue Mid Rise Bermuda Stretchy</div>
+        <div class="note">Moved Y-Z to Bin #9; physically confirmed.</div>
+        <div class="note"><b>eBay live/report discrepancy: fresh paid fulfillment row has no Shipped On Date; included so the live queue cannot silently omit it.</b></div>
+      </div></div>
+    </div>
+  </label>
+
+  <div class="rack">POD 1 · RACK 13</div>
+  <input class="chk" type="checkbox" id="p2" data-key="Depop:475880366779">
+  <label class="item" for="p2">
+    <div class="num"><span class="n">2</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">LA10<span class="sep">·</span><span class="sku">290</span><span class="sep">·</span><span class="cat">TOPS-0074</span></div>
       <div class="detail"><div class="inner">
@@ -159,10 +176,25 @@
     </div>
   </label>
 
+  <div class="rack">POD 1 · ROLLING RACK 2</div>
+  <input class="chk" type="checkbox" id="p3" data-key="eBay:19-15185-21525">
+  <label class="item" for="p3">
+    <div class="num"><span class="n">3</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">R18<span class="sep">·</span><span class="sku">H-10 2306</span><span class="sep">·</span><span class="cat">PANTS-0851</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Green</div>
+        <div class="l3">Nicole Miller NY Hi-Rise Straight Leg Pants WMNS 6 Olive Green Stretch Uitlity</div>
+        <div class="note">Moved H10a to R18; physically confirmed.</div>
+        <div class="note"><b>eBay live/report discrepancy: fresh paid fulfillment row has no Shipped On Date; included so the live queue cannot silently omit it.</b></div>
+      </div></div>
+    </div>
+  </label>
+
   <div class="rack">POD 2 · CUSTOM</div>
-  <input class="chk" type="checkbox" id="p2" data-key="FBMP:10168118517365550">
-  <label class="item" for="p2">
-    <div class="num"><span class="n">2</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p4" data-key="FBMP:10168118517365550">
+  <label class="item" for="p4">
+    <div class="num"><span class="n">4</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">BIN 40<span class="sep">·</span><span class="sku">V 5973</span><span class="sep">·</span><span class="cat">DRESSES-0612</span></div>
       <div class="detail"><div class="inner">
@@ -176,7 +208,7 @@
   <div class="hint">Tap a row to mark it picked. Export picked → Save to Files → Daily_Pick_List\inbox\</div>
   <div class="bar"><div class="barin">
     <span class="count"></span>
-    <span class="dots"><i class="dot d1"></i><i class="dot d2"></i></span>
+    <span class="dots"><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i></span>
     <input class="reset" type="reset" value="Reset">
     <button class="exp" type="button" onclick="exportPicked()">Export picked</button>
   </div></div>
