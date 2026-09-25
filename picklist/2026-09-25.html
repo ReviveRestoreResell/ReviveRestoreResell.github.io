@@ -99,15 +99,14 @@
   .barin{max-width:700px;margin:0 auto;width:100%;display:flex;align-items:center;gap:10px}
   .count{font-size:14px;font-weight:600;color:var(--ink);white-space:nowrap;
     font-variant-numeric:tabular-nums}
-  .count::after{content:counter(picked) " of 6 picked"}
+  .count::after{content:counter(picked) " of 5 picked"}
   .dots{flex:1;display:flex;gap:5px}
   .dot{flex:1;height:6px;border-radius:3px;background:#e0e4e9;transition:background .25s ease}
   form:has(#p1:checked) .d1,
   form:has(#p2:checked) .d2,
   form:has(#p3:checked) .d3,
   form:has(#p4:checked) .d4,
-  form:has(#p5:checked) .d5,
-  form:has(#p6:checked) .d6{background:var(--done)}
+  form:has(#p5:checked) .d5{background:var(--done)}
   .reset,.exp{font:inherit;font-size:13px;border:1px solid var(--line);background:#fff;
     color:var(--mute);border-radius:7px;padding:7px 13px;cursor:pointer;
     -webkit-appearance:none;appearance:none;}
@@ -146,8 +145,8 @@
 <form>
 
   <h1>Pick List — Friday, Sep 25 2026</h1>
-  <div class="sub">6 items · Poshmark 3 · Depop 1 · eBay 1 · FBMP 1</div>
-  <div class="build">build 2 · 2:47 pm · sold-pick-list v3.0<button type="button" id="rfr" class="rfr">Refresh</button></div>
+  <div class="sub">5 items · Poshmark 3 · Depop 1 · eBay 1</div>
+  <div class="build">build 3 · 3:03 pm · sold-pick-list v3.0<button type="button" id="rfr" class="rfr">Refresh</button></div>
 
   <div class="rack">POD 1 · RACK 7</div>
   <input class="chk" type="checkbox" id="p1" data-key="Depop:476141539819">
@@ -191,24 +190,10 @@
     </div>
   </label>
 
-  <div class="rack">POD 2 · CUSTOM</div>
-  <input class="chk" type="checkbox" id="p4" data-key="FBMP:10168118517365550">
+  <div class="rack">SHOES</div>
+  <input class="chk" type="checkbox" id="p4" data-key="Poshmark:6ab230bc642700f8f25940bc">
   <label class="item" for="p4">
     <div class="num"><span class="n">4</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">BIN 40<span class="sep">·</span><span class="sku">V 5973</span><span class="sep">·</span><span class="cat">DRESSES-0612</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Black Dresses</div>
-        <div class="l3">Santé Classics Midi Dress WMNS One Size Black Floral Rayon Artsy Eclectic Boho</div>
-        <div class="note"><b>Sold 3 days ago and FBMP never closes itself — is it still on the shelf?</b> Say the word and it closes.</div>
-      </div></div>
-    </div>
-  </label>
-
-  <div class="rack">SHOES</div>
-  <input class="chk" type="checkbox" id="p5" data-key="Poshmark:6ab230bc642700f8f25940bc">
-  <label class="item" for="p5">
-    <div class="num"><span class="n">5</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">SB05<span class="sep">·</span><span class="sku">2813</span><span class="sep">·</span><span class="cat">SHOES-1012</span></div>
       <div class="detail"><div class="inner">
@@ -218,9 +203,9 @@
       </div></div>
     </div>
   </label>
-  <input class="chk" type="checkbox" id="p6" data-key="Poshmark:6ab6879104b728ab5c70291c">
-  <label class="item" for="p6">
-    <div class="num"><span class="n">6</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p5" data-key="Poshmark:6ab6879104b728ab5c70291c">
+  <label class="item" for="p5">
+    <div class="num"><span class="n">5</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">SB07<span class="sep">·</span><span class="sku">2856</span><span class="sep">·</span><span class="cat">SHOES-1052</span></div>
       <div class="detail"><div class="inner">
@@ -234,7 +219,7 @@
   <div class="hint">Tap a row to mark it picked. Export picked → Save to Files → Daily_Pick_List\inbox\</div>
   <div class="bar"><div class="barin">
     <span class="count"></span>
-    <span class="dots"><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i><i class="dot d5"></i><i class="dot d6"></i></span>
+    <span class="dots"><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i><i class="dot d5"></i></span>
     <input class="reset" type="reset" value="Reset">
     <button class="exp" type="button" onclick="exportPicked()">Export picked</button>
   </div></div>
