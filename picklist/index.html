@@ -99,24 +99,14 @@
   .barin{max-width:700px;margin:0 auto;width:100%;display:flex;align-items:center;gap:10px}
   .count{font-size:14px;font-weight:600;color:var(--ink);white-space:nowrap;
     font-variant-numeric:tabular-nums}
-  .count::after{content:counter(picked) " of 15 picked"}
+  .count::after{content:counter(picked) " of 5 picked"}
   .dots{flex:1;display:flex;gap:5px}
   .dot{flex:1;height:6px;border-radius:3px;background:#e0e4e9;transition:background .25s ease}
   form:has(#p1:checked) .d1,
   form:has(#p2:checked) .d2,
   form:has(#p3:checked) .d3,
   form:has(#p4:checked) .d4,
-  form:has(#p5:checked) .d5,
-  form:has(#p6:checked) .d6,
-  form:has(#p7:checked) .d7,
-  form:has(#p8:checked) .d8,
-  form:has(#p9:checked) .d9,
-  form:has(#p10:checked) .d10,
-  form:has(#p11:checked) .d11,
-  form:has(#p12:checked) .d12,
-  form:has(#p13:checked) .d13,
-  form:has(#p14:checked) .d14,
-  form:has(#p15:checked) .d15{background:var(--done)}
+  form:has(#p5:checked) .d5{background:var(--done)}
   .reset,.exp{font:inherit;font-size:13px;border:1px solid var(--line);background:#fff;
     color:var(--mute);border-radius:7px;padding:7px 13px;cursor:pointer;
     -webkit-appearance:none;appearance:none;}
@@ -155,99 +145,13 @@
 <form>
 
   <h1>Pick List — Tuesday, Sep 29 2026</h1>
-  <div class="sub">15 items · eBay 10 · Poshmark 3 · Depop 2</div>
-  <div class="build">build 2 · 2:08 pm · sold-pick-list v3.0<button type="button" id="rfr" class="rfr">Refresh</button></div>
-
-  <div class="rack">POD 1 · RACK 2</div>
-  <input class="chk" type="checkbox" id="p1" data-key="eBay:10-15222-22803">
-  <label class="item" for="p1">
-    <div class="num"><span class="n">1</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">BIN 12<span class="sep">·</span><span class="sku">B-3 2433</span><span class="sep">·</span><span class="cat">TOPS-0515</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Green Tops</div>
-        <div class="l3">Tommy Bahama Island Zone Polo Shirt L Green Supima Short Sleeve Preppy Casual</div>
-        <div class="note"><b>eBay queue contradiction: the live Awaiting Shipment page omitted this paid order, but its authenticated order detail still reads Ship by Sep 28 with no tracking.</b></div>
-        <div class="note"><b>Still on the list after a while</b> — ship-by was 9/28 — 1d ago. If it already went out, say so and it closes; nothing here is auto-closed, because a wrong close is how a real item goes missing.</div>
-      </div></div>
-    </div>
-  </label>
-  <input class="chk" type="checkbox" id="p2" data-key="eBay:02-15232-92403">
-  <label class="item" for="p2">
-    <div class="num"><span class="n">2</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">BIN 16<span class="sep">·</span><span class="sku">2132- B7</span><span class="sep">·</span><span class="cat">PANTS-0854</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Black Pants</div>
-        <div class="l3">Yoga Pant/Workout Pant Bundle of 2 WMN Small Zella &amp; Love 4 Humanity, Black/Blue</div>
-        <div class="note"><b>Still on the list after a while</b> — ship-by was 9/28 — 1d ago. If it already went out, say so and it closes; nothing here is auto-closed, because a wrong close is how a real item goes missing.</div>
-      </div></div>
-    </div>
-  </label>
-
-  <div class="rack">POD 1 · RACK 3</div>
-  <input class="chk" type="checkbox" id="p3" data-key="eBay:26-15194-99661">
-  <label class="item" for="p3">
-    <div class="num"><span class="n">3</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">LA13<span class="sep">·</span><span class="sku">396</span><span class="sep">·</span><span class="cat">SHORTS-0234</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Blue Shorts</div>
-        <div class="l3">J.Crew Heritage Pleated Chino Shorts Womens 4 Navy 5 Inch High Rise Stretch Zip</div>
-      </div></div>
-    </div>
-  </label>
-
-  <div class="rack">POD 1 · RACK 4</div>
-  <input class="chk" type="checkbox" id="p4" data-key="Poshmark:6abad4eef314c2582ae747dc">
-  <label class="item" for="p4">
-    <div class="num"><span class="n">4</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">LA27<span class="sep">·</span><span class="sku">943</span><span class="sep">·</span><span class="cat">TOPS-1095</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Black Tops</div>
-        <div class="l3">Madewell The Perfect Crewneck Tee WMNS L Black Cotton Short Sleeve Lightweight</div>
-      </div></div>
-    </div>
-  </label>
+  <div class="sub">5 items · eBay 4 · Depop 1</div>
+  <div class="build">build 3 · 2:20 pm · sold-pick-list v3.0<button type="button" id="rfr" class="rfr">Refresh</button></div>
 
   <div class="rack">POD 1 · RACK 5</div>
-  <input class="chk" type="checkbox" id="p5" data-key="Poshmark:6ab9a651d7f249d162fd9f42">
-  <label class="item" for="p5">
-    <div class="num"><span class="n">5</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">LA37<span class="sep">·</span><span class="sku">1281</span><span class="sep">·</span><span class="cat">SHORTS-0289</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">White Shorts</div>
-        <div class="l3">J.Crew 9&quot; Portsider Stretch Chino Shorts Mens Sz 34 White Flat Front Regular Fit</div>
-      </div></div>
-    </div>
-  </label>
-  <input class="chk" type="checkbox" id="p6" data-key="eBay:11-15223-54193">
-  <label class="item" for="p6">
-    <div class="num"><span class="n">6</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">LA38<span class="sep">·</span><span class="sku">134</span><span class="sep">·</span><span class="cat">TOPS-0755</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Purple Tops</div>
-        <div class="l3">J.Crew Broken-In Organic Cotton Oxford Shirt Mens M Purple Long Sleeve Button Up</div>
-      </div></div>
-    </div>
-  </label>
-  <input class="chk" type="checkbox" id="p7" data-key="eBay:13-15220-04383">
-  <label class="item" for="p7">
-    <div class="num"><span class="n">7</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">LA38<span class="sep">·</span><span class="sku">1332</span><span class="sep">·</span><span class="cat">ACCESSORIES-0029</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Brown Accessories</div>
-        <div class="l3">J.Crew Mens Ribbed Socks One Size Gray Brown Cotton Blend Mid Calf Lightweight</div>
-      </div></div>
-    </div>
-  </label>
-  <input class="chk" type="checkbox" id="p8" data-key="eBay:24-15216-88281">
-  <label class="item" for="p8">
-    <div class="num"><span class="n">8</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p1" data-key="eBay:24-15216-88281">
+  <label class="item" for="p1">
+    <div class="num"><span class="n">1</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">LA38<span class="sep">·</span><span class="sku">1311</span><span class="sep">·</span><span class="cat">TOPS-1267</span></div>
       <div class="detail"><div class="inner">
@@ -259,9 +163,9 @@
   </label>
 
   <div class="rack">POD 1 · RACK 7</div>
-  <input class="chk" type="checkbox" id="p9" data-key="eBay:13-15224-72256">
-  <label class="item" for="p9">
-    <div class="num"><span class="n">9</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p2" data-key="eBay:13-15224-72256">
+  <label class="item" for="p2">
+    <div class="num"><span class="n">2</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">D7<span class="sep">·</span><span class="sku">D-9 0037</span><span class="sep">·</span><span class="cat">PANTS-0651</span></div>
       <div class="detail"><div class="inner">
@@ -272,35 +176,10 @@
     </div>
   </label>
 
-  <div class="rack">POD 1 · RACK 12</div>
-  <input class="chk" type="checkbox" id="p10" data-key="eBay:01-15234-76062">
-  <label class="item" for="p10">
-    <div class="num"><span class="n">10</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">G13<span class="sep">·</span><span class="sku">1222</span><span class="sep">·</span><span class="cat">PANTS-0426</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Blue Pants</div>
-        <div class="l3">5.11 Tactical Straight Leg Jeans Men&#x27;s 35x30 Blue 74539-649 High Rise Denim Edgy</div>
-        <div class="note"><b>Still on the list after a while</b> — ship-by was 9/28 — 1d ago. If it already went out, say so and it closes; nothing here is auto-closed, because a wrong close is how a real item goes missing.</div>
-      </div></div>
-    </div>
-  </label>
-  <input class="chk" type="checkbox" id="p11" data-key="Poshmark:6ab99a78d3de655ac43fdcd2">
-  <label class="item" for="p11">
-    <div class="num"><span class="n">11</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">G19<span class="sep">·</span><span class="sku">1413</span><span class="sep">·</span><span class="cat">OUTERWEAR-0161</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Blue Outerwear</div>
-        <div class="l3">True Religion Jean Jacket WMNS M Blue Denim Crop Full Zip Cargo Row Seat Stretch</div>
-      </div></div>
-    </div>
-  </label>
-
   <div class="rack">POD 1 · ROLLING RACK 3</div>
-  <input class="chk" type="checkbox" id="p12" data-key="eBay:07-15226-97445">
-  <label class="item" for="p12">
-    <div class="num"><span class="n">12</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p3" data-key="eBay:07-15226-97445">
+  <label class="item" for="p3">
+    <div class="num"><span class="n">3</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">ACC 1-3<span class="sep">·</span><span class="sku">Top shelf</span><span class="sep">·</span><span class="cat">ACCESSORIES-0051</span></div>
       <div class="detail"><div class="inner">
@@ -311,23 +190,10 @@
     </div>
   </label>
 
-  <div class="rack">SHOES</div>
-  <input class="chk" type="checkbox" id="p13" data-key="Depop:476266276815">
-  <label class="item" for="p13">
-    <div class="num"><span class="n">13</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">SB20<span class="sep">·</span><span class="sku">SLOT 20</span><span class="sep">·</span><span class="cat">SHOES-1230</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Brown Shoes</div>
-        <div class="l3">Guess Keaton Embers Platform Loafer Heels Women&#x27;s Size 8.5 Brown Patent</div>
-      </div></div>
-    </div>
-  </label>
-
   <div class="rack">POD 3</div>
-  <input class="chk" type="checkbox" id="p14" data-key="eBay:24-15220-23146">
-  <label class="item" for="p14">
-    <div class="num"><span class="n">14</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p4" data-key="eBay:24-15220-23146">
+  <label class="item" for="p4">
+    <div class="num"><span class="n">4</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">SK toys 3<span class="sep">·</span><span class="cat">HOMEGOODS-0107</span></div>
       <div class="detail"><div class="inner">
@@ -339,9 +205,9 @@
   </label>
 
   <div class="rack">UNKNOWN POD</div>
-  <input class="chk" type="checkbox" id="p15" data-key="Depop:476205019084">
-  <label class="item" for="p15">
-    <div class="num"><span class="n">15</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p5" data-key="Depop:476205019084">
+  <label class="item" for="p5">
+    <div class="num"><span class="n">5</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">MEASUREMENT PULL<span class="sep">·</span><span class="sku">i5 1643</span><span class="sep">·</span><span class="cat">PANTS-1967</span></div>
       <div class="detail"><div class="inner">
@@ -355,7 +221,7 @@
   <div class="hint">Tap a row to mark it picked. Export picked → Save to Files → Daily_Pick_List\inbox\</div>
   <div class="bar"><div class="barin">
     <span class="count"></span>
-    <span class="dots"><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i><i class="dot d5"></i><i class="dot d6"></i><i class="dot d7"></i><i class="dot d8"></i><i class="dot d9"></i><i class="dot d10"></i><i class="dot d11"></i><i class="dot d12"></i><i class="dot d13"></i><i class="dot d14"></i><i class="dot d15"></i></span>
+    <span class="dots"><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i><i class="dot d5"></i></span>
     <input class="reset" type="reset" value="Reset">
     <button class="exp" type="button" onclick="exportPicked()">Export picked</button>
   </div></div>
