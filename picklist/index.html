@@ -99,17 +99,10 @@
   .barin{max-width:700px;margin:0 auto;width:100%;display:flex;align-items:center;gap:10px}
   .count{font-size:14px;font-weight:600;color:var(--ink);white-space:nowrap;
     font-variant-numeric:tabular-nums}
-  .count::after{content:counter(picked) " of 8 picked"}
+  .count::after{content:counter(picked) " of 0 picked"}
   .dots{flex:1;display:flex;gap:5px}
   .dot{flex:1;height:6px;border-radius:3px;background:#e0e4e9;transition:background .25s ease}
-  form:has(#p1:checked) .d1,
-  form:has(#p2:checked) .d2,
-  form:has(#p3:checked) .d3,
-  form:has(#p4:checked) .d4,
-  form:has(#p5:checked) .d5,
-  form:has(#p6:checked) .d6,
-  form:has(#p7:checked) .d7,
-  form:has(#p8:checked) .d8{background:var(--done)}
+
   .reset,.exp{font:inherit;font-size:13px;border:1px solid var(--line);background:#fff;
     color:var(--mute);border-radius:7px;padding:7px 13px;cursor:pointer;
     -webkit-appearance:none;appearance:none;}
@@ -148,122 +141,13 @@
 <form>
 
   <h1>Pick List — Friday, Oct 2 2026</h1>
-  <div class="sub">8 items · Poshmark 3 · eBay 3 · Depop 2</div>
-  <div class="build">build 2 · 1:31 pm · sold-pick-list v3.0<button type="button" id="rfr" class="rfr">Refresh</button></div>
-
-  <div class="rack">POD 1 · RACK 2</div>
-  <input class="chk" type="checkbox" id="p1" data-key="Poshmark:6abee6e623d726f3c74afbce">
-  <label class="item" for="p1">
-    <div class="num"><span class="n">1</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">BIN 12<span class="sep">·</span><span class="sku">B-3 2018</span><span class="sep">·</span><span class="cat">TOPS-0397</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Brown Tops</div>
-        <div class="l3">Pendleton Brown Floral 3/4 Sleeve Top Womens Large</div>
-        <div class="note">VAULT and live Vendoo agree on Rack 2 bin #12; full applied-history proof unavailable, so confirm physically.</div>
-      </div></div>
-    </div>
-  </label>
-  <input class="chk" type="checkbox" id="p2" data-key="Poshmark:6abd9a9cff8a47e24202aab2">
-  <label class="item" for="p2">
-    <div class="num"><span class="n">2</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">BIN 14<span class="sep">·</span><span class="sku">2151- B6</span><span class="sep">·</span><span class="cat">PANTS-0331</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Black Pants</div>
-        <div class="l3">Lane Bryant Black Jeans Plus Size Signature Fit Cozy Boot Cut WMNS 20 High Rise</div>
-        <div class="note">VAULT and live Vendoo agree on Rack 2 bin #14 slot 12; full applied-history proof unavailable, so confirm physically.</div>
-      </div></div>
-    </div>
-  </label>
-
-  <div class="rack">POD 1 · RACK 5</div>
-  <input class="chk" type="checkbox" id="p3" data-key="eBay:05-15254-16900">
-  <label class="item" for="p3">
-    <div class="num"><span class="n">3</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">LA31<span class="sep">·</span><span class="sku">1075</span><span class="sep">·</span><span class="cat">TOPS-0779</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Gray Tops</div>
-        <div class="l3">J.Crew Secret Wash Cotton Poplin Shirt Mens M Green White Striped Long Sleeve</div>
-        <div class="note">VAULT and live Vendoo agree on Rack 5 bin LA31; full applied-history proof unavailable, so confirm physically.</div>
-      </div></div>
-    </div>
-  </label>
-
-  <div class="rack">POD 1 · RACK 7</div>
-  <input class="chk" type="checkbox" id="p4" data-key="eBay:27-15208-71520">
-  <label class="item" for="p4">
-    <div class="num"><span class="n">4</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">D6<span class="sep">·</span><span class="sku">2703</span><span class="sep">·</span><span class="cat">TOPS-1058</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Black Tops</div>
-        <div class="l3">Liquid Blue Rare Skull Bone T-shirt</div>
-        <div class="note">VAULT and live Vendoo agree on Rack 7 bin D6; full applied-history proof unavailable, so confirm physically.</div>
-      </div></div>
-    </div>
-  </label>
-
-  <div class="rack">POD 1 · ROLLING RACK 1</div>
-  <input class="chk" type="checkbox" id="p5" data-key="eBay:09-15240-86981">
-  <label class="item" for="p5">
-    <div class="num"><span class="n">5</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">R2<span class="sep">·</span><span class="sku">A8 2658</span><span class="sep">·</span><span class="cat">PANTS-0695</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Gray Pants</div>
-        <div class="l3">5.11 Tactical gray pant</div>
-        <div class="note">VAULT and live Vendoo agree on Rolling Rack 1 bin R2; full applied-history proof unavailable, so confirm physically.</div>
-      </div></div>
-    </div>
-  </label>
-
-  <div class="rack">POD 1 · ROLLING RACK 2</div>
-  <input class="chk" type="checkbox" id="p6" data-key="Poshmark:6abfd1a705d76693f4e36b6b">
-  <label class="item" for="p6">
-    <div class="num"><span class="n">6</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">R11<span class="sep">·</span><span class="sku">H-1 1567</span><span class="sep">·</span><span class="cat">OUTERWEAR-0452</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Green Outerwear</div>
-        <div class="l3">Maurices Flannel Shacket WMNS XXL Green Red Plaid Button Up Heavy Cotton Pockets</div>
-        <div class="note">VAULT and live Vendoo agree on Rolling Rack 2 bin R11; full applied-history proof unavailable, so confirm physically.</div>
-      </div></div>
-    </div>
-  </label>
-
-  <div class="rack">SHOES</div>
-  <input class="chk" type="checkbox" id="p7" data-key="Depop:476741344047">
-  <label class="item" for="p7">
-    <div class="num"><span class="n">7</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">SB23<span class="sep">·</span><span class="sku">SLOT 10</span><span class="sep">·</span><span class="cat">SHOES-1182</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Black Shoes</div>
-        <div class="l3">A New Day Eleanor Heart Slingback Heels</div>
-        <div class="note">VAULT and live Vendoo agree on SB23 slot 10; full applied-history proof unavailable, so confirm physically.</div>
-      </div></div>
-    </div>
-  </label>
-  <input class="chk" type="checkbox" id="p8" data-key="Depop:476620693105">
-  <label class="item" for="p8">
-    <div class="num"><span class="n">8</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">SB23<span class="sep">·</span><span class="sku">SLOT 17</span><span class="sep">·</span><span class="cat">SHOES-1229</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Black Shoes</div>
-        <div class="l3">Women&#x27;s SONJA Round Toe Dress Heels by GNW, US Size 8.5, Slip On, Arch Support</div>
-        <div class="note">VAULT and live Vendoo agree on SB23 slot 17; receipt/Vendoo size differs and full applied-history proof is unavailable.</div>
-        <div class="note"><b>Live Depop receipt says US Size 8.5; current Vendoo item is Shoes-1229 / SONJA and notes US Size 10M. Identity is title/style-bound; size discrepancy remains a visible flag.</b></div>
-      </div></div>
-    </div>
-  </label>
+  <div class="sub">0 items · </div>
+  <div class="build">build 3 · 3:20 pm · sold-pick-list v3.0<button type="button" id="rfr" class="rfr">Refresh</button></div>
 
   <div class="hint">Tap a row to mark it picked. Export picked → Save to Files → Daily_Pick_List\inbox\</div>
   <div class="bar"><div class="barin">
     <span class="count"></span>
-    <span class="dots"><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i><i class="dot d5"></i><i class="dot d6"></i><i class="dot d7"></i><i class="dot d8"></i></span>
+    <span class="dots"></span>
     <input class="reset" type="reset" value="Reset">
     <button class="exp" type="button" onclick="exportPicked()">Export picked</button>
   </div></div>
