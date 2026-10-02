@@ -99,7 +99,7 @@
   .barin{max-width:700px;margin:0 auto;width:100%;display:flex;align-items:center;gap:10px}
   .count{font-size:14px;font-weight:600;color:var(--ink);white-space:nowrap;
     font-variant-numeric:tabular-nums}
-  .count::after{content:counter(picked) " of 6 picked"}
+  .count::after{content:counter(picked) " of 8 picked"}
   .dots{flex:1;display:flex;gap:5px}
   .dot{flex:1;height:6px;border-radius:3px;background:#e0e4e9;transition:background .25s ease}
   form:has(#p1:checked) .d1,
@@ -107,7 +107,9 @@
   form:has(#p3:checked) .d3,
   form:has(#p4:checked) .d4,
   form:has(#p5:checked) .d5,
-  form:has(#p6:checked) .d6{background:var(--done)}
+  form:has(#p6:checked) .d6,
+  form:has(#p7:checked) .d7,
+  form:has(#p8:checked) .d8{background:var(--done)}
   .reset,.exp{font:inherit;font-size:13px;border:1px solid var(--line);background:#fff;
     color:var(--mute);border-radius:7px;padding:7px 13px;cursor:pointer;
     -webkit-appearance:none;appearance:none;}
@@ -146,8 +148,8 @@
 <form>
 
   <h1>Pick List — Friday, Oct 2 2026</h1>
-  <div class="sub">6 items · Poshmark 2 · eBay 2 · Depop 2</div>
-  <div class="build">build 1 · 6:23 am · sold-pick-list v3.0<button type="button" id="rfr" class="rfr">Refresh</button></div>
+  <div class="sub">8 items · Poshmark 3 · eBay 3 · Depop 2</div>
+  <div class="build">build 2 · 1:31 pm · sold-pick-list v3.0<button type="button" id="rfr" class="rfr">Refresh</button></div>
 
   <div class="rack">POD 1 · RACK 2</div>
   <input class="chk" type="checkbox" id="p1" data-key="Poshmark:6abee6e623d726f3c74afbce">
@@ -175,10 +177,24 @@
     </div>
   </label>
 
-  <div class="rack">POD 1 · RACK 7</div>
-  <input class="chk" type="checkbox" id="p3" data-key="eBay:27-15208-71520">
+  <div class="rack">POD 1 · RACK 5</div>
+  <input class="chk" type="checkbox" id="p3" data-key="eBay:05-15254-16900">
   <label class="item" for="p3">
     <div class="num"><span class="n">3</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">LA31<span class="sep">·</span><span class="sku">1075</span><span class="sep">·</span><span class="cat">TOPS-0779</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Gray Tops</div>
+        <div class="l3">J.Crew Secret Wash Cotton Poplin Shirt Mens M Green White Striped Long Sleeve</div>
+        <div class="note">VAULT and live Vendoo agree on Rack 5 bin LA31; full applied-history proof unavailable, so confirm physically.</div>
+      </div></div>
+    </div>
+  </label>
+
+  <div class="rack">POD 1 · RACK 7</div>
+  <input class="chk" type="checkbox" id="p4" data-key="eBay:27-15208-71520">
+  <label class="item" for="p4">
+    <div class="num"><span class="n">4</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">D6<span class="sep">·</span><span class="sku">2703</span><span class="sep">·</span><span class="cat">TOPS-1058</span></div>
       <div class="detail"><div class="inner">
@@ -190,9 +206,9 @@
   </label>
 
   <div class="rack">POD 1 · ROLLING RACK 1</div>
-  <input class="chk" type="checkbox" id="p4" data-key="eBay:09-15240-86981">
-  <label class="item" for="p4">
-    <div class="num"><span class="n">4</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p5" data-key="eBay:09-15240-86981">
+  <label class="item" for="p5">
+    <div class="num"><span class="n">5</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">R2<span class="sep">·</span><span class="sku">A8 2658</span><span class="sep">·</span><span class="cat">PANTS-0695</span></div>
       <div class="detail"><div class="inner">
@@ -203,10 +219,24 @@
     </div>
   </label>
 
+  <div class="rack">POD 1 · ROLLING RACK 2</div>
+  <input class="chk" type="checkbox" id="p6" data-key="Poshmark:6abfd1a705d76693f4e36b6b">
+  <label class="item" for="p6">
+    <div class="num"><span class="n">6</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">R11<span class="sep">·</span><span class="sku">H-1 1567</span><span class="sep">·</span><span class="cat">OUTERWEAR-0452</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Green Outerwear</div>
+        <div class="l3">Maurices Flannel Shacket WMNS XXL Green Red Plaid Button Up Heavy Cotton Pockets</div>
+        <div class="note">VAULT and live Vendoo agree on Rolling Rack 2 bin R11; full applied-history proof unavailable, so confirm physically.</div>
+      </div></div>
+    </div>
+  </label>
+
   <div class="rack">SHOES</div>
-  <input class="chk" type="checkbox" id="p5" data-key="Depop:476741344047">
-  <label class="item" for="p5">
-    <div class="num"><span class="n">5</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p7" data-key="Depop:476741344047">
+  <label class="item" for="p7">
+    <div class="num"><span class="n">7</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">SB23<span class="sep">·</span><span class="sku">SLOT 10</span><span class="sep">·</span><span class="cat">SHOES-1182</span></div>
       <div class="detail"><div class="inner">
@@ -216,9 +246,9 @@
       </div></div>
     </div>
   </label>
-  <input class="chk" type="checkbox" id="p6" data-key="Depop:476620693105">
-  <label class="item" for="p6">
-    <div class="num"><span class="n">6</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p8" data-key="Depop:476620693105">
+  <label class="item" for="p8">
+    <div class="num"><span class="n">8</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">SB23<span class="sep">·</span><span class="sku">SLOT 17</span><span class="sep">·</span><span class="cat">SHOES-1229</span></div>
       <div class="detail"><div class="inner">
@@ -233,7 +263,7 @@
   <div class="hint">Tap a row to mark it picked. Export picked → Save to Files → Daily_Pick_List\inbox\</div>
   <div class="bar"><div class="barin">
     <span class="count"></span>
-    <span class="dots"><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i><i class="dot d5"></i><i class="dot d6"></i></span>
+    <span class="dots"><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i><i class="dot d5"></i><i class="dot d6"></i><i class="dot d7"></i><i class="dot d8"></i></span>
     <input class="reset" type="reset" value="Reset">
     <button class="exp" type="button" onclick="exportPicked()">Export picked</button>
   </div></div>
