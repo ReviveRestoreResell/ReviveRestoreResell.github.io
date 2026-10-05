@@ -99,7 +99,7 @@
   .barin{max-width:700px;margin:0 auto;width:100%;display:flex;align-items:center;gap:10px}
   .count{font-size:14px;font-weight:600;color:var(--ink);white-space:nowrap;
     font-variant-numeric:tabular-nums}
-  .count::after{content:counter(picked) " of 16 picked"}
+  .count::after{content:counter(picked) " of 17 picked"}
   .dots{flex:1;display:flex;gap:5px}
   .dot{flex:1;height:6px;border-radius:3px;background:#e0e4e9;transition:background .25s ease}
   form:has(#p1:checked) .d1,
@@ -117,7 +117,8 @@
   form:has(#p13:checked) .d13,
   form:has(#p14:checked) .d14,
   form:has(#p15:checked) .d15,
-  form:has(#p16:checked) .d16{background:var(--done)}
+  form:has(#p16:checked) .d16,
+  form:has(#p17:checked) .d17{background:var(--done)}
   .reset,.exp{font:inherit;font-size:13px;border:1px solid var(--line);background:#fff;
     color:var(--mute);border-radius:7px;padding:7px 13px;cursor:pointer;
     -webkit-appearance:none;appearance:none;}
@@ -156,11 +157,11 @@
 <form>
 
   <h1>Pick List — Monday, Oct 5 2026</h1>
-  <div class="sub">16 orders · 17 items · Poshmark 11 orders / 12 items · eBay 4 · Depop 1</div>
-  <div class="build">build 2 · 7:19 am · sold-pick-list v3.0<button type="button" id="rfr" class="rfr">Refresh</button></div>
+  <div class="sub">17 individual picks · 16 orders · Poshmark 11 orders / 12 items · eBay 4 · Depop 1</div>
+  <div class="build">build 1 · 7:51 am · sold-pick-list v3.0<button type="button" id="rfr" class="rfr">Refresh</button></div>
 
   <div class="rack">POD 1 · RACK 1</div>
-  <input class="chk" type="checkbox" id="p1" data-key="Depop:476939115112">
+  <input class="chk" type="checkbox" id="p1" data-key="Depop:476939115112" data-order-key="Depop:476939115112">
   <label class="item" for="p1">
     <div class="num"><span class="n">1</span><span class="tick">✓</span></div>
     <div class="body">
@@ -173,7 +174,7 @@
       </div></div>
     </div>
   </label>
-  <input class="chk" type="checkbox" id="p2" data-key="eBay:16-15235-51347">
+  <input class="chk" type="checkbox" id="p2" data-key="eBay:16-15235-51347" data-order-key="eBay:16-15235-51347">
   <label class="item" for="p2">
     <div class="num"><span class="n">2</span><span class="tick">✓</span></div>
     <div class="body">
@@ -185,7 +186,7 @@
       </div></div>
     </div>
   </label>
-  <input class="chk" type="checkbox" id="p3" data-key="eBay:24-15243-32727">
+  <input class="chk" type="checkbox" id="p3" data-key="eBay:24-15243-32727" data-order-key="eBay:24-15243-32727">
   <label class="item" for="p3">
     <div class="num"><span class="n">3</span><span class="tick">✓</span></div>
     <div class="body">
@@ -199,7 +200,7 @@
   </label>
 
   <div class="rack">POD 1 · RACK 3</div>
-  <input class="chk" type="checkbox" id="p4" data-key="Poshmark:6ac0eebe7ec184eac894785c">
+  <input class="chk" type="checkbox" id="p4" data-key="Poshmark:6ac0eebe7ec184eac894785c" data-order-key="Poshmark:6ac0eebe7ec184eac894785c">
   <label class="item" for="p4">
     <div class="num"><span class="n">4</span><span class="tick">✓</span></div>
     <div class="body">
@@ -211,7 +212,7 @@
       </div></div>
     </div>
   </label>
-  <input class="chk" type="checkbox" id="p5" data-key="Poshmark:6ac08297fa577b0e4e0a7a87">
+  <input class="chk" type="checkbox" id="p5" data-key="Poshmark:6ac08297fa577b0e4e0a7a87" data-order-key="Poshmark:6ac08297fa577b0e4e0a7a87">
   <label class="item" for="p5">
     <div class="num"><span class="n">5</span><span class="tick">✓</span></div>
     <div class="body">
@@ -223,7 +224,7 @@
       </div></div>
     </div>
   </label>
-  <input class="chk" type="checkbox" id="p6" data-key="eBay:17-15239-61316">
+  <input class="chk" type="checkbox" id="p6" data-key="eBay:17-15239-61316" data-order-key="eBay:17-15239-61316">
   <label class="item" for="p6">
     <div class="num"><span class="n">6</span><span class="tick">✓</span></div>
     <div class="body">
@@ -237,7 +238,7 @@
   </label>
 
   <div class="rack">POD 1 · RACK 6</div>
-  <input class="chk" type="checkbox" id="p7" data-key="Poshmark:6ac2d6f77fd46ae9c4b8d997">
+  <input class="chk" type="checkbox" id="p7" data-key="Poshmark:6ac2d6f77fd46ae9c4b8d997" data-order-key="Poshmark:6ac2d6f77fd46ae9c4b8d997">
   <label class="item" for="p7">
     <div class="num"><span class="n">7</span><span class="tick">✓</span></div>
     <div class="body">
@@ -251,7 +252,7 @@
   </label>
 
   <div class="rack">POD 1 · RACK 7</div>
-  <input class="chk" type="checkbox" id="p8" data-key="eBay:19-15233-30118">
+  <input class="chk" type="checkbox" id="p8" data-key="eBay:19-15233-30118" data-order-key="eBay:19-15233-30118">
   <label class="item" for="p8">
     <div class="num"><span class="n">8</span><span class="tick">✓</span></div>
     <div class="body">
@@ -265,7 +266,7 @@
   </label>
 
   <div class="rack">POD 1 · RACK 8</div>
-  <input class="chk" type="checkbox" id="p9" data-key="Poshmark:6ac2c30123d726cc59592b2f">
+  <input class="chk" type="checkbox" id="p9" data-key="Poshmark:6ac2c30123d726cc59592b2f::item:1:TOPS-0678:unit:1" data-order-key="Poshmark:6ac2c30123d726cc59592b2f">
   <label class="item" for="p9">
     <div class="num"><span class="n">9</span><span class="tick">✓</span></div>
     <div class="body">
@@ -274,14 +275,13 @@
         <div class="l2">Orange Tops</div>
         <div class="l3">Willow &amp; Wind Orange WMNS M Crochet Crop Top Boho Festival Bralette Scallop Hem</div>
         <div class="note">Location history unverified; confirm both bundle items at their bins.</div>
-        <div class="note"><b>Both bundle items identified; confirm both at their bins.</b></div>
-        <div class="note"><b>Bundle - pick all 2 items.</b> 1 x TOPS-0678 M (D-20 2255) - Pod 1 / Rack 8 / D15; 1 x SKIRTS-0112 M (E-13 2234) - Pod 2 / Rack 3 / E9 / 5</div>
+        <div class="note"><b>Bundle: pack with SKIRTS-0112.</b></div>
       </div></div>
     </div>
   </label>
 
   <div class="rack">POD 1 · RACK 11</div>
-  <input class="chk" type="checkbox" id="p10" data-key="Poshmark:6ac26ab1eeedbe529ff9818e">
+  <input class="chk" type="checkbox" id="p10" data-key="Poshmark:6ac26ab1eeedbe529ff9818e" data-order-key="Poshmark:6ac26ab1eeedbe529ff9818e">
   <label class="item" for="p10">
     <div class="num"><span class="n">10</span><span class="tick">✓</span></div>
     <div class="body">
@@ -295,7 +295,7 @@
   </label>
 
   <div class="rack">POD 1 · RACK 13</div>
-  <input class="chk" type="checkbox" id="p11" data-key="Poshmark:6ac27dd3740c55eae5be2963">
+  <input class="chk" type="checkbox" id="p11" data-key="Poshmark:6ac27dd3740c55eae5be2963" data-order-key="Poshmark:6ac27dd3740c55eae5be2963">
   <label class="item" for="p11">
     <div class="num"><span class="n">11</span><span class="tick">✓</span></div>
     <div class="body">
@@ -309,7 +309,7 @@
   </label>
 
   <div class="rack">POD 1 · ROLLING RACK 2</div>
-  <input class="chk" type="checkbox" id="p12" data-key="Poshmark:6ac05e085a3f517504af4c34">
+  <input class="chk" type="checkbox" id="p12" data-key="Poshmark:6ac05e085a3f517504af4c34" data-order-key="Poshmark:6ac05e085a3f517504af4c34">
   <label class="item" for="p12">
     <div class="num"><span class="n">12</span><span class="tick">✓</span></div>
     <div class="body">
@@ -323,7 +323,7 @@
   </label>
 
   <div class="rack">POD 2 · RACK 3</div>
-  <input class="chk" type="checkbox" id="p13" data-key="Poshmark:6ac25c21d7964f43a78c9754">
+  <input class="chk" type="checkbox" id="p13" data-key="Poshmark:6ac25c21d7964f43a78c9754" data-order-key="Poshmark:6ac25c21d7964f43a78c9754">
   <label class="item" for="p13">
     <div class="num"><span class="n">13</span><span class="tick">✓</span></div>
     <div class="body">
@@ -335,11 +335,24 @@
       </div></div>
     </div>
   </label>
-
-  <div class="rack">POD 2 · CUSTOM</div>
-  <input class="chk" type="checkbox" id="p14" data-key="Poshmark:6ac2673ded81c7d34d739171">
+  <input class="chk" type="checkbox" id="p14" data-key="Poshmark:6ac2c30123d726cc59592b2f::item:2:SKIRTS-0112:unit:1" data-order-key="Poshmark:6ac2c30123d726cc59592b2f">
   <label class="item" for="p14">
     <div class="num"><span class="n">14</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">E9<span class="sep">·</span><span class="sku">E-13 2234</span><span class="sep">·</span><span class="cat">SKIRTS-0112</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Orange Skirts</div>
+        <div class="l3">Willow &amp; Wind Crochet Knit Maxi Skirt Womens M Orange Scallop Hem Cottagecore</div>
+        <div class="note">Location history unverified; confirm both bundle items at their bins.</div>
+        <div class="note"><b>Bundle: pack with TOPS-0678.</b></div>
+      </div></div>
+    </div>
+  </label>
+
+  <div class="rack">POD 2 · CUSTOM</div>
+  <input class="chk" type="checkbox" id="p15" data-key="Poshmark:6ac2673ded81c7d34d739171" data-order-key="Poshmark:6ac2673ded81c7d34d739171">
+  <label class="item" for="p15">
+    <div class="num"><span class="n">15</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">BIN 63<span class="sep">·</span><span class="sku">J9 3582</span><span class="sep">·</span><span class="cat">DRESSES-0675</span></div>
       <div class="detail"><div class="inner">
@@ -351,9 +364,9 @@
   </label>
 
   <div class="rack">SHOES</div>
-  <input class="chk" type="checkbox" id="p15" data-key="Poshmark:6ac0732a014fb563caf9f27b">
-  <label class="item" for="p15">
-    <div class="num"><span class="n">15</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p16" data-key="Poshmark:6ac0732a014fb563caf9f27b" data-order-key="Poshmark:6ac0732a014fb563caf9f27b">
+  <label class="item" for="p16">
+    <div class="num"><span class="n">16</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">SB15<span class="sep">·</span><span class="sku">2981</span><span class="sep">·</span><span class="cat">Shoes-1165</span></div>
       <div class="detail"><div class="inner">
@@ -363,9 +376,9 @@
       </div></div>
     </div>
   </label>
-  <input class="chk" type="checkbox" id="p16" data-key="Poshmark:6ac307fa1a8b91ba6942687c">
-  <label class="item" for="p16">
-    <div class="num"><span class="n">16</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p17" data-key="Poshmark:6ac307fa1a8b91ba6942687c" data-order-key="Poshmark:6ac307fa1a8b91ba6942687c">
+  <label class="item" for="p17">
+    <div class="num"><span class="n">17</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">SB21<span class="sep">·</span><span class="sku">SLOT 2</span><span class="sep">·</span><span class="cat">SHOES-1284</span></div>
       <div class="detail"><div class="inner">
@@ -379,7 +392,7 @@
   <div class="hint">Tap a row to mark it picked. Export picked → Save to Files → Daily_Pick_List\inbox\</div>
   <div class="bar"><div class="barin">
     <span class="count"></span>
-    <span class="dots"><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i><i class="dot d5"></i><i class="dot d6"></i><i class="dot d7"></i><i class="dot d8"></i><i class="dot d9"></i><i class="dot d10"></i><i class="dot d11"></i><i class="dot d12"></i><i class="dot d13"></i><i class="dot d14"></i><i class="dot d15"></i><i class="dot d16"></i></span>
+    <span class="dots"><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i><i class="dot d5"></i><i class="dot d6"></i><i class="dot d7"></i><i class="dot d8"></i><i class="dot d9"></i><i class="dot d10"></i><i class="dot d11"></i><i class="dot d12"></i><i class="dot d13"></i><i class="dot d14"></i><i class="dot d15"></i><i class="dot d16"></i><i class="dot d17"></i></span>
     <input class="reset" type="reset" value="Reset">
     <button class="exp" type="button" onclick="exportPicked()">Export picked</button>
   </div></div>
