@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Pick List — 2026-10-12</title>
+<title>Pick List — 2026-10-13</title>
 <style>
   /* Tracie, 2026-08-14: boho minimalist. Warm bone ground, terracotta accent,
      serif headline and numerals. ONLY the neutrals and --key changed. The status
@@ -99,20 +99,10 @@
   .barin{max-width:700px;margin:0 auto;width:100%;display:flex;align-items:center;gap:10px}
   .count{font-size:14px;font-weight:600;color:var(--ink);white-space:nowrap;
     font-variant-numeric:tabular-nums}
-  .count::after{content:counter(picked) " of 11 picked"}
+  .count::after{content:counter(picked) " of 0 picked"}
   .dots{flex:1;display:flex;gap:5px}
   .dot{flex:1;height:6px;border-radius:3px;background:#e0e4e9;transition:background .25s ease}
-  form:has(#p1:checked) .d1,
-  form:has(#p2:checked) .d2,
-  form:has(#p3:checked) .d3,
-  form:has(#p4:checked) .d4,
-  form:has(#p5:checked) .d5,
-  form:has(#p6:checked) .d6,
-  form:has(#p7:checked) .d7,
-  form:has(#p8:checked) .d8,
-  form:has(#p9:checked) .d9,
-  form:has(#p10:checked) .d10,
-  form:has(#p11:checked) .d11{background:var(--done)}
+
   .reset,.exp{font:inherit;font-size:13px;border:1px solid var(--line);background:#fff;
     color:var(--mute);border-radius:7px;padding:7px 13px;cursor:pointer;
     -webkit-appearance:none;appearance:none;}
@@ -150,168 +140,20 @@
 <body>
 <form>
 
-  <h1>Pick List — Monday, Oct 12 2026</h1>
-  <div class="sub">11 items · eBay 5 · Poshmark 5 · Depop 1</div>
-  <div class="build">build 1 · 2:51 pm · sold-pick-list v3.0<button type="button" id="rfr" class="rfr">Refresh</button></div>
-
-  <div class="rack">POD 1 · RACK 2</div>
-  <input class="chk" type="checkbox" id="p1" data-key="eBay:06-15287-53234" data-order-key="eBay:06-15287-53234">
-  <label class="item" for="p1">
-    <div class="num"><span class="n">1</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">#14<span class="sep">·</span><span class="sku">Bin B5 2077</span><span class="sep">·</span><span class="cat">TOPS-0617</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Blue Tops</div>
-        <div class="l3">Habitat Teal Black Striped Button Cowl Neck Stretch Top Womens Small Long Sleeve</div>
-        <div class="note">Live Vendoo location; physical history unverified.</div>
-      </div></div>
-    </div>
-  </label>
-  <input class="chk" type="checkbox" id="p2" data-key="Poshmark:6acd42951b5f0c01a4e45922" data-order-key="Poshmark:6acd42951b5f0c01a4e45922">
-  <label class="item" for="p2">
-    <div class="num"><span class="n">2</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">#18<span class="sep">·</span><span class="sku">B12 2517</span><span class="sep">·</span><span class="cat">DRESSES-0041</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Green Dresses</div>
-        <div class="l3">Current Air by Anthropologie Green Sereia Pleated Midi Dress Womens Small V Neck</div>
-        <div class="note">Live Vendoo location; physical history unverified.</div>
-      </div></div>
-    </div>
-  </label>
-
-  <div class="rack">POD 1 · RACK 4</div>
-  <input class="chk" type="checkbox" id="p3" data-key="eBay:06-15290-84176" data-order-key="eBay:06-15290-84176">
-  <label class="item" for="p3">
-    <div class="num"><span class="n">3</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">LA26<span class="sep">·</span><span class="sku">909</span><span class="sep">·</span><span class="cat">PANTS-0184</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Black Pants</div>
-        <div class="l3">Superwide-Leg Trouser Jean WMNS 24 Black High-Rise Rigid Center Pintuck</div>
-        <div class="note">Live Vendoo location; physical history unverified.</div>
-      </div></div>
-    </div>
-  </label>
-
-  <div class="rack">POD 1 · RACK 10</div>
-  <input class="chk" type="checkbox" id="p4" data-key="eBay:21-15265-07002" data-order-key="eBay:21-15265-07002">
-  <label class="item" for="p4">
-    <div class="num"><span class="n">4</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">F13<span class="sep">·</span><span class="sku">1927</span><span class="sep">·</span><span class="cat">TOPS-0349</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">White Tops</div>
-        <div class="l3">Athleta Outbound V Neck Tee WMNS 2X White Pullover Ruched Shoulder Short Sleeve</div>
-        <div class="note">Live Vendoo location; physical history unverified.</div>
-      </div></div>
-    </div>
-  </label>
-
-  <div class="rack">POD 1 · ROLLING RACK 1</div>
-  <input class="chk" type="checkbox" id="p5" data-key="Poshmark:6acb4ff70c8f42c46fcb1261" data-order-key="Poshmark:6acb4ff70c8f42c46fcb1261">
-  <label class="item" for="p5">
-    <div class="num"><span class="n">5</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">R2<span class="sep">·</span><span class="sku">A8 2659</span><span class="sep">·</span><span class="cat">PANTS-0564</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Black Pants</div>
-        <div class="l3">5.11 Tactical Black Stretch Pants Mens 36x30 Mid Rise Slim Fit Utility Workwear</div>
-        <div class="note">Live Vendoo location; physical history unverified.</div>
-      </div></div>
-    </div>
-  </label>
-
-  <div class="rack">POD 1 · ROLLING RACK 2</div>
-  <input class="chk" type="checkbox" id="p6" data-key="Poshmark:6acd284b1b5f0cf8f6431fc3" data-order-key="Poshmark:6acd284b1b5f0cf8f6431fc3">
-  <label class="item" for="p6">
-    <div class="num"><span class="n">6</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">R12<span class="sep">·</span><span class="sku">H-2 1571</span><span class="sep">·</span><span class="cat">OUTERWEAR-0204</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Blue Outerwear</div>
-        <div class="l3">Levi&#x27;s Trucker Vest Mens S Blue Denim Regular Fit Button Up Sun&#x27;s Out Bun&#x27;s Out</div>
-        <div class="note">Live Vendoo location; physical history unverified.</div>
-      </div></div>
-    </div>
-  </label>
-
-  <div class="rack">POD 2 · RACK 3</div>
-  <input class="chk" type="checkbox" id="p7" data-key="eBay:07-15291-53399" data-order-key="eBay:07-15291-53399">
-  <label class="item" for="p7">
-    <div class="num"><span class="n">7</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">E11<span class="sep">·</span><span class="sku">E-15 0477</span><span class="sep">·</span><span class="cat">PANTS-0572</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Blue Pants</div>
-        <div class="l3">Buffalo David Bitton Jeans Womens Size 16/36 Blue Alyssa High Rise Straight Leg</div>
-        <div class="note">Live Vendoo location; physical history unverified.</div>
-      </div></div>
-    </div>
-  </label>
-
-  <div class="rack">SHOES</div>
-  <input class="chk" type="checkbox" id="p8" data-key="eBay:14-15278-38855" data-order-key="eBay:14-15278-38855">
-  <label class="item" for="p8">
-    <div class="num"><span class="n">8</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">SB14<span class="sep">·</span><span class="sku">2961</span><span class="sep">·</span><span class="cat">SHOES-1145</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Silver Shoes</div>
-        <div class="l3">Jeffrey Campbell Havana Last Fling Wedge Jelly Sandals WMNS 9 Silver Mesh Slide</div>
-        <div class="note">Live Vendoo location; physical history unverified.</div>
-      </div></div>
-    </div>
-  </label>
-  <input class="chk" type="checkbox" id="p9" data-key="Poshmark:6acbd05423cd1e73f3fabf69" data-order-key="Poshmark:6acbd05423cd1e73f3fabf69">
-  <label class="item" for="p9">
-    <div class="num"><span class="n">9</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">SB17<span class="sep">·</span><span class="sku">1555</span><span class="sep">·</span><span class="cat">SHOES-0893</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Gray Shoes</div>
-        <div class="l3">Columbia Omni-Grip Hiking Shoes Little Kids US 8 EU 25 UK 7 Grey Purple Lace Up</div>
-        <div class="note">Live Vendoo location; physical history unverified.</div>
-      </div></div>
-    </div>
-  </label>
-  <input class="chk" type="checkbox" id="p10" data-key="Depop:477543040871" data-order-key="Depop:477543040871">
-  <label class="item" for="p10">
-    <div class="num"><span class="n">10</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">SB21<span class="sep">·</span><span class="sku">SLOT 5</span><span class="sep">·</span><span class="cat">SHOES-1248</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Brown Shoes</div>
-        <div class="l3">Marc Fisher Feud2 Pointed Toe Loafer Womens US 9M Brown Embossed Slip On Leather</div>
-        <div class="note">Live Vendoo location; physical history unverified.</div>
-      </div></div>
-    </div>
-  </label>
-
-  <div class="rack">POD 3</div>
-  <input class="chk" type="checkbox" id="p11" data-key="Poshmark:6acac8c0ce85bafa55539937" data-order-key="Poshmark:6acac8c0ce85bafa55539937">
-  <label class="item" for="p11">
-    <div class="num"><span class="n">11</span><span class="tick">✓</span></div>
-    <div class="body">
-      <div class="l1">SK HG4<span class="sep">·</span><span class="cat">HOMEGOODS-0129</span></div>
-      <div class="detail"><div class="inner">
-        <div class="l2">Brown Homegoods</div>
-        <div class="l3">Brass Angel Candle Holder Mid Century Modern Sculptural Figurine Vintage Decor</div>
-        <div class="note">Live Vendoo location; physical history unverified.</div>
-      </div></div>
-    </div>
-  </label>
+  <h1>Pick List — Tuesday, Oct 13 2026</h1>
+  <div class="sub">0 items · </div>
+  <div class="build">build 1 · 6:15 am · sold-pick-list v3.0<button type="button" id="rfr" class="rfr">Refresh</button></div>
 
   <div class="hint">Tap a row to mark it picked. Export picked → Save to Files → Daily_Pick_List\inbox\</div>
   <div class="bar"><div class="barin">
     <span class="count"></span>
-    <span class="dots"><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i><i class="dot d5"></i><i class="dot d6"></i><i class="dot d7"></i><i class="dot d8"></i><i class="dot d9"></i><i class="dot d10"></i><i class="dot d11"></i></span>
+    <span class="dots"></span>
     <input class="reset" type="reset" value="Reset">
     <button class="exp" type="button" onclick="exportPicked()">Export picked</button>
   </div></div>
 
 </form>
-<script>var DATEKEY="2026-10-12";
+<script>var DATEKEY="2026-10-13";
 function exportPicked(){
   var picked=[].slice.call(document.querySelectorAll('.chk:checked'))
               .map(function(c){return c.dataset.key;});
