@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Pick List — 2026-10-16</title>
+<title>Pick List — 2026-10-17</title>
 <style>
   /* Tracie, 2026-08-14: boho minimalist. Warm bone ground, terracotta accent,
      serif headline and numerals. ONLY the neutrals and --key changed. The status
@@ -99,10 +99,13 @@
   .barin{max-width:700px;margin:0 auto;width:100%;display:flex;align-items:center;gap:10px}
   .count{font-size:14px;font-weight:600;color:var(--ink);white-space:nowrap;
     font-variant-numeric:tabular-nums}
-  .count::after{content:counter(picked) " of 0 picked"}
+  .count::after{content:counter(picked) " of 4 picked"}
   .dots{flex:1;display:flex;gap:5px}
   .dot{flex:1;height:6px;border-radius:3px;background:#e0e4e9;transition:background .25s ease}
-
+  form:has(#p1:checked) .d1,
+  form:has(#p2:checked) .d2,
+  form:has(#p3:checked) .d3,
+  form:has(#p4:checked) .d4{background:var(--done)}
   .reset,.exp{font:inherit;font-size:13px;border:1px solid var(--line);background:#fff;
     color:var(--mute);border-radius:7px;padding:7px 13px;cursor:pointer;
     -webkit-appearance:none;appearance:none;}
@@ -140,20 +143,79 @@
 <body>
 <form>
 
-  <h1>Pick List — Friday, Oct 16 2026</h1>
-  <div class="sub">0 items · </div>
-  <div class="build">build 1 · 6:12 am · sold-pick-list v3.0<button type="button" id="rfr" class="rfr">Refresh</button></div>
+  <h1>Pick List — Saturday, Oct 17 2026</h1>
+  <div class="sub">4 items · Poshmark 2 · Depop 1 · eBay 1</div>
+  <div class="build">build 1 · 6:10 am · sold-pick-list v3.0<button type="button" id="rfr" class="rfr">Refresh</button></div>
+
+  <div class="rack">POD 1 · RACK 5</div>
+  <input class="chk" type="checkbox" id="p1" data-key="Poshmark:6ad36899657b4d7110d1650d" data-order-key="Poshmark:6ad36899657b4d7110d1650d">
+  <label class="item" for="p1">
+    <div class="num"><span class="n">1</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">LA40<span class="sep">·</span><span class="sku">1388</span><span class="sep">·</span><span class="cat">DRESSES-0046</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Multicolor Dresses</div>
+        <div class="l3">Crewcuts J.Crew Tartan Tulle Dress Girls Size 5 Multi Plaid Long Sleeve Collared</div>
+        <div class="note">Physical placement unverified.</div>
+      </div></div>
+    </div>
+  </label>
+
+  <div class="rack">POD 1 · RACK 12</div>
+  <input class="chk" type="checkbox" id="p2" data-key="Poshmark:6ad2a57e33051ba6eedef93e" data-order-key="Poshmark:6ad2a57e33051ba6eedef93e">
+  <label class="item" for="p2">
+    <div class="num"><span class="n">2</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">G11<span class="sep">·</span><span class="sku">2273</span><span class="sep">·</span><span class="cat">PANTS-0635</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Blue Pants</div>
+        <div class="l3">Truth By Republic Pants WMNS XS Blue/Black Ankle Stretch Printed Rayon Retro Mod</div>
+        <div class="note">Physical placement unverified.</div>
+      </div></div>
+    </div>
+  </label>
+
+  <div class="rack">SHOES</div>
+  <input class="chk" type="checkbox" id="p3" data-key="Depop:478028166160" data-order-key="Depop:478028166160">
+  <label class="item" for="p3">
+    <div class="num"><span class="n">3</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">SB06<span class="sep">·</span><span class="sku">2825</span><span class="sep">·</span><span class="cat">SHOES-1023</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Gray Shoes</div>
+        <div class="l3">Wolky Mary Jane Pump Shoes SZ 38 Gray Black Hook Loop Strap Block Heels Leather</div>
+        <div class="note">Physical placement unverified.</div>
+      </div></div>
+    </div>
+  </label>
+
+  <div class="rack">POD 3</div>
+  <input class="chk" type="checkbox" id="p4" data-key="eBay:22-15283-00526" data-order-key="eBay:22-15283-00526">
+  <label class="item" for="p4">
+    <div class="num"><span class="n">4</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">UNRESOLVED<span class="sep">·</span><span class="sku">homegood-13</span><span class="sep">·</span><span class="cat">OTHER-0069</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Black</div>
+        <div class="l3">Halo PowerPatch Wireless Portable Charger with Charging Cables Anti Slip Patch</div>
+        <div class="note">Bin unverified; homegood-13 is a legacy tag. eBay report fallback; live queue unavailable.</div>
+        <div class="note"><b>eBay live/report discrepancy: fresh paid fulfillment row has no Shipped On Date; included so the live queue cannot silently omit it.</b></div>
+      </div></div>
+    </div>
+  </label>
+
+  <div class="gap">Not checked today: <b>eBay</b></div>
 
   <div class="hint">Tap a row to mark it picked. Export picked → Save to Files → Daily_Pick_List\inbox\</div>
   <div class="bar"><div class="barin">
     <span class="count"></span>
-    <span class="dots"></span>
+    <span class="dots"><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i></span>
     <input class="reset" type="reset" value="Reset">
     <button class="exp" type="button" onclick="exportPicked()">Export picked</button>
   </div></div>
 
 </form>
-<script>var DATEKEY="2026-10-16";
+<script>var DATEKEY="2026-10-17";
 function exportPicked(){
   var picked=[].slice.call(document.querySelectorAll('.chk:checked'))
               .map(function(c){return c.dataset.key;});
