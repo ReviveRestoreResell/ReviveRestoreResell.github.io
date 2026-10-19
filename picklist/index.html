@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Pick List — 2026-10-18</title>
+<title>Pick List — 2026-10-19</title>
 <style>
   /* Tracie, 2026-08-14: boho minimalist. Warm bone ground, terracotta accent,
      serif headline and numerals. ONLY the neutrals and --key changed. The status
@@ -99,7 +99,7 @@
   .barin{max-width:700px;margin:0 auto;width:100%;display:flex;align-items:center;gap:10px}
   .count{font-size:14px;font-weight:600;color:var(--ink);white-space:nowrap;
     font-variant-numeric:tabular-nums}
-  .count::after{content:counter(picked) " of 7 picked"}
+  .count::after{content:counter(picked) " of 10 picked"}
   .dots{flex:1;display:flex;gap:5px}
   .dot{flex:1;height:6px;border-radius:3px;background:#e0e4e9;transition:background .25s ease}
   form:has(#p1:checked) .d1,
@@ -108,7 +108,10 @@
   form:has(#p4:checked) .d4,
   form:has(#p5:checked) .d5,
   form:has(#p6:checked) .d6,
-  form:has(#p7:checked) .d7{background:var(--done)}
+  form:has(#p7:checked) .d7,
+  form:has(#p8:checked) .d8,
+  form:has(#p9:checked) .d9,
+  form:has(#p10:checked) .d10{background:var(--done)}
   .reset,.exp{font:inherit;font-size:13px;border:1px solid var(--line);background:#fff;
     color:var(--mute);border-radius:7px;padding:7px 13px;cursor:pointer;
     -webkit-appearance:none;appearance:none;}
@@ -146,9 +149,9 @@
 <body>
 <form>
 
-  <h1>Pick List — Sunday, Oct 18 2026</h1>
-  <div class="sub">7 items · eBay 4 · Poshmark 2 · Depop 1</div>
-  <div class="build">build 1 · 6:17 am · sold-pick-list v3.0<button type="button" id="rfr" class="rfr">Refresh</button></div>
+  <h1>Pick List — Monday, Oct 19 2026</h1>
+  <div class="sub">10 items · eBay 5 · Poshmark 4 · Depop 1</div>
+  <div class="build">build 1 · 6:14 am · sold-pick-list v3.0<button type="button" id="rfr" class="rfr">Refresh</button></div>
 
   <div class="rack">POD 1 · RACK 3</div>
   <input class="chk" type="checkbox" id="p1" data-key="eBay:03-15322-48655" data-order-key="eBay:03-15322-48655">
@@ -191,11 +194,23 @@
       </div></div>
     </div>
   </label>
-
-  <div class="rack">POD 1 · RACK 12</div>
-  <input class="chk" type="checkbox" id="p4" data-key="Poshmark:6ad2a57e33051ba6eedef93e" data-order-key="Poshmark:6ad2a57e33051ba6eedef93e">
+  <input class="chk" type="checkbox" id="p4" data-key="Poshmark:6ad573f653558dec7e780295" data-order-key="Poshmark:6ad573f653558dec7e780295">
   <label class="item" for="p4">
     <div class="num"><span class="n">4</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">UNRESOLVED<span class="sep">·</span><span class="sku">C-13 2366</span><span class="sep">·</span><span class="cat">OUTERWEAR-0102</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Blue Outerwear</div>
+        <div class="l3">Vintage Norm Thompson Blue Denim Jacket Womens Large Button Front Flannel Lined</div>
+        <div class="note">C-series bin unresolved; identify BLUE denim, not brown wool.</div>
+      </div></div>
+    </div>
+  </label>
+
+  <div class="rack">POD 1 · RACK 12</div>
+  <input class="chk" type="checkbox" id="p5" data-key="Poshmark:6ad2a57e33051ba6eedef93e" data-order-key="Poshmark:6ad2a57e33051ba6eedef93e">
+  <label class="item" for="p5">
+    <div class="num"><span class="n">5</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">G11<span class="sep">·</span><span class="sku">2273</span><span class="sep">·</span><span class="cat">PANTS-0635</span></div>
       <div class="detail"><div class="inner">
@@ -207,9 +222,21 @@
   </label>
 
   <div class="rack">POD 1 · RACK 13</div>
-  <input class="chk" type="checkbox" id="p5" data-key="eBay:20-15290-26207" data-order-key="eBay:20-15290-26207">
-  <label class="item" for="p5">
-    <div class="num"><span class="n">5</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p6" data-key="eBay:13-15308-90777" data-order-key="eBay:13-15308-90777">
+  <label class="item" for="p6">
+    <div class="num"><span class="n">6</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">LA7<span class="sep">·</span><span class="sku">188</span><span class="sep">·</span><span class="cat">TOPS-0123</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Black Tops</div>
+        <div class="l3">J.Crew Broken In Shirt SZ XL Gray Short Sleeve Crewneck Pullover Stretch Cotton</div>
+        <div class="note">Physical placement unverified; title says gray, description says black. Match XL / LA7 188.</div>
+      </div></div>
+    </div>
+  </label>
+  <input class="chk" type="checkbox" id="p7" data-key="eBay:20-15290-26207" data-order-key="eBay:20-15290-26207">
+  <label class="item" for="p7">
+    <div class="num"><span class="n">7</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">LA9<span class="sep">·</span><span class="sku">278</span><span class="sep">·</span><span class="cat">TOPS-1083</span></div>
       <div class="detail"><div class="inner">
@@ -220,10 +247,24 @@
     </div>
   </label>
 
+  <div class="rack">POD 1 · ROLLING RACK 2</div>
+  <input class="chk" type="checkbox" id="p8" data-key="Poshmark:6ad54dcc57fb6af426c69a8d" data-order-key="Poshmark:6ad54dcc57fb6af426c69a8d">
+  <label class="item" for="p8">
+    <div class="num"><span class="n">8</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">R15<span class="sep">·</span><span class="sku">H-8 1829</span><span class="sep">·</span><span class="cat">PANTS-0220</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Brown Pants</div>
+        <div class="l3">Empyre Tori Carafe Corduroy Skate Pants Womens 8 Brown Loose Fit Baggy High Rise</div>
+        <div class="note">Physical placement unverified.</div>
+      </div></div>
+    </div>
+  </label>
+
   <div class="rack">SHOES</div>
-  <input class="chk" type="checkbox" id="p6" data-key="Depop:478028166160" data-order-key="Depop:478028166160">
-  <label class="item" for="p6">
-    <div class="num"><span class="n">6</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p9" data-key="Depop:478028166160" data-order-key="Depop:478028166160">
+  <label class="item" for="p9">
+    <div class="num"><span class="n">9</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">SB06<span class="sep">·</span><span class="sku">2825</span><span class="sep">·</span><span class="cat">SHOES-1023</span></div>
       <div class="detail"><div class="inner">
@@ -235,16 +276,15 @@
   </label>
 
   <div class="rack">POD 3</div>
-  <input class="chk" type="checkbox" id="p7" data-key="eBay:22-15283-00526" data-order-key="eBay:22-15283-00526">
-  <label class="item" for="p7">
-    <div class="num"><span class="n">7</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p10" data-key="eBay:22-15283-00526" data-order-key="eBay:22-15283-00526">
+  <label class="item" for="p10">
+    <div class="num"><span class="n">10</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">UNRESOLVED<span class="sep">·</span><span class="sku">homegood-13</span><span class="sep">·</span><span class="cat">OTHER-0069</span></div>
       <div class="detail"><div class="inner">
         <div class="l2">Black</div>
         <div class="l3">Halo PowerPatch Wireless Portable Charger with Charging Cables Anti Slip Patch</div>
         <div class="note">Bin unverified; homegood-13 is a reused legacy tag.</div>
-        <div class="note"></div>
       </div></div>
     </div>
   </label>
@@ -252,13 +292,13 @@
   <div class="hint">Tap a row to mark it picked. Export picked → Save to Files → Daily_Pick_List\inbox\</div>
   <div class="bar"><div class="barin">
     <span class="count"></span>
-    <span class="dots"><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i><i class="dot d5"></i><i class="dot d6"></i><i class="dot d7"></i></span>
+    <span class="dots"><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i><i class="dot d5"></i><i class="dot d6"></i><i class="dot d7"></i><i class="dot d8"></i><i class="dot d9"></i><i class="dot d10"></i></span>
     <input class="reset" type="reset" value="Reset">
     <button class="exp" type="button" onclick="exportPicked()">Export picked</button>
   </div></div>
 
 </form>
-<script>var DATEKEY="2026-10-18";
+<script>var DATEKEY="2026-10-19";
 function exportPicked(){
   var picked=[].slice.call(document.querySelectorAll('.chk:checked'))
               .map(function(c){return c.dataset.key;});
