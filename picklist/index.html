@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Pick List — 2026-10-22</title>
+<title>Pick List — 2026-10-23</title>
 <style>
   /* Tracie, 2026-08-14: boho minimalist. Warm bone ground, terracotta accent,
      serif headline and numerals. ONLY the neutrals and --key changed. The status
@@ -99,10 +99,20 @@
   .barin{max-width:700px;margin:0 auto;width:100%;display:flex;align-items:center;gap:10px}
   .count{font-size:14px;font-weight:600;color:var(--ink);white-space:nowrap;
     font-variant-numeric:tabular-nums}
-  .count::after{content:counter(picked) " of 0 picked"}
+  .count::after{content:counter(picked) " of 11 picked"}
   .dots{flex:1;display:flex;gap:5px}
   .dot{flex:1;height:6px;border-radius:3px;background:#e0e4e9;transition:background .25s ease}
-
+  form:has(#p1:checked) .d1,
+  form:has(#p2:checked) .d2,
+  form:has(#p3:checked) .d3,
+  form:has(#p4:checked) .d4,
+  form:has(#p5:checked) .d5,
+  form:has(#p6:checked) .d6,
+  form:has(#p7:checked) .d7,
+  form:has(#p8:checked) .d8,
+  form:has(#p9:checked) .d9,
+  form:has(#p10:checked) .d10,
+  form:has(#p11:checked) .d11{background:var(--done)}
   .reset,.exp{font:inherit;font-size:13px;border:1px solid var(--line);background:#fff;
     color:var(--mute);border-radius:7px;padding:7px 13px;cursor:pointer;
     -webkit-appearance:none;appearance:none;}
@@ -140,20 +150,167 @@
 <body>
 <form>
 
-  <h1>Pick List — Thursday, Oct 22 2026</h1>
-  <div class="sub">0 items · </div>
-  <div class="build">build 2 · 11:01 am · sold-pick-list v3.0<button type="button" id="rfr" class="rfr">Refresh</button></div>
+  <h1>Pick List — Friday, Oct 23 2026</h1>
+  <div class="sub">11 individual picks · 9 orders · Poshmark 4 orders / 6 items · Depop 3 · eBay 2</div>
+  <div class="build">build 1 · 12:53 pm · sold-pick-list v3.0<button type="button" id="rfr" class="rfr">Refresh</button></div>
+
+  <div class="rack">POD 1 · RACK 1</div>
+  <input class="chk" type="checkbox" id="p1" data-key="eBay:24-15320-93038" data-order-key="eBay:24-15320-93038">
+  <label class="item" for="p1">
+    <div class="num"><span class="n">1</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">#5<span class="sep">·</span><span class="sku">P-1938</span><span class="sep">·</span><span class="cat">PANTS-0242</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Red Pants</div>
+        <div class="l3">Irideon Riding Pants WMNS S Maroon Mid Rise Pull On Leather Inner Elastic Waist</div>
+        <div class="note">Physical placement unverified; match exact tag.</div>
+      </div></div>
+    </div>
+  </label>
+
+  <div class="rack">POD 1 · RACK 3</div>
+  <input class="chk" type="checkbox" id="p2" data-key="Poshmark:6adaf5c56dfd9b460e31dd3d" data-order-key="Poshmark:6adaf5c56dfd9b460e31dd3d">
+  <label class="item" for="p2">
+    <div class="num"><span class="n">2</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">LA16<span class="sep">·</span><span class="sku">502</span><span class="sep">·</span><span class="cat">TOPS-0470</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Black Tops</div>
+        <div class="l3">J.Crew Carolyn Fitted Crewneck Sweater L Black Merino Wool Long Sleeve Pullover</div>
+        <div class="note">Physical placement unverified; match exact tag.</div>
+      </div></div>
+    </div>
+  </label>
+  <input class="chk" type="checkbox" id="p3" data-key="Poshmark:6ad94ac1d3de65939d290fa8" data-order-key="Poshmark:6ad94ac1d3de65939d290fa8">
+  <label class="item" for="p3">
+    <div class="num"><span class="n">3</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">LA17<span class="sep">·</span><span class="sku">548</span><span class="sep">·</span><span class="cat">TOPS-0674</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">White Tops</div>
+        <div class="l3">Madewell Crewneck Bubble Top Womens M White Sleeveless Lined Cotton Stretch Knit</div>
+        <div class="note">Physical placement unverified; match exact tag.</div>
+      </div></div>
+    </div>
+  </label>
+
+  <div class="rack">POD 1 · RACK 4</div>
+  <input class="chk" type="checkbox" id="p4" data-key="Poshmark:6ada2990d98960b58257cb44::item:1:TOPS-0788:unit:1" data-order-key="Poshmark:6ada2990d98960b58257cb44">
+  <label class="item" for="p4">
+    <div class="num"><span class="n">4</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">LA26<span class="sep">·</span><span class="sku">915</span><span class="sep">·</span><span class="cat">TOPS-0788</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">White Tops</div>
+        <div class="l3">Madewell Essential Tee Womens M White Slim Fit Stretch Cotton Short Sleeve Basic</div>
+        <div class="note">Physical placement unverified; match exact tag.</div>
+        <div class="note"><b>Bundle: pack with DRESSES-0722, SHOES-1083.</b></div>
+      </div></div>
+    </div>
+  </label>
+
+  <div class="rack">POD 2 · CUSTOM</div>
+  <input class="chk" type="checkbox" id="p5" data-key="Depop:478539400304" data-order-key="Depop:478539400304">
+  <label class="item" for="p5">
+    <div class="num"><span class="n">5</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">BIN 28<span class="sep">·</span><span class="sku">D5 5674</span><span class="sep">·</span><span class="cat">TOPS-2079</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Blue Tops</div>
+        <div class="l3">Madewell Pullover Sweater WMNS S Blue Ombre Boxy Crewneck Cashmere Coastal Chic</div>
+        <div class="note">Physical placement unverified; match exact tag.</div>
+      </div></div>
+    </div>
+  </label>
+  <input class="chk" type="checkbox" id="p6" data-key="Poshmark:6ada29e7ed81c7dfa37974ae" data-order-key="Poshmark:6ada29e7ed81c7dfa37974ae">
+  <label class="item" for="p6">
+    <div class="num"><span class="n">6</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">BIN 34<span class="sep">·</span><span class="sku">X 6026</span><span class="sep">·</span><span class="cat">TOPS-2137</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Beige Tops</div>
+        <div class="l3">Thread &amp; Supply Hoodie Womens M Gray and Tan Heather Snap Front Comfort Casual</div>
+        <div class="note">Physical placement unverified; match exact tag.</div>
+      </div></div>
+    </div>
+  </label>
+  <input class="chk" type="checkbox" id="p7" data-key="Depop:478564173307" data-order-key="Depop:478564173307">
+  <label class="item" for="p7">
+    <div class="num"><span class="n">7</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">BIN 39<span class="sep">·</span><span class="sku">W 5983</span><span class="sep">·</span><span class="cat">PANTS-1747</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Black Pants</div>
+        <div class="l3">Madewell Jeans WMNS 33P Black High Rise ’90s Straight Stretch Modern Minimalist</div>
+        <div class="note">Physical placement unverified; match exact tag.</div>
+      </div></div>
+    </div>
+  </label>
+  <input class="chk" type="checkbox" id="p8" data-key="Poshmark:6ada2990d98960b58257cb44::item:2:DRESSES-0722:unit:1" data-order-key="Poshmark:6ada2990d98960b58257cb44">
+  <label class="item" for="p8">
+    <div class="num"><span class="n">8</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">BIN 52<span class="sep">·</span><span class="sku">W7 2785</span><span class="sep">·</span><span class="cat">DRESSES-0722</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Blue Dresses</div>
+        <div class="l3">J.Crew Dress WMNS 8 Navy Blue Balloon Sleeve Scoop Neck Party Mini Modern Preppy</div>
+        <div class="note">Physical placement unverified; match exact tag. Faint deodorant mark on collar.</div>
+        <div class="note"><b>Bundle: pack with SHOES-1083, TOPS-0788.</b></div>
+      </div></div>
+    </div>
+  </label>
+
+  <div class="rack">SHOES</div>
+  <input class="chk" type="checkbox" id="p9" data-key="Poshmark:6ada2990d98960b58257cb44::item:3:SHOES-1083:unit:1" data-order-key="Poshmark:6ada2990d98960b58257cb44">
+  <label class="item" for="p9">
+    <div class="num"><span class="n">9</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">SB10<span class="sep">·</span><span class="sku">2889</span><span class="sep">·</span><span class="cat">SHOES-1083</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Black Shoes</div>
+        <div class="l3">LifeStride Corie Ankle Bootie Microsuede Round Toe Black WMNS Size 10 Block Heel</div>
+        <div class="note">Physical placement unverified; match exact tag.</div>
+        <div class="note"><b>Bundle: pack with DRESSES-0722, TOPS-0788.</b></div>
+      </div></div>
+    </div>
+  </label>
+  <input class="chk" type="checkbox" id="p10" data-key="eBay:20-15312-64948" data-order-key="eBay:20-15312-64948">
+  <label class="item" for="p10">
+    <div class="num"><span class="n">10</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">SB11<span class="sep">·</span><span class="sku">2902</span><span class="sep">·</span><span class="cat">SHOES-1095</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Brown Shoes</div>
+        <div class="l3">Danner Caliper 3&quot; Men Brown Boots US 11.5 Lace-Up Work Wear Waterproof Round Toe</div>
+        <div class="note">Physical placement unverified; match exact tag.</div>
+      </div></div>
+    </div>
+  </label>
+
+  <div class="rack">UNKNOWN POD</div>
+  <input class="chk" type="checkbox" id="p11" data-key="Depop:478527828170" data-order-key="Depop:478527828170">
+  <label class="item" for="p11">
+    <div class="num"><span class="n">11</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">—<span class="sep">·</span><span class="sku">SK</span><span class="sep">·</span><span class="cat">PANTS-0730</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Blue Pants</div>
+        <div class="l3">Universal Thread Womens Light Wash Jeans 18 Vintage Straight Blue Denim Straight</div>
+        <div class="note">Location unresolved; check packing/pulled areas, then owner locate.</div>
+      </div></div>
+    </div>
+  </label>
 
   <div class="hint">Tap a row to mark it picked. Export picked → Save to Files → Daily_Pick_List\inbox\</div>
   <div class="bar"><div class="barin">
     <span class="count"></span>
-    <span class="dots"></span>
+    <span class="dots"><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i><i class="dot d5"></i><i class="dot d6"></i><i class="dot d7"></i><i class="dot d8"></i><i class="dot d9"></i><i class="dot d10"></i><i class="dot d11"></i></span>
     <input class="reset" type="reset" value="Reset">
     <button class="exp" type="button" onclick="exportPicked()">Export picked</button>
   </div></div>
 
 </form>
-<script>var DATEKEY="2026-10-22";
+<script>var DATEKEY="2026-10-23";
 function exportPicked(){
   var picked=[].slice.call(document.querySelectorAll('.chk:checked'))
               .map(function(c){return c.dataset.key;});
