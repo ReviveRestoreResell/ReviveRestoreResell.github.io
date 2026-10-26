@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Pick List — 2026-10-25</title>
+<title>Pick List — 2026-10-26</title>
 <style>
   /* Tracie, 2026-08-14: boho minimalist. Warm bone ground, terracotta accent,
      serif headline and numerals. ONLY the neutrals and --key changed. The status
@@ -99,11 +99,17 @@
   .barin{max-width:700px;margin:0 auto;width:100%;display:flex;align-items:center;gap:10px}
   .count{font-size:14px;font-weight:600;color:var(--ink);white-space:nowrap;
     font-variant-numeric:tabular-nums}
-  .count::after{content:counter(picked) " of 2 picked"}
+  .count::after{content:counter(picked) " of 8 picked"}
   .dots{flex:1;display:flex;gap:5px}
   .dot{flex:1;height:6px;border-radius:3px;background:#e0e4e9;transition:background .25s ease}
   form:has(#p1:checked) .d1,
-  form:has(#p2:checked) .d2{background:var(--done)}
+  form:has(#p2:checked) .d2,
+  form:has(#p3:checked) .d3,
+  form:has(#p4:checked) .d4,
+  form:has(#p5:checked) .d5,
+  form:has(#p6:checked) .d6,
+  form:has(#p7:checked) .d7,
+  form:has(#p8:checked) .d8{background:var(--done)}
   .reset,.exp{font:inherit;font-size:13px;border:1px solid var(--line);background:#fff;
     color:var(--mute);border-radius:7px;padding:7px 13px;cursor:pointer;
     -webkit-appearance:none;appearance:none;}
@@ -141,9 +147,9 @@
 <body>
 <form>
 
-  <h1>Pick List — Sunday, Oct 25 2026</h1>
-  <div class="sub">2 items · Poshmark 2</div>
-  <div class="build">build 1 · 6:21 am · sold-pick-list v3.0<button type="button" id="rfr" class="rfr">Refresh</button></div>
+  <h1>Pick List — Monday, Oct 26 2026</h1>
+  <div class="sub">8 items · Poshmark 6 · eBay 1 · Owner add-on 1</div>
+  <div class="build">build 1 · 2:24 pm · sold-pick-list v3.0<button type="button" id="rfr" class="rfr">Refresh</button></div>
 
   <div class="rack">POD 1 · RACK 5</div>
   <input class="chk" type="checkbox" id="p1" data-key="Poshmark:6adcc8212e59c374670a790a" data-order-key="Poshmark:6adcc8212e59c374670a790a">
@@ -154,21 +160,100 @@
       <div class="detail"><div class="inner">
         <div class="l2">Black Pants</div>
         <div class="l3">J.Crew Superwide Stratus Pants Sz 8 Black City Twill High Rise Elastic Waistband</div>
-        <div class="note">Current VAULT + live notes agree; physical presence unverified.</div>
+        <div class="note">VAULT location lead; live notes and physical presence unverified.</div>
+      </div></div>
+    </div>
+  </label>
+
+  <div class="rack">POD 1 · RACK 10</div>
+  <input class="chk" type="checkbox" id="p2" data-key="Poshmark:6aded995383e607f2aea0ceb" data-order-key="Poshmark:6aded995383e607f2aea0ceb">
+  <label class="item" for="p2">
+    <div class="num"><span class="n">2</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">F14<span class="sep">·</span><span class="sku">1915</span><span class="sep">·</span><span class="cat">TOPS-0723</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Brown Tops</div>
+        <div class="l3">Aerie Henley Top WMNS M Cinnamon Brown Long Sleeve Pullover Raw Edge Ribbed Cuff</div>
+        <div class="note">VAULT location lead; live notes and physical presence unverified.</div>
+      </div></div>
+    </div>
+  </label>
+
+  <div class="rack">POD 1 · RACK 13.1</div>
+  <input class="chk" type="checkbox" id="p3" data-key="Owner add-on:tdc794d5befd0" data-order-key="Owner add-on:tdc794d5befd0">
+  <label class="item" for="p3">
+    <div class="num"><span class="n">3</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">P2-104<span class="sep">·</span><span class="cat">PANTS-0928</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Black Pants</div>
+        <div class="l3">Carhartt Crawford Pants WMNS 10 Black Double Front Loose Fit Cotton Work Utility</div>
+        <div class="note">VAULT location lead; live notes and physical presence unverified. Owner add-on; marketplace/order pending.</div>
+        <div class="note"><b>Owner requested pick; marketplace/order pending.</b></div>
+      </div></div>
+    </div>
+  </label>
+
+  <div class="rack">POD 2 · CUSTOM</div>
+  <input class="chk" type="checkbox" id="p4" data-key="eBay:13-15339-10197" data-order-key="eBay:13-15339-10197">
+  <label class="item" for="p4">
+    <div class="num"><span class="n">4</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">BIN 76<span class="sep">·</span><span class="sku">r4 2157</span><span class="sep">·</span><span class="cat">DRESSES-0802</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Black Dresses</div>
+        <div class="l3">Madewell Dress WMNS 4 Black Slip Midi High Neck Cross Back Cupro 90s Minimalist</div>
+        <div class="note">VAULT location lead; live notes and physical presence unverified.</div>
+      </div></div>
+    </div>
+  </label>
+  <input class="chk" type="checkbox" id="p5" data-key="Poshmark:6ade5316ff8a471efedf9de7" data-order-key="Poshmark:6ade5316ff8a471efedf9de7">
+  <label class="item" for="p5">
+    <div class="num"><span class="n">5</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">BIN 80<span class="sep">·</span><span class="sku">U 6119</span><span class="sep">·</span><span class="cat">DRESSES-0700</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">White Dresses</div>
+        <div class="l3">by the River Dress WMNS L Green Plaid Smocked Tiered Ruffle Midi Cottagecore</div>
+        <div class="note">VAULT location lead; live notes and physical presence unverified.</div>
       </div></div>
     </div>
   </label>
 
   <div class="rack">SHOES</div>
-  <input class="chk" type="checkbox" id="p2" data-key="Poshmark:6adc4b63d7964f0efd62ac36" data-order-key="Poshmark:6adc4b63d7964f0efd62ac36">
-  <label class="item" for="p2">
-    <div class="num"><span class="n">2</span><span class="tick">✓</span></div>
+  <input class="chk" type="checkbox" id="p6" data-key="Poshmark:6ad46a18c1cdc87dd8f996fd" data-order-key="Poshmark:6ad46a18c1cdc87dd8f996fd">
+  <label class="item" for="p6">
+    <div class="num"><span class="n">6</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">SB02<span class="sep">·</span><span class="sku">2756</span><span class="sep">·</span><span class="cat">SHOES-0965</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Silver Shoes</div>
+        <div class="l3">Stuart Weitzman Flats With Sparkling Diamond Jewels Womens 8M Silver Pointed Toe</div>
+        <div class="note">VAULT location lead; live notes and physical presence unverified.</div>
+      </div></div>
+    </div>
+  </label>
+  <input class="chk" type="checkbox" id="p7" data-key="Poshmark:6ade72295e4183f803e011f2" data-order-key="Poshmark:6ade72295e4183f803e011f2">
+  <label class="item" for="p7">
+    <div class="num"><span class="n">7</span><span class="tick">✓</span></div>
+    <div class="body">
+      <div class="l1">SB10<span class="sep">·</span><span class="sku">2899</span><span class="sep">·</span><span class="cat">SHOES-1092</span></div>
+      <div class="detail"><div class="inner">
+        <div class="l2">Red Shoes</div>
+        <div class="l3">Keen Howser Slipper Slip On Round Toe Outdoor Shoes Red Womens Size US 6 EU 36</div>
+        <div class="note">VAULT location lead; live notes and physical presence unverified.</div>
+      </div></div>
+    </div>
+  </label>
+  <input class="chk" type="checkbox" id="p8" data-key="Poshmark:6adc4b63d7964f0efd62ac36" data-order-key="Poshmark:6adc4b63d7964f0efd62ac36">
+  <label class="item" for="p8">
+    <div class="num"><span class="n">8</span><span class="tick">✓</span></div>
     <div class="body">
       <div class="l1">SB23<span class="sep">·</span><span class="sku">SLOT 20</span><span class="sep">·</span><span class="cat">SHOES-0181</span></div>
       <div class="detail"><div class="inner">
         <div class="l2">Blue Shoes</div>
         <div class="l3">Vionic Tasha Sandals WMNS 10 Blue Studded Toe Post Contoured Footbed Coastal</div>
-        <div class="note">Current VAULT + live notes agree; physical presence unverified.</div>
+        <div class="note">VAULT location lead; live notes and physical presence unverified.</div>
       </div></div>
     </div>
   </label>
@@ -176,13 +261,13 @@
   <div class="hint">Tap a row to mark it picked. Export picked → Save to Files → Daily_Pick_List\inbox\</div>
   <div class="bar"><div class="barin">
     <span class="count"></span>
-    <span class="dots"><i class="dot d1"></i><i class="dot d2"></i></span>
+    <span class="dots"><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i><i class="dot d4"></i><i class="dot d5"></i><i class="dot d6"></i><i class="dot d7"></i><i class="dot d8"></i></span>
     <input class="reset" type="reset" value="Reset">
     <button class="exp" type="button" onclick="exportPicked()">Export picked</button>
   </div></div>
 
 </form>
-<script>var DATEKEY="2026-10-25";
+<script>var DATEKEY="2026-10-26";
 function exportPicked(){
   var picked=[].slice.call(document.querySelectorAll('.chk:checked'))
               .map(function(c){return c.dataset.key;});
