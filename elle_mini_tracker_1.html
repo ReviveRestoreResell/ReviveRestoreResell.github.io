@@ -160,6 +160,8 @@
   .scripture-quote { font-size: 14px; color: #f0f0f0; font-style: italic; line-height: 1.5; margin-bottom: 6px; }
   .scripture-ref { font-size: 12px; color: #FFD700; font-weight: 700; letter-spacing: 0.5px; }
 
+  .cash-bonus-total {text-align:right; padding:12px 4px 0; font-size:13px; color:#a0aec0;}
+  .cash-bonus-total strong {color:#4ade80;font-size:16px;}
   .legacy-box { margin-top:16px; padding:14px 16px; background:#232940; border:1px solid #2d3553; border-radius:14px; }
   .legacy-title { font-size:15px; font-weight:800; color:#fff; }\n  .legacy-box summary { cursor:pointer; font-size:15px; font-weight:800; color:#fff; padding:4px 0; }
   .legacy-summary-count { font-size:11px; color:#a0aec0; float:right; font-weight:500; padding-top:4px; }
@@ -277,32 +279,6 @@
     </div>
   </div>
 
-  <!-- ONGOING Bonuses Earned (data-driven, supports future entries) -->
-  <div class="bonuses">
-    <div class="bonus-title">🎁 Bonuses Earned</div>
-    <div class="bonus-sub">Side hustle wins on the road to the keys ✨</div>
-    <table class="bonus-table">
-      <thead>
-        <tr><th>Date</th><th>Item</th><th>Qty</th><th>Avg Value</th><th>Profit / Item</th></tr>
-      </thead>
-      <tbody id="bonus-body"></tbody>
-    </table>
-    <div class="bonus-totals">
-      <div class="bt">
-        <span class="bt-label">Total items</span>
-        <span class="bt-val" id="bt-items">0</span>
-      </div>
-      <div class="bt">
-        <span class="bt-label">Total value</span>
-        <span class="bt-val" id="bt-value">$0</span>
-      </div>
-      <div class="bt">
-        <span class="bt-label">Potential profit</span>
-        <span class="bt-val" id="bt-profit">$0</span>
-      </div>
-    </div>
-  </div>
-
   <!-- Hustle bests + Effective Rate -->
   <div class="bests">
     <div class="best">
@@ -369,6 +345,41 @@
     </table>
   </div>
 
+  <div class="log" id="cash-bonus-log">
+    <div class="log-title">💵 Cash Bonus Log</div>
+    <table class="log-table">
+      <thead><tr><th>Date</th><th>Work</th><th>Bonus</th></tr></thead>
+      <tbody id="cash-bonus-body"></tbody>
+    </table>
+    <div class="cash-bonus-total">Cash bonuses earned: <strong id="cash-bonus-total">$20</strong></div>
+  </div>
+
+  <!-- Historical noncash bonus items -->
+  <div class="bonuses">
+    <div class="bonus-title">🎁 Legacy Bonuses</div>
+    <div class="bonus-sub">Previous item bonuses (separate from cash bonus)</div>
+    <table class="bonus-table">
+      <thead>
+        <tr><th>Date</th><th>Item</th><th>Qty</th><th>Avg Value</th><th>Profit / Item</th></tr>
+      </thead>
+      <tbody id="bonus-body"></tbody>
+    </table>
+    <div class="bonus-totals">
+      <div class="bt">
+        <span class="bt-label">Total items</span>
+        <span class="bt-val" id="bt-items">0</span>
+      </div>
+      <div class="bt">
+        <span class="bt-label">Total value</span>
+        <span class="bt-val" id="bt-value">$0</span>
+      </div>
+      <div class="bt">
+        <span class="bt-label">Potential profit</span>
+        <span class="bt-val" id="bt-profit">$0</span>
+      </div>
+    </div>
+  </div>
+
   <div class="legacy-box">
     <div class="legacy-title">📚 Legacy Hours</div>
     <div class="legacy-summary">
@@ -406,6 +417,11 @@
   const HOURS_GOAL = 200;
   // The $200 entry below is the existing cash deposit, not an additional $200.
   const cashDeposits = [{ date: '2026-11-03', amount: 200, note: 'Cash deposit' }];
+  // October cash bonus: $20 total, allocated $10 to each completed task.
+  const cashBonuses = [
+    { date: '2026-10', dateLabel: 'Oct 2026', work: 'October shipping', amount: 10 },
+    { date: '2026-10', dateLabel: 'Oct 2026', work: 'Armada vacuum', amount: 10 }
+  ];
   const HOURLY_RATE = 15;
   const TOTAL_VALUE = HOURS_GOAL * HOURLY_RATE; // $3,000
 
@@ -415,7 +431,8 @@
     { date: '', label: 'Legacy hours balance', hours: 10, aggregate: true },
     { date: '2026-08-01', label: 'August boxes', hours: 10, aggregate: true, dateLabel: 'Aug 2026' },
     { date: '', label: 'Miscellaneous work', hours: 3, aggregate: true },
-    { date: '2026-10-01', dateLabel: 'Oct 2026', label: 'Armada vacuum', hours: 1, entryId: 'armada-vacuum-2026-10' }
+    { date: '2026-10-01', dateLabel: 'Oct 2026', label: 'Armada vacuum', hours: 1, entryId: 'armada-vacuum-2026-10' },
+    { date: '2026-10-01', dateLabel: 'Oct 2026', label: 'October shipping', hours: 1, entryId: 'oct-shipping-2026-10' }
   ];
   // Original dated work history underlying the 31-hour legacy subtotal.
   const legacyLog = [
@@ -464,6 +481,13 @@
           hours: 1, entryId: 'armada-vacuum-2026-10' });
         saveLog();
       } else if (!rawLog) saveLog();
+      // Existing browser ledgers receive October shipping once, without resetting history.
+      if (!log.some(e => e.entryId === 'oct-shipping-2026-10' ||
+          (e.label === 'October shipping' && e.dateLabel === 'Oct 2026'))) {
+        log.push({ date: '2026-10-01', dateLabel: 'Oct 2026',
+          label: 'October shipping', hours: 1, entryId: 'oct-shipping-2026-10' });
+        saveLog();
+      }
     } catch(e) { log = [...seedLog]; }
     try {
       const rawB = localStorage.getItem(BONUS_KEY);
@@ -575,6 +599,21 @@
       const mark = parseFloat(el.dataset.mark);
       el.classList.toggle('hit', combined >= mark * HOURLY_RATE);
     });
+
+    // Cash bonus list is separate from both work-hour wages and cash deposits.
+    const cashBonusBody=document.getElementById('cash-bonus-body');
+    cashBonusBody.innerHTML='';
+    [...cashBonuses].reverse().forEach(b=>{
+      const row=document.createElement('tr');
+      [b.dateLabel,b.work,fmtMoney(b.amount)].forEach(value=>{
+        const cell=document.createElement('td');
+        cell.textContent=value;
+        row.appendChild(cell);
+      });
+      cashBonusBody.appendChild(row);
+    });
+    document.getElementById('cash-bonus-total').textContent =
+      fmtMoney(cashBonuses.reduce((total,b)=>total+b.amount,0));
 
     // Bonuses Earned table + totals
     const bonusBody = document.getElementById('bonus-body');
