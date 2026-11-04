@@ -413,7 +413,7 @@
 <script>
 (function(){
   const STORAGE_KEY = 'elle_mini_log_v11'; // Reconciled work log, preserves prior browser data in v10
-  const BONUS_KEY = 'elle_mini_bonuses_v3';
+  const BONUS_KEY = 'elle_mini_bonuses_v4';
   const HOURS_GOAL = 200;
   // The $200 entry below is the existing cash deposit, not an additional $200.
   const cashDeposits = [{ date: '2026-11-03', amount: 200, note: 'Cash deposit' }];
@@ -455,8 +455,8 @@
   // Bonuses seed — add to this list as Elle finds more items
   // glyph: emoji shown in the Item cell. Multiple chars OK (e.g. "⌚✨")
   const seedBonuses = [
-    { date: '2026-05-08', dateLabel: 'May 8', glyph: '⌚✨', label: 'Watches', qty: 3, avgValue: 20, profitPerItem: 20 },
-    { date: '2026-05-25', dateLabel: 'May 25', glyph: '👟✨', label: 'Shoes', qty: 3, avgValue: 20, profitPerItem: 20 }
+    { date: '2026-05-08', dateLabel: 'May 8', glyph: '⌚✨', label: 'Watches', qty: 3, avgValue: 20, profitPerItem: 10 },
+    { date: '2026-05-25', dateLabel: 'May 25', glyph: '👟✨', label: 'Shoes', qty: 3, avgValue: 20, profitPerItem: 10 }
   ];
 
   let log = [];
@@ -491,8 +491,13 @@
     } catch(e) { log = [...seedLog]; }
     try {
       const rawB = localStorage.getItem(BONUS_KEY);
-      bonuses = rawB ? JSON.parse(rawB) : [...seedBonuses];
-      if (!rawB) saveBonuses();
+      const previousB = localStorage.getItem('elle_mini_bonuses_v3');
+      bonuses = rawB ? JSON.parse(rawB) : (previousB ? JSON.parse(previousB) : [...seedBonuses]);
+      // Correct legacy Watches and Shoes to $10 profit each, including saved browser records.
+      bonuses.forEach(b => {
+        if (b.label === 'Watches' || b.label === 'Shoes') b.profitPerItem = 10;
+      });
+      saveBonuses();
     } catch(e) { bonuses = [...seedBonuses]; }
   }
 
