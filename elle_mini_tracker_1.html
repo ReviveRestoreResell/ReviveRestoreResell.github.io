@@ -411,7 +411,8 @@
   const seedLog = [
     { date: '', label: 'Legacy hours balance', hours: 10, aggregate: true },
     { date: '2026-08-01', label: 'August boxes', hours: 10, aggregate: true, dateLabel: 'Aug 2026' },
-    { date: '', label: 'Miscellaneous work', hours: 3, aggregate: true }
+    { date: '', label: 'Miscellaneous work', hours: 3, aggregate: true },
+    { date: '2026-11-03', label: 'Armada vacuum', hours: 1, entryId: 'armada-vacuum-2026-11-03' }
   ];
   // Original dated work history underlying the 31-hour legacy subtotal.
   const legacyLog = [
@@ -445,7 +446,13 @@
     try {
       const rawLog = localStorage.getItem(STORAGE_KEY);
       log = rawLog ? JSON.parse(rawLog) : [...seedLog];
-      if (!rawLog) saveLog();
+      // Apply this verified work entry to existing browser ledgers exactly once.
+      const entryId = 'armada-vacuum-2026-11-03';
+      const alreadyAdded = log.some(e => e.entryId === entryId || (e.date === '2026-11-03' && e.label === 'Armada vacuum'));
+      if (!alreadyAdded) {
+        log.push({ date: '2026-11-03', label: 'Armada vacuum', hours: 1, entryId });
+        saveLog();
+      } else if (!rawLog) saveLog();
     } catch(e) { log = [...seedLog]; }
     try {
       const rawB = localStorage.getItem(BONUS_KEY);
