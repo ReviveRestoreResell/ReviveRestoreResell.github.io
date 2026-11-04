@@ -161,7 +161,7 @@
   .scripture-ref { font-size: 12px; color: #FFD700; font-weight: 700; letter-spacing: 0.5px; }
 
   .legacy-box { margin-top:16px; padding:14px 16px; background:#232940; border:1px solid #2d3553; border-radius:14px; }
-  .legacy-box summary { cursor:pointer; font-size:15px; font-weight:800; color:#fff; padding:4px 0; }
+  .legacy-title { font-size:15px; font-weight:800; color:#fff; }\n  .legacy-box summary { cursor:pointer; font-size:15px; font-weight:800; color:#fff; padding:4px 0; }
   .legacy-summary-count { font-size:11px; color:#a0aec0; float:right; font-weight:500; padding-top:4px; }
   .legacy-summary { padding:10px 0; }
   .legacy-summary>div { display:flex; align-items:center; justify-content:space-between; padding:9px 4px; border-bottom:1px solid #2d3553; font-size:13px; }
@@ -367,17 +367,20 @@
     </div>
   </div>
 
-  <details class="legacy-box">
-    <summary>📚 Legacy Hours <span class="legacy-summary-count">10 hours carried forward</span></summary>
+  <div class="legacy-box">
+    <div class="legacy-title">📚 Legacy Hours</div>
     <div class="legacy-summary">
       <div><span>Legacy hours worked</span><strong>31 hr</strong></div>
       <div><span>iPhone cash-out</span><strong>−21 hr</strong></div>
       <div><span>Legacy hours balance</span><strong>10 hr</strong></div>
     </div>
-    <div class="legacy-subtitle">Original work dates — 31 hours total (newest first)</div>
-    <table class="log-table"><thead><tr><th>Date</th><th>Hours</th><th>Measured</th><th>Steamed</th></tr></thead>
-    <tbody id="legacy-log-body"></tbody></table>
-  </details>
+    <details>
+      <summary>Show original dated work entries (14 days)</summary>
+      <div class="legacy-subtitle">Original work dates — 31 hours total (newest first)</div>
+      <table class="log-table"><thead><tr><th>Date</th><th>Hours</th><th>Measured</th><th>Steamed</th></tr></thead>
+      <tbody id="legacy-log-body"></tbody></table>
+    </details>
+  </div>
 
   <div class="footnote">
     <strong>Keep going, Elle.</strong> The keys are coming. 🔑<br>
@@ -593,6 +596,7 @@
     }
     [...log].map((e,i)=>({...e, originalIndex:i})).sort((a,b)=>{
       if(a.aggregate !== b.aggregate) return a.aggregate ? 1 : -1;
+      if(a.aggregate && b.aggregate) return b.originalIndex - a.originalIndex;
       return (b.date||'').localeCompare(a.date||'');
     }).forEach(e => {
       const tr = document.createElement('tr');
