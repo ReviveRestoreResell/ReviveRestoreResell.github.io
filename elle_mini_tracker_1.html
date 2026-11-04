@@ -77,10 +77,10 @@
   .stat.stat-green .stat-value { color: #75efac; }
   .stat.stat-gold { background: #483311; border-color: #c69b32; }
   .stat.stat-gold .stat-value { color: #ffd36a; }
-  .stat.stat-yellow { background: #403a12; border-color: #e0c44a; }
-  .stat.stat-yellow .stat-value { color: #ffed72; }
+  .stat.stat-red { background: #481e26; border-color: #e06473; }
+  .stat.stat-red .stat-value { color: #ff8791; }
   .stat.stat-green .stat-label, .stat.stat-gold .stat-label,
-  .stat.stat-yellow .stat-label { color: #e1e7ef; }
+  .stat.stat-red .stat-label { color: #e1e7ef; }
 
   .stat-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.4px; color: #8b94b8; font-weight: 700; margin-bottom: 5px; }
   .stat-value { font-size: 22px; font-weight: 800; color: #fff; line-height: 1; }
@@ -262,7 +262,7 @@
   </div>
 
   <div class="stats">
-    <div class="stat">
+    <div class="stat stat-green">
       <div class="stat-label">⏱️ HOURS</div>
       <div class="stat-value" id="stat-hours">0</div>
       <div class="stat-sub">of 200</div>
@@ -277,12 +277,12 @@
       <div class="stat-value" id="stat-deposits">0</div>
       <div class="stat-sub">cash toward the goal</div>
     </div>
-    <div class="stat stat-green">
+    <div class="stat stat-gold">
       <div class="stat-label">🔥 PACE</div>
       <div class="stat-value" id="stat-pace">0</div>
       <div class="stat-sub">earned + deposits</div>
     </div>
-    <div class="stat stat-yellow">
+    <div class="stat stat-red">
       <div class="stat-label">🚗 LEFT</div>
       <div class="stat-value" id="stat-left">200</div>
       <div class="stat-sub">hours left to work</div>
