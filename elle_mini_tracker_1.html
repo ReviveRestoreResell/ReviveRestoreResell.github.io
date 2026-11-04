@@ -522,8 +522,8 @@
   }
 
   function longestStreak() {
-    if (log.length === 0) return 0;
-    const dates = log.filter(e => !e.aggregate && e.date && (+e.hours || 0) > 0).map(e => e.date).sort();
+    // Historic longest streak includes the original legacy work dates.
+    const dates = [...new Set(legacyLog.concat(log.filter(e => !e.aggregate && !e.dateLabel)).filter(e => e.date && (+e.hours || 0) > 0).map(e => e.date))].sort();
     if (dates.length === 0) return 0;
     let longest = 1, cur = 1;
     for (let i = 1; i < dates.length; i++) {
