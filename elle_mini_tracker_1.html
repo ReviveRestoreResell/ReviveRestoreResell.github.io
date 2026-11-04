@@ -72,6 +72,16 @@
   /* Stats */
   .stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 16px; }
   .stat { background: #232940; border: 1px solid #2d3553; border-radius: 14px; padding: 12px 6px; text-align: center; }
+  /* Highlight money earned, progress, deposits, and remaining work. */
+  .stat.stat-green { background: #103b2c; border-color: #2a9d69; }
+  .stat.stat-green .stat-value { color: #75efac; }
+  .stat.stat-gold { background: #483311; border-color: #c69b32; }
+  .stat.stat-gold .stat-value { color: #ffd36a; }
+  .stat.stat-yellow { background: #403a12; border-color: #e0c44a; }
+  .stat.stat-yellow .stat-value { color: #ffed72; }
+  .stat.stat-green .stat-label, .stat.stat-gold .stat-label,
+  .stat.stat-yellow .stat-label { color: #e1e7ef; }
+
   .stat-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.4px; color: #8b94b8; font-weight: 700; margin-bottom: 5px; }
   .stat-value { font-size: 22px; font-weight: 800; color: #fff; line-height: 1; }
   .stat-value.money { color: #4ade80; }
@@ -257,22 +267,22 @@
       <div class="stat-value" id="stat-hours">0</div>
       <div class="stat-sub">of 200</div>
     </div>
-    <div class="stat">
+    <div class="stat stat-green">
       <div class="stat-label">💰 EARNED</div>
       <div class="stat-value money" id="stat-money">$0</div>
       <div class="stat-sub">of $3,000</div>
     </div>
-    <div class="stat">
+    <div class="stat stat-gold">
       <div class="stat-label">🏦 DEPOSITS</div>
       <div class="stat-value" id="stat-deposits">0</div>
       <div class="stat-sub">cash toward the goal</div>
     </div>
-    <div class="stat">
+    <div class="stat stat-green">
       <div class="stat-label">🔥 PACE</div>
       <div class="stat-value" id="stat-pace">0</div>
       <div class="stat-sub">earned + deposits</div>
     </div>
-    <div class="stat">
+    <div class="stat stat-yellow">
       <div class="stat-label">🚗 LEFT</div>
       <div class="stat-value" id="stat-left">200</div>
       <div class="stat-sub">hours left to work</div>
