@@ -432,7 +432,8 @@
     { date: '2026-08-01', label: 'August boxes', hours: 10, aggregate: true, dateLabel: 'Aug 2026' },
     { date: '', label: 'Miscellaneous work', hours: 3, aggregate: true },
     { date: '2026-10-01', dateLabel: 'Oct 2026', label: 'Armada vacuum', hours: 1, entryId: 'armada-vacuum-2026-10' },
-    { date: '2026-10-01', dateLabel: 'Oct 2026', label: 'October shipping', hours: 1, entryId: 'oct-shipping-2026-10' }
+    { date: '2026-10-01', dateLabel: 'Oct 2026', label: 'October shipping', hours: 1, entryId: 'oct-shipping-2026-10' },
+    { date: '2026-11-03', label: 'Work', hours: 2.5, entryId: 'work-2026-11-03-confirmed' }
   ];
   // Original dated work history underlying the 31-hour legacy subtotal.
   const legacyLog = [
@@ -486,6 +487,19 @@
           (e.label === 'October shipping' && e.dateLabel === 'Oct 2026'))) {
         log.push({ date: '2026-10-01', dateLabel: 'Oct 2026',
           label: 'October shipping', hours: 1, entryId: 'oct-shipping-2026-10' });
+        saveLog();
+      }
+      // Confirmed 2.5 hours on November 3, 2026. Replace a pending placeholder; count once.
+      const todayEntry = log.find(e => e.entryId === 'work-2026-11-03-confirmed');
+      if (!todayEntry) {
+        const existingToday = log.find(e => e.date === '2026-11-03' && !e.aggregate && e.label !== 'Armada vacuum');
+        if (existingToday) {
+          existingToday.hours = 2.5;
+          existingToday.label = 'Work';
+          existingToday.entryId = 'work-2026-11-03-confirmed';
+        } else {
+          log.push({date:'2026-11-03',label:'Work',hours:2.5,entryId:'work-2026-11-03-confirmed'});
+        }
         saveLog();
       }
     } catch(e) { log = [...seedLog]; }
