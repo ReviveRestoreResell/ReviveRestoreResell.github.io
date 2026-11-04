@@ -361,6 +361,14 @@
 
   </div>
 
+  <div class="log" id="deposit-log">
+    <div class="log-title">🏦 Cash Deposit Log</div>
+    <table class="log-table">
+      <thead><tr><th>Date</th><th>Deposit</th><th>Running Total</th></tr></thead>
+      <tbody id="deposit-log-body"></tbody>
+    </table>
+  </div>
+
   <div class="legacy-box">
     <div class="legacy-title">📚 Legacy Hours</div>
     <div class="legacy-summary">
@@ -396,7 +404,8 @@
   const STORAGE_KEY = 'elle_mini_log_v11'; // Reconciled work log, preserves prior browser data in v10
   const BONUS_KEY = 'elle_mini_bonuses_v3';
   const HOURS_GOAL = 200;
-  const DEPOSITS = 200;
+  // The $200 entry below is the existing cash deposit, not an additional $200.
+  const cashDeposits = [{ date: '2026-11-03', amount: 200, note: 'Cash deposit' }];
   const HOURLY_RATE = 15;
   const TOTAL_VALUE = HOURS_GOAL * HOURLY_RATE; // $3,000
 
@@ -534,14 +543,15 @@
     const t = totals();
     const earned = t.hours * HOURLY_RATE;
     const hoursPct = Math.min(100, (t.hours / HOURS_GOAL) * 100);
-    const combined = earned + DEPOSITS;
+    const depositTotal = cashDeposits.reduce((sum, item) => sum + item.amount, 0);
+    const combined = earned + depositTotal;
     const moneyPct = Math.min(100, (combined / TOTAL_VALUE) * 100);
-    const depositPct = Math.min(100, (DEPOSITS / TOTAL_VALUE) * 100);
+    const depositPct = Math.min(100, (depositTotal / TOTAL_VALUE) * 100);
     const hoursLeft = Math.max(0, (TOTAL_VALUE - combined) / HOURLY_RATE);
 
     document.getElementById('stat-hours').textContent = t.hours.toFixed(1);
     document.getElementById('stat-money').textContent = fmtMoney(earned);
-    document.getElementById('stat-deposits').textContent = fmtMoney(DEPOSITS);
+    document.getElementById('stat-deposits').textContent = fmtMoney(depositTotal);
     document.getElementById('stat-pace').textContent = fmtMoney(combined);
     document.getElementById('stat-left').textContent = hoursLeft.toFixed(1);
 
@@ -550,7 +560,7 @@
     document.getElementById('bar-money').style.width = moneyPct + '%';
     document.getElementById('bar-money').textContent = fmtMoney(combined) + ' / $3,000';
     document.getElementById('bar-garments').style.width = depositPct + '%';
-    document.getElementById('bar-garments').textContent = fmtMoney(DEPOSITS);
+    document.getElementById('bar-garments').textContent = fmtMoney(depositTotal);
     document.getElementById('bar-hours-pct').textContent = hoursPct.toFixed(1) + '%';
     document.getElementById('bar-money-pct').textContent = moneyPct.toFixed(1) + '%';
     document.getElementById('bar-garments-pct').textContent = depositPct.toFixed(1) + '%';
@@ -627,6 +637,17 @@
       }
       tr.appendChild(actionCell);
       tbody.appendChild(tr);
+    });
+    const depositBody = document.getElementById('deposit-log-body');
+    depositBody.innerHTML = '';
+    let runningDeposits = 0;
+    [...cashDeposits].sort((a,b)=>a.date.localeCompare(b.date)).forEach(entry => {
+      runningDeposits += entry.amount;
+      const row=document.createElement('tr');
+      [shortDate(entry.date) + ', ' + entry.date.slice(0,4), fmtMoney(entry.amount), fmtMoney(runningDeposits)].forEach(value=>{
+        const cell=document.createElement('td'); cell.textContent=value; row.appendChild(cell);
+      });
+      depositBody.prepend(row);
     });
     const legacyBody=document.getElementById('legacy-log-body');
     legacyBody.innerHTML='';
