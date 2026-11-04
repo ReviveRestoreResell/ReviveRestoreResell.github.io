@@ -160,6 +160,16 @@
   .scripture-quote { font-size: 14px; color: #f0f0f0; font-style: italic; line-height: 1.5; margin-bottom: 6px; }
   .scripture-ref { font-size: 12px; color: #FFD700; font-weight: 700; letter-spacing: 0.5px; }
 
+  .legacy-box { margin-top:16px; padding:14px 16px; background:#232940; border:1px solid #2d3553; border-radius:14px; }
+  .legacy-box summary { cursor:pointer; font-size:15px; font-weight:800; color:#fff; padding:4px 0; }
+  .legacy-summary-count { font-size:11px; color:#a0aec0; float:right; font-weight:500; padding-top:4px; }
+  .legacy-summary { padding:10px 0; }
+  .legacy-summary>div { display:flex; align-items:center; justify-content:space-between; padding:9px 4px; border-bottom:1px solid #2d3553; font-size:13px; }
+  .legacy-summary strong { font-size:15px; color:#fff; }
+  .legacy-subtitle { color:#a0aec0; font-size:11px; padding:8px 4px; }
+  .pending-hours { color:#FFD700; font-weight:800; }
+  .bar-fill { min-width:0; font-size:0; padding-right:0; }
+  .bar-track { overflow:hidden; }
   /* Mobile */
   @media (max-width: 640px) {
     body { padding: 16px 12px 28px; }
@@ -341,22 +351,33 @@
   </div>
 
   <div class="log">
-    <div class="log-title">📋 Work Log</div>
+    <div class="log-title">📋 Recent Work — newest first</div>
     <table class="log-table">
       <thead>
-        <tr><th>Date</th><th>Hrs</th><th>M</th><th>S</th><th>Tot</th><th>Pace</th><th></th></tr>
+        <tr><th>Date</th><th>Work</th><th>Hours</th><th></th></tr>
       </thead>
       <tbody id="log-body"></tbody>
     </table>
     <div class="add">
       <div class="field"><label>Date</label><input type="date" id="in-date" /></div>
+      <div class="field"><label>Work completed</label><input type="text" id="in-work" placeholder="Work description" style="width:180px;max-width:100%" /></div>
       <div class="field"><label>Hours</label><input type="number" id="in-hours" step="0.25" min="0" placeholder="2" /></div>
-      <div class="field"><label>Measured</label><input type="number" id="in-meas" min="0" placeholder="0" /></div>
-      <div class="field"><label>Steamed</label><input type="number" id="in-steam" min="0" placeholder="0" /></div>
       <button class="btn" id="btn-add">+ Log Day</button>
       <button class="btn btn-clear" id="btn-reset">Reset</button>
     </div>
   </div>
+
+  <details class="legacy-box">
+    <summary>📚 Legacy Hours <span class="legacy-summary-count">10 hours carried forward</span></summary>
+    <div class="legacy-summary">
+      <div><span>Legacy hours worked</span><strong>31 hr</strong></div>
+      <div><span>iPhone cash-out</span><strong>−21 hr</strong></div>
+      <div><span>Legacy hours balance</span><strong>10 hr</strong></div>
+    </div>
+    <div class="legacy-subtitle">Original work dates — 31 hours total (newest first)</div>
+    <table class="log-table"><thead><tr><th>Date</th><th>Hours</th><th>Measured</th><th>Steamed</th></tr></thead>
+    <tbody id="legacy-log-body"></tbody></table>
+  </details>
 
   <div class="footnote">
     <strong>Keep going, Elle.</strong> The keys are coming. 🔑<br>
@@ -375,15 +396,37 @@
 
 <script>
 (function(){
-  const STORAGE_KEY = 'elle_mini_log_v10'; // corrected opening; preserves earlier browser data separately
+  const STORAGE_KEY = 'elle_mini_log_v11'; // Reconciled work log, preserves prior browser data in v10
   const BONUS_KEY = 'elle_mini_bonuses_v3';
   const HOURS_GOAL = 200;
   const DEPOSITS = 200;
   const HOURLY_RATE = 15;
   const TOTAL_VALUE = HOURS_GOAL * HOURLY_RATE; // $3,000
 
-  // Owner-confirmed opening balance (recorded Oct 26; not necessarily worked that day).
-  const seedLog = [{ date: '2026-10-26', hours: 23, meas: 0, steam: 0, opening: true }];
+  // Legacy reconciliation: 31 hours worked - 21 hours iPhone cash-out = 10 hours carryover.
+  // August boxes +10 and miscellaneous work +3 yield a current balance of 23 hours.
+  const seedLog = [
+    { date: '', label: 'Legacy hours balance', hours: 10, aggregate: true },
+    { date: '2026-08-01', label: 'August boxes', hours: 10, aggregate: true, dateLabel: 'Aug 2026' },
+    { date: '', label: 'Miscellaneous work', hours: 3, aggregate: true }
+  ];
+  // Original dated work history underlying the 31-hour legacy subtotal.
+  const legacyLog = [
+    { date: '2026-05-06', hours: 2, meas: 10, steam: 40 },
+    { date: '2026-05-07', hours: 2, meas: 11, steam: 11 },
+    { date: '2026-05-08', hours: 4, meas: 30, steam: 30 },
+    { date: '2026-05-13', hours: 3, meas: 29, steam: 29 },
+    { date: '2026-05-14', hours: 3, meas: 30, steam: 30 },
+    { date: '2026-05-20', hours: 3, meas: 30, steam: 30 },
+    { date: '2026-05-21', hours: 3, meas: 30, steam: 30 },
+    { date: '2026-05-27', hours: 2, meas: 20, steam: 20 },
+    { date: '2026-05-28', hours: 2, meas: 20, steam: 20 },
+    { date: '2026-06-09', hours: 2, meas: 20, steam: 20 },
+    { date: '2026-06-13', hours: 1, meas: 10, steam: 10 },
+    { date: '2026-06-16', hours: 1, meas: 10, steam: 10 },
+    { date: '2026-06-17', hours: 1, meas: 10, steam: 10 },
+    { date: '2026-06-18', hours: 2, meas: 20, steam: 20 }
+  ];
 
   // Bonuses seed — add to this list as Elle finds more items
   // glyph: emoji shown in the Item cell. Multiple chars OK (e.g. "⌚✨")
@@ -435,7 +478,7 @@
 
   function longestStreak() {
     if (log.length === 0) return 0;
-    const dates = log.filter(e => (+e.hours || 0) > 0).map(e => e.date).sort();
+    const dates = log.filter(e => !e.aggregate && e.date && (+e.hours || 0) > 0).map(e => e.date).sort();
     if (dates.length === 0) return 0;
     let longest = 1, cur = 1;
     for (let i = 1; i < dates.length; i++) {
@@ -451,7 +494,7 @@
   }
 
   function longestDay() {
-    return log.reduce((max, e) => Math.max(max, +e.hours || 0), 0);
+    return log.filter(e => !e.aggregate).reduce((max, e) => Math.max(max, +e.hours || 0), 0);
   }
 
   function paceClass(p) {
@@ -539,33 +582,47 @@
     document.getElementById('best-rate').textContent = fmtRate(effectiveRate);
     document.getElementById('best-rate-sub').textContent = `Base $${Math.round(earned).toLocaleString()} + $${Math.round(bonusEarnings)} bonus earnings`;
 
-    // Super Bonus
-    // Work log table
+    // The pending shift is visible but never counted until hours are entered.
     const tbody = document.getElementById('log-body');
     tbody.innerHTML = '';
-    [...log].reverse().forEach((e, ri) => {
-      const idx = log.length - 1 - ri;
-      const pace = e.hours > 0 ? ((+e.meas||0)+(+e.steam||0)) / +e.hours : 0;
-      const pc = paceClass(pace);
+    const todayISO = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Los_Angeles', year: 'numeric', month: '2-digit', day: '2-digit' });
+    if (!log.some(e => e.date === todayISO && !e.aggregate)) {
+      const pending = document.createElement('tr');
+      pending.innerHTML = '<td>Today</td><td>Work — pending</td><td class="pending-hours">Pending</td><td></td>';
+      tbody.appendChild(pending);
+    }
+    [...log].map((e,i)=>({...e, originalIndex:i})).sort((a,b)=>{
+      if(a.aggregate !== b.aggregate) return a.aggregate ? 1 : -1;
+      return (b.date||'').localeCompare(a.date||'');
+    }).forEach(e => {
       const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td>${e.opening ? "Opening balance" : shortDate(e.date)}</td>
-        <td>${(+e.hours||0).toFixed(1)}</td>
-        <td>${+e.meas||0}</td>
-        <td>${+e.steam||0}</td>
-        <td>${((+e.meas||0)+(+e.steam||0)).toLocaleString()}</td>
-        <td><span class="pace ${pc}">${pace.toFixed(1)}/hr</span></td>
-        <td>${e.opening ? "" : `<button class="del-btn" data-idx="${idx}" title="Remove">\u2715</button>`}</td>
-      `;
+      const dateCell=document.createElement('td');
+      dateCell.textContent=e.dateLabel || (e.date ? shortDate(e.date) : '—');
+      const workCell=document.createElement('td');
+      workCell.textContent=e.label || 'Work';
+      const hoursCell=document.createElement('td');
+      hoursCell.textContent=(+e.hours||0).toFixed(1);
+      tr.append(dateCell,workCell,hoursCell);
+      const actionCell=document.createElement('td');
+      if(!e.aggregate) {
+        const btn=document.createElement('button');
+        btn.className='del-btn';
+        btn.textContent='×';
+        btn.title='Remove';
+        btn.addEventListener('click',()=>{ log.splice(e.originalIndex,1);saveLog();render(); });
+        actionCell.appendChild(btn);
+      }
+      tr.appendChild(actionCell);
       tbody.appendChild(tr);
     });
-    tbody.querySelectorAll('.del-btn').forEach(btn => {
-      btn.addEventListener('click', function() {
-        const i = parseInt(this.dataset.idx);
-        log.splice(i, 1);
-        saveLog();
-        render();
+    const legacyBody=document.getElementById('legacy-log-body');
+    legacyBody.innerHTML='';
+    [...legacyLog].reverse().forEach(e=>{
+      const row=document.createElement('tr');
+      [shortDate(e.date),(+e.hours).toFixed(1),String(e.meas),String(e.steam)].forEach(v=>{
+        const cell=document.createElement('td');cell.textContent=v;row.appendChild(cell);
       });
+      legacyBody.appendChild(row);
     });
   }
 
@@ -581,29 +638,18 @@
     document.getElementById('in-date').value = `${yyyy}-${mm}-${dd}`;
 
     document.getElementById('btn-add').addEventListener('click', function() {
-      const d = document.getElementById('in-date').value;
-      const h = parseFloat(document.getElementById('in-hours').value) || 0;
-      const m = parseInt(document.getElementById('in-meas').value) || 0;
-      const s = parseInt(document.getElementById('in-steam').value) || 0;
-      if (!d || h <= 0) return;
-      const existing = log.findIndex(e => e.date === d);
-      if (existing >= 0) {
-        log[existing].hours = (+log[existing].hours||0) + h;
-        log[existing].meas = (+log[existing].meas||0) + m;
-        log[existing].steam = (+log[existing].steam||0) + s;
-      } else {
-        log.push({ date: d, hours: h, meas: m, steam: s });
-        log.sort((a,b) => a.date.localeCompare(b.date));
-      }
-      saveLog();
-      render();
-      document.getElementById('in-hours').value = '';
-      document.getElementById('in-meas').value = '';
-      document.getElementById('in-steam').value = '';
+      const d=document.getElementById('in-date').value;
+      const h=parseFloat(document.getElementById('in-hours').value)||0;
+      const label=document.getElementById('in-work').value.trim()||'Work';
+      if(!d || h<=0) return;
+      log.push({date:d,hours:h,label});
+      saveLog();render();
+      document.getElementById('in-hours').value='';
+      document.getElementById('in-work').value='';
     });
 
     document.getElementById('btn-reset').addEventListener('click', function() {
-      if (!confirm('Reset to the confirmed 23-hour opening balance?')) return;
+      if (!confirm('Reset to reconciled 23 hours and remove locally added work?')) return;
       log = [...seedLog];
       bonuses = [...seedBonuses];
       saveLog();
