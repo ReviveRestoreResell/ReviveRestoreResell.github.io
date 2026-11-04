@@ -358,13 +358,7 @@
       </thead>
       <tbody id="log-body"></tbody>
     </table>
-    <div class="add">
-      <div class="field"><label>Date</label><input type="date" id="in-date" /></div>
-      <div class="field"><label>Work completed</label><input type="text" id="in-work" placeholder="Work description" style="width:180px;max-width:100%" /></div>
-      <div class="field"><label>Hours</label><input type="number" id="in-hours" step="0.25" min="0" placeholder="2" /></div>
-      <button class="btn" id="btn-add">+ Log Day</button>
-      <button class="btn btn-clear" id="btn-reset">Reset</button>
-    </div>
+
   </div>
 
   <div class="legacy-box">
@@ -648,33 +642,6 @@
   function init() {
     loadAll();
     render();
-
-    // Default date to today
-    const today = new Date();
-    const yyyy = today.getFullYear();
-    const mm = String(today.getMonth()+1).padStart(2,'0');
-    const dd = String(today.getDate()).padStart(2,'0');
-    document.getElementById('in-date').value = `${yyyy}-${mm}-${dd}`;
-
-    document.getElementById('btn-add').addEventListener('click', function() {
-      const d=document.getElementById('in-date').value;
-      const h=parseFloat(document.getElementById('in-hours').value)||0;
-      const label=document.getElementById('in-work').value.trim()||'Work';
-      if(!d || h<=0) return;
-      log.push({date:d,hours:h,label});
-      saveLog();render();
-      document.getElementById('in-hours').value='';
-      document.getElementById('in-work').value='';
-    });
-
-    document.getElementById('btn-reset').addEventListener('click', function() {
-      if (!confirm('Reset to reconciled 23 hours and remove locally added work?')) return;
-      log = [...seedLog];
-      bonuses = [...seedBonuses];
-      saveLog();
-      saveBonuses();
-      render();
-    });
   }
 
   window.addEventListener('DOMContentLoaded', init);
