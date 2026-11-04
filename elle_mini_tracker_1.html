@@ -377,7 +377,7 @@
     <details>
       <summary>Show original dated work entries (14 days)</summary>
       <div class="legacy-subtitle">Original work dates — 31 hours total (newest first)</div>
-      <table class="log-table"><thead><tr><th>Date</th><th>Hours</th><th>Measured</th><th>Steamed</th></tr></thead>
+      <table class="log-table"><thead><tr><th>Date</th><th>Hours</th></tr></thead>
       <tbody id="legacy-log-body"></tbody></table>
     </details>
   </div>
@@ -623,7 +623,7 @@
     legacyBody.innerHTML='';
     [...legacyLog].reverse().forEach(e=>{
       const row=document.createElement('tr');
-      [shortDate(e.date),(+e.hours).toFixed(1),String(e.meas),String(e.steam)].forEach(v=>{
+      [shortDate(e.date),(+e.hours).toFixed(1)].forEach(v=>{
         const cell=document.createElement('td');cell.textContent=v;row.appendChild(cell);
       });
       legacyBody.appendChild(row);
