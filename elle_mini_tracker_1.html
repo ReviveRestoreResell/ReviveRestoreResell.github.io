@@ -412,7 +412,7 @@
     { date: '', label: 'Legacy hours balance', hours: 10, aggregate: true },
     { date: '2026-08-01', label: 'August boxes', hours: 10, aggregate: true, dateLabel: 'Aug 2026' },
     { date: '', label: 'Miscellaneous work', hours: 3, aggregate: true },
-    { date: '2026-11-03', label: 'Armada vacuum', hours: 1, entryId: 'armada-vacuum-2026-11-03' }
+    { date: '2026-10-01', dateLabel: 'Oct 2026', label: 'Armada vacuum', hours: 1, entryId: 'armada-vacuum-2026-10' }
   ];
   // Original dated work history underlying the 31-hour legacy subtotal.
   const legacyLog = [
@@ -446,11 +446,19 @@
     try {
       const rawLog = localStorage.getItem(STORAGE_KEY);
       log = rawLog ? JSON.parse(rawLog) : [...seedLog];
-      // Apply this verified work entry to existing browser ledgers exactly once.
-      const entryId = 'armada-vacuum-2026-11-03';
-      const alreadyAdded = log.some(e => e.entryId === entryId || (e.date === '2026-11-03' && e.label === 'Armada vacuum'));
-      if (!alreadyAdded) {
-        log.push({ date: '2026-11-03', label: 'Armada vacuum', hours: 1, entryId });
+      // Month-only date: actual October day was not specified.
+      // Migrate the earlier November entry without double-counting hours.
+      const prior = log.find(e => e.entryId === 'armada-vacuum-2026-11-03' ||
+        (e.label === 'Armada vacuum' && e.date === '2026-11-03'));
+      if (prior) {
+        prior.date = '2026-10-01';
+        prior.dateLabel = 'Oct 2026';
+        prior.entryId = 'armada-vacuum-2026-10';
+        saveLog();
+      } else if (!log.some(e => e.entryId === 'armada-vacuum-2026-10' ||
+        (e.label === 'Armada vacuum' && e.dateLabel === 'Oct 2026'))) {
+        log.push({ date: '2026-10-01', dateLabel: 'Oct 2026', label: 'Armada vacuum',
+          hours: 1, entryId: 'armada-vacuum-2026-10' });
         saveLog();
       } else if (!rawLog) saveLog();
     } catch(e) { log = [...seedLog]; }
