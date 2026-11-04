@@ -544,7 +544,7 @@
   }
 
   function longestDay() {
-    return log.filter(e => !e.aggregate).reduce((max, e) => Math.max(max, +e.hours || 0), 0);
+    return legacyLog.concat(log.filter(e => !e.aggregate && !e.dateLabel)).reduce((max, e) => Math.max(max, +e.hours || 0), 0);
   }
 
   function paceClass(p) {
