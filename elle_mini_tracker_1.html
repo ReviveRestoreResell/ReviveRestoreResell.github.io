@@ -443,7 +443,8 @@
     { date: '', label: 'Miscellaneous work', hours: 3, aggregate: true },
     { date: '2026-10-01', dateLabel: 'Oct 2026', label: 'Armada vacuum', hours: 1, entryId: 'armada-vacuum-2026-10' },
     { date: '2026-10-01', dateLabel: 'Oct 2026', label: 'October shipping', hours: 1, entryId: 'oct-shipping-2026-10' },
-    { date: '2026-11-03', label: 'Work', hours: 2.5, entryId: 'work-2026-11-03-confirmed' }
+    { date: '2026-11-03', label: 'Work', hours: 2.5, entryId: 'work-2026-11-03-confirmed' },
+    { date: '2026-11-03', label: 'Additional work', hours: 1.5, entryId: 'additional-work-2026-11-03-1h30' }
   ];
   // Original dated work history underlying the 31-hour legacy subtotal.
   const legacyLog = [
@@ -510,6 +511,12 @@
         } else {
           log.push({date:'2026-11-03',label:'Work',hours:2.5,entryId:'work-2026-11-03-confirmed'});
         }
+        saveLog();
+      }
+      // Nov 3 additional 1.5 hours: add exactly once in existing browser ledgers.
+      if (!log.some(e => e.entryId === 'additional-work-2026-11-03-1h30')) {
+        log.push({ date: '2026-11-03', label: 'Additional work', hours: 1.5,
+          entryId: 'additional-work-2026-11-03-1h30' });
         saveLog();
       }
     } catch(e) { log = [...seedLog]; }
