@@ -444,7 +444,7 @@
     { date: '2026-10-01', dateLabel: 'Oct 2026', label: 'Armada vacuum', hours: 1, entryId: 'armada-vacuum-2026-10' },
     { date: '2026-10-01', dateLabel: 'Oct 2026', label: 'October shipping', hours: 1, entryId: 'oct-shipping-2026-10' },
     { date: '2026-11-03', label: 'Work', hours: 2.5, entryId: 'work-2026-11-03-confirmed' },
-    { date: '2026-11-03', label: 'Additional work', hours: 1.5, entryId: 'additional-work-2026-11-03-1h30' }
+    { date: '2026-11-04', label: 'Work', hours: 1.5, entryId: 'additional-work-2026-11-04-1h30' }
   ];
   // Original dated work history underlying the 31-hour legacy subtotal.
   const legacyLog = [
@@ -513,10 +513,22 @@
         }
         saveLog();
       }
-      // Nov 3 additional 1.5 hours: add exactly once in existing browser ledgers.
-      if (!log.some(e => e.entryId === 'additional-work-2026-11-03-1h30')) {
-        log.push({ date: '2026-11-03', label: 'Additional work', hours: 1.5,
-          entryId: 'additional-work-2026-11-03-1h30' });
+      // Correction: the extra 1.5 hours were on Nov 4, not Nov 3.
+      // Migrate the previously added Nov 3 entry in browser ledgers instead of duplicating it.
+      const extraOld = log.find(e => e.entryId === 'additional-work-2026-11-03-1h30');
+      const extraToday = log.find(e => e.entryId === 'additional-work-2026-11-04-1h30');
+      if (extraOld) {
+        if (extraToday && extraToday !== extraOld) {
+          log.splice(log.indexOf(extraOld), 1);
+        } else {
+          extraOld.date = '2026-11-04';
+          extraOld.label = 'Work';
+          extraOld.entryId = 'additional-work-2026-11-04-1h30';
+        }
+        saveLog();
+      } else if (!extraToday) {
+        log.push({ date: '2026-11-04', label: 'Work', hours: 1.5,
+          entryId: 'additional-work-2026-11-04-1h30' });
         saveLog();
       }
     } catch(e) { log = [...seedLog]; }
