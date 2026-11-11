@@ -304,7 +304,7 @@
     <div class="best best-wage">
       <div class="best-label">💰 EFFECTIVE RATE</div>
       <div class="best-value" id="best-rate">$0/hr</div>
-      <div class="best-sub" id="best-rate-sub">Base $15/hr + $0 bonus earnings</div>
+      <div class="best-sub" id="best-rate-sub">Earned + legacy bonus + cash bonus, divided by hours</div>
     </div>
   </div>
 
@@ -700,10 +700,12 @@
     // Bests
     document.getElementById('best-streak').textContent = longestStreak();
     document.getElementById('best-day').textContent = longestDay().toFixed(1);
-    const bonusEarnings = bt.profit;
-    const effectiveRate = t.hours > 0 ? (earned + bonusEarnings) / t.hours : HOURLY_RATE;
+    const legacyBonusEarnings = bt.profit;
+    const cashBonusEarnings = cashBonuses.reduce((sum, b) => sum + (+b.amount || 0), 0);
+    const effectiveRate = t.hours > 0 ? (earned + legacyBonusEarnings + cashBonusEarnings) / t.hours : HOURLY_RATE;
     document.getElementById('best-rate').textContent = fmtRate(effectiveRate);
-    document.getElementById('best-rate-sub').textContent = `Base $${Math.round(earned).toLocaleString()} + $${Math.round(bonusEarnings)} bonus earnings`;
+    document.getElementById('best-rate-sub').textContent =
+      `Earned ${Math.round(earned).toLocaleString()} + legacy bonus ${Math.round(legacyBonusEarnings)} + cash bonus ${Math.round(cashBonusEarnings)}`;
 
     // The pending shift is visible but never counted until hours are entered.
     const tbody = document.getElementById('log-body');
