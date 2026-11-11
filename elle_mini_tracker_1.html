@@ -139,7 +139,7 @@
   /* Milestones */
   .milestones { background: #232940; border: 1px solid #2d3553; border-radius: 14px; padding: 16px; margin-bottom: 16px; }
   .ms-title { font-size: 14px; font-weight: 800; color: #fff; margin-bottom: 12px; }
-  .ms-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  .ms-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; }
   .ms { padding: 10px 4px; border-radius: 10px; text-align: center; background: #1a1f33; border: 2px solid #2d3553; transition: all 0.3s; }
   .ms.hit { background: linear-gradient(135deg, #FFD700, #FFA500); border-color: #FFD700; color: #1a1a2e; box-shadow: 0 0 12px rgba(255,200,0,0.4); }
   .ms-icon { font-size: 22px; margin-bottom: 3px; }
@@ -320,6 +320,7 @@
       <div class="ms" data-mark="50"><div class="ms-icon">⛽</div><div class="ms-pct">25%</div><div class="ms-name">Fueled</div></div>
       <div class="ms" data-mark="100"><div class="ms-icon">🛣️</div><div class="ms-pct">50%</div><div class="ms-name">Halfway</div></div>
       <div class="ms" data-mark="150"><div class="ms-icon">🏎️</div><div class="ms-pct">75%</div><div class="ms-name">Stretch</div></div>
+      <div class="ms" data-mark="160" data-drive-time="true"><div class="ms-icon">🚗</div><div class="ms-pct">$2,400</div><div class="ms-name">Drive Time!</div></div>
       <div class="ms" data-mark="200"><div class="ms-icon">🔑</div><div class="ms-pct">100%</div><div class="ms-name">Keys!</div></div>
     </div>
   </div>
@@ -730,6 +731,9 @@
     document.querySelectorAll('.ms').forEach(el => {
       const mark = parseFloat(el.dataset.mark);
       el.classList.toggle('hit', combined >= mark * HOURLY_RATE);
+      if (el.dataset.driveTime === 'true') {
+        el.querySelector('.ms-name').textContent = combined >= 2400 ? 'Drive Time! ✓' : 'Drive Time!';
+      }
     });
 
     // Cash bonus list is separate from both work-hour wages and cash deposits.
