@@ -146,6 +146,17 @@
   .ms-pct { font-size: 12px; font-weight: 800; }
   .ms-name { font-size: 10px; color: #8b94b8; margin-top: 2px; }
   .ms.hit .ms-name { color: #1a1a2e; font-weight: 700; }
+  /* Drive Time thermometer uses the same car balance as the goal progress. */
+  .drive-thermo { margin-top: 14px; padding: 13px 14px; background: #1a1f33; border: 1px solid #3d4764; border-radius: 12px; }
+  .drive-thermo-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 12px; margin-bottom: 11px; }
+  .drive-thermo-name { font-size: 13px; font-weight: 800; color: #fff; }
+  .drive-thermo-value { font-size: 14px; font-weight: 800; color: #facc15; font-variant-numeric: tabular-nums; }
+  .drive-thermo-track { display: flex; align-items: center; height: 24px; padding-left: 7px; }
+  .drive-thermo-bulb { flex: none; width: 30px; height: 30px; border: 4px solid #515c78; border-radius: 50%; background: #f59e0b; z-index: 1; box-shadow: 0 0 0 3px #1a1f33; }
+  .drive-thermo-tube { flex: 1; height: 16px; margin-left: -4px; border: 3px solid #515c78; border-radius: 0 20px 20px 0; background: #121728; overflow: hidden; }
+  .drive-thermo-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #f59e0b, #facc15); border-radius: 0 12px 12px 0; transition: width .5s ease; }
+  .drive-thermo-caption { margin-top: 10px; font-size: 11px; color: #a0aec0; text-align: right; }
+  .drive-thermo.unlocked { border-color: #facc15; }
 
   /* Log */
   .log { background: #232940; border: 1px solid #2d3553; border-radius: 14px; padding: 16px; }
@@ -322,6 +333,13 @@
       <div class="ms" data-mark="150"><div class="ms-icon">🏎️</div><div class="ms-pct">75%</div><div class="ms-name">Stretch</div></div>
       <div class="ms" data-mark="160" data-drive-time="true"><div class="ms-icon">🚗</div><div class="ms-pct">$2,400</div><div class="ms-name">Drive Time!</div></div>
       <div class="ms" data-mark="200"><div class="ms-icon">🔑</div><div class="ms-pct">100%</div><div class="ms-name">Keys!</div></div>
+    </div>
+    <div class="drive-thermo" id="drive-thermo">
+      <div class="drive-thermo-head"><span class="drive-thermo-name">🚗 Drive Time!</span><span class="drive-thermo-value" id="drive-thermo-value">$0 / $2,400</span></div>
+      <div class="drive-thermo-track" role="progressbar" aria-label="Drive Time balance toward $2,400" aria-valuemin="0" aria-valuemax="2400" aria-valuenow="0" id="drive-thermo-progress">
+        <span class="drive-thermo-bulb" aria-hidden="true"></span><div class="drive-thermo-tube"><div class="drive-thermo-fill" id="drive-thermo-fill"></div></div>
+      </div>
+      <div class="drive-thermo-caption" id="drive-thermo-caption">Toward $2,400 milestone</div>
     </div>
   </div>
 
@@ -735,6 +753,13 @@
         el.querySelector('.ms-name').textContent = combined >= 2400 ? 'Drive Time! ✓' : 'Drive Time!';
       }
     });
+    const driveGoal = 2400;
+    const driveProgress = Math.max(0, Math.min(100, combined / driveGoal * 100));
+    document.getElementById('drive-thermo-value').textContent = fmtMoney(combined) + ' / $2,400';
+    document.getElementById('drive-thermo-fill').style.width = driveProgress + '%';
+    document.getElementById('drive-thermo-progress').setAttribute('aria-valuenow', Math.max(0, combined).toFixed(0));
+    document.getElementById('drive-thermo').classList.toggle('unlocked', combined >= driveGoal);
+    document.getElementById('drive-thermo-caption').textContent = combined >= driveGoal ? 'Drive Time unlocked! ✓' : fmtMoney(driveGoal - combined) + ' to Drive Time!';
 
     // Cash bonus list is separate from both work-hour wages and cash deposits.
     const cashBonusBody=document.getElementById('cash-bonus-body');
