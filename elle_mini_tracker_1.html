@@ -74,7 +74,7 @@
   .stat { background: #232940; border: 1px solid #2d3553; border-radius: 14px; padding: 12px 6px; text-align: center; }
   .pace-button { display: block; width: 100%; font: inherit; cursor: pointer; }
   .pace-button:focus-visible { outline: 3px solid #ffd36a; outline-offset: 2px; }
-  .pace-date { font-size: 15px; white-space: nowrap; }
+  .stat .pace-date { font-size: 15px; white-space: nowrap; }
   .pace-details { margin: -4px 0 16px; padding: 14px 16px; background: #232940; border: 1px solid #e06473; border-radius: 12px; font-size: 13px; line-height: 1.5; }
   .pace-details strong { color: #ffe0e4; }
   .pace-details p { margin-top: 9px; }
@@ -637,185 +637,36 @@
   }
 
 
-  // The pace uses dated shifts in the trailing two-week window, not a fixed finish date.
-  // The car goal receives $15 per work hour and $200 on each future first of the month.
+  // Projection: recent 14-day work pace plus $200 on each future first of the month.
   function estimateCompletion(currentBalance) {
-    const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Los_Angeles',
-      year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
+    const today = new Intl.DateTimeFormat('en-CA', {timeZone:'America/Los_Angeles',
+      year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
     const todayUTC = new Date(today + 'T00:00:00Z');
     const cutoff = todayUTC.getTime() - 13 * 86400000;
-    const recent = log.filter(e => !e.aggregate && !e.dateLabel && /^\\d{4}-\\d{2}-\\d{2}$/.test(e.date || '') &&
+    const recent = log.filter(e => !e.aggregate && !e.dateLabel && /^\d{4}-\d{2}-\d{2}$/.test(e.date || '') &&
       Date.parse(e.date + 'T00:00:00Z') >= cutoff && Date.parse(e.date + 'T00:00:00Z') <= todayUTC.getTime());
-    const hours14 = recent.reduce((sum, e) => sum + (+e.hours || 0), 0);
+    const hours14 = recent.reduce((sum,e) => sum + (+e.hours || 0),0);
     const weeklyHours = hours14 / 2;
     const weeklyEarnings = weeklyHours * HOURLY_RATE;
-    const remaining = Math.max(0, TOTAL_VALUE - currentBalance);
+    const remaining = Math.max(0,TOTAL_VALUE - currentBalance);
     const base = [
-      'Goal: ' + fmtMoney(TOTAL_VALUE) + ' − ' + fmtMoney(currentBalance) + ' toward car = ' + fmtMoney(remaining) + ' left.',
-      'Last 14 days: ' + hours14.toFixed(1) + ' hours ÷ 2 = ' + weeklyHours.toFixed(1) + ' hours/week.',
-      weeklyHours.toFixed(1) + ' × 
-    const t = totals();
-    const earned = t.hours * HOURLY_RATE;
-    const hoursPct = Math.min(100, (t.hours / HOURS_GOAL) * 100);
-    const depositTotal = cashDeposits.reduce((sum, item) => sum + item.amount, 0);
-    const combined = earned + depositTotal;
-    const moneyPct = Math.min(100, (combined / TOTAL_VALUE) * 100);
-    const depositPct = Math.min(100, (depositTotal / TOTAL_VALUE) * 100);
-    const hoursLeft = Math.max(0, (TOTAL_VALUE - combined) / HOURLY_RATE);
-
-    document.getElementById('stat-hours').textContent = t.hours.toFixed(1);
-    document.getElementById('stat-money').textContent = fmtMoney(earned);
-    document.getElementById('stat-deposits').textContent = fmtMoney(depositTotal);
-    document.getElementById('stat-pace').textContent = fmtMoney(combined);
-    const forecast = estimateCompletion(combined);
-    document.getElementById('stat-estimate').textContent = forecast.label;
-    document.getElementById('pace-formula').textContent = forecast.explanation;
-
-    document.getElementById('bar-hours').style.width = hoursPct + '%';
-    document.getElementById('bar-hours').textContent = t.hours.toFixed(1) + ' / 200';
-    document.getElementById('bar-money').style.width = moneyPct + '%';
-    document.getElementById('bar-money').textContent = fmtMoney(combined) + ' / $3,000';
-    document.getElementById('bar-garments').style.width = depositPct + '%';
-    document.getElementById('bar-garments').textContent = fmtMoney(depositTotal);
-    document.getElementById('bar-hours-pct').textContent = hoursPct.toFixed(1) + '%';
-    document.getElementById('bar-money-pct').textContent = moneyPct.toFixed(1) + '%';
-    document.getElementById('bar-garments-pct').textContent = depositPct.toFixed(1) + '%';
-
-    const carPos = 5 + (moneyPct / 100) * 82;
-    document.getElementById('mini').style.left = carPos + '%';
-    document.getElementById('mini-pct').textContent = moneyPct.toFixed(1) + '%';
-
-    document.getElementById('celebrate').style.display = combined >= TOTAL_VALUE ? 'block' : 'none';
-
-    document.querySelectorAll('.ms').forEach(el => {
-      const mark = parseFloat(el.dataset.mark);
-      el.classList.toggle('hit', combined >= mark * HOURLY_RATE);
-    });
-
-    // Cash bonus list is separate from both work-hour wages and cash deposits.
-    const cashBonusBody=document.getElementById('cash-bonus-body');
-    cashBonusBody.innerHTML='';
-    [...cashBonuses].reverse().forEach(b=>{
-      const row=document.createElement('tr');
-      [b.dateLabel,b.work,fmtMoney(b.amount)].forEach(value=>{
-        const cell=document.createElement('td');
-        cell.textContent=value;
-        row.appendChild(cell);
-      });
-      cashBonusBody.appendChild(row);
-    });
-    document.getElementById('cash-bonus-total').textContent =
-      fmtMoney(cashBonuses.reduce((total,b)=>total+b.amount,0));
-
-    // Bonuses Earned table + totals
-    const bonusBody = document.getElementById('bonus-body');
-    bonusBody.innerHTML = '';
-    bonuses.forEach(b => {
-      const qty = +b.qty || 0;
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td>${b.dateLabel || b.date}</td>
-        <td class="bonus-item"><span class="bonus-watch">${b.glyph}</span> ${b.label}</td>
-        <td>${qty}</td>
-        <td>$${(+b.avgValue || 0).toFixed(0)}</td>
-        <td>$${(+b.profitPerItem || 0).toFixed(0)}</td>
-      `;
-      bonusBody.appendChild(tr);
-    });
-    const bt = bonusTotals();
-    document.getElementById('bt-items').textContent = bt.items;
-    document.getElementById('bt-value').textContent = fmtMoney(bt.value);
-    document.getElementById('bt-profit').textContent = fmtMoney(bt.profit);
-
-    // Bests
-    document.getElementById('best-streak').textContent = longestStreak();
-    document.getElementById('best-day').textContent = longestDay().toFixed(1);
-    const legacyBonusEarnings = bt.profit;
-    const cashBonusEarnings = cashBonuses.reduce((sum, b) => sum + (+b.amount || 0), 0);
-    const effectiveRate = t.hours > 0 ? (earned + legacyBonusEarnings + cashBonusEarnings) / t.hours : HOURLY_RATE;
-    document.getElementById('best-rate').textContent = fmtRate(effectiveRate);
-    document.getElementById('best-rate-sub').textContent =
-      `Earned ${Math.round(earned).toLocaleString()} + legacy bonus ${Math.round(legacyBonusEarnings)} + cash bonus ${Math.round(cashBonusEarnings)}`;
-
-    // The pending shift is visible but never counted until hours are entered.
-    const tbody = document.getElementById('log-body');
-    tbody.innerHTML = '';
-    const todayISO = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Los_Angeles', year: 'numeric', month: '2-digit', day: '2-digit' });
-    if (!log.some(e => e.date === todayISO && !e.aggregate)) {
-      const pending = document.createElement('tr');
-      pending.innerHTML = '<td>Today</td><td>Work — pending</td><td class="pending-hours">Pending</td>';
-      tbody.appendChild(pending);
-    }
-    [...log].map((e,i)=>({...e, originalIndex:i})).sort((a,b)=>{
-      if(a.aggregate !== b.aggregate) return a.aggregate ? 1 : -1;
-      if(a.aggregate && b.aggregate) return b.originalIndex - a.originalIndex;
-      return (b.date||'').localeCompare(a.date||'');
-    }).forEach(e => {
-      const tr = document.createElement('tr');
-      const dateCell=document.createElement('td');
-      dateCell.textContent=e.dateLabel || (e.date ? shortDate(e.date) : '—');
-      const workCell=document.createElement('td');
-      workCell.textContent=e.label || 'Work';
-      const hoursCell=document.createElement('td');
-      hoursCell.textContent=(+e.hours||0).toFixed(1);
-      tr.append(dateCell,workCell,hoursCell);
-      tbody.appendChild(tr);
-    });
-    const depositBody = document.getElementById('deposit-log-body');
-    depositBody.innerHTML = '';
-    let runningDeposits = 0;
-    [...cashDeposits].sort((a,b)=>a.date.localeCompare(b.date)).forEach(entry => {
-      runningDeposits += entry.amount;
-      const row=document.createElement('tr');
-      [shortDate(entry.date) + ', ' + entry.date.slice(0,4), fmtMoney(entry.amount), fmtMoney(runningDeposits)].forEach(value=>{
-        const cell=document.createElement('td'); cell.textContent=value; row.appendChild(cell);
-      });
-      depositBody.prepend(row);
-    });
-    const legacyBody=document.getElementById('legacy-log-body');
-    legacyBody.innerHTML='';
-    [...legacyLog].reverse().forEach(e=>{
-      const row=document.createElement('tr');
-      [shortDate(e.date),(+e.hours).toFixed(1)].forEach(v=>{
-        const cell=document.createElement('td');cell.textContent=v;row.appendChild(cell);
-      });
-      legacyBody.appendChild(row);
-    });
-  }
-
-  function init() {
-    loadAll();
-    render();
-    const toggle = document.getElementById('pace-toggle');
-    const details = document.getElementById('pace-details');
-    toggle.addEventListener('click', () => {
-      const open = details.hidden;
-      details.hidden = !open;
-      toggle.setAttribute('aria-expanded', String(open));
-    });
-  }
-
-  window.addEventListener('DOMContentLoaded', init);
-})();
-</script>
-</body>
-</html> + HOURLY_RATE + ' = ' + fmtMoney(weeklyEarnings) + '/week.',
-      'Add $200 each future 1st of the month.'
+      'Goal: ' + fmtMoney(TOTAL_VALUE) + ' - ' + fmtMoney(currentBalance) + ' toward car = ' + fmtMoney(remaining) + ' left.',
+      'Last 14 days: ' + hours14.toFixed(1) + ' hours / 2 = ' + weeklyHours.toFixed(1) + ' hours/week.',
+      weeklyHours.toFixed(1) + ' hours x $' + HOURLY_RATE + ' = ' + fmtMoney(weeklyEarnings) + '/week.',
+      'Add $200 on each future 1st of the month.'
     ];
-    if(remaining <= 0) return {label:'Goal reached!', explanation:base.join('\\n') + '\\nThe car goal is complete.'};
-    let balance = currentBalance;
-    let finish = null;
-    // Project a steady daily average, with deposits on the first (never double-count past deposits).
-    for(let d=1; d<=3650; d++) {
-      const day = new Date(todayUTC.getTime()+d*86400000);
-      balance += weeklyEarnings / 7;
-      if(day.getUTCDate() === 1) balance += 200;
-      if(balance >= TOTAL_VALUE) { finish=day; break; }
+    if(remaining <= 0) return {label:'Goal reached!',explanation:base.join('\n') + '\nGoal completed.'};
+    let balance=currentBalance,finish=null;
+    for(let d=1;d<=3650;d++){
+      const day=new Date(todayUTC.getTime()+d*86400000);
+      balance+=weeklyEarnings/7;
+      if(day.getUTCDate()===1) balance+=200;
+      if(balance>=TOTAL_VALUE){finish=day;break;}
     }
-    if(!finish) return {label:'Not yet', explanation:base.join('\\n') + '\\nNo finish date found in the next ten years.'};
-    const full = finish.toLocaleDateString('en-US',{timeZone:'UTC',month:'long',day:'numeric',year:'numeric'});
-    const short = finish.toLocaleDateString('en-US',{timeZone:'UTC',month:'short',day:'numeric'});
-    return {label:short, explanation:base.join('\\n') + '\\nEstimated finish: ' + full + '. The estimate recalculates as work hours and the date change.'};
+    if(!finish) return {label:'Not yet',explanation:base.join('\n')+'\nNo projected date within ten years.'};
+    const full=finish.toLocaleDateString('en-US',{timeZone:'UTC',month:'long',day:'numeric',year:'numeric'});
+    const short=finish.toLocaleDateString('en-US',{timeZone:'UTC',month:'short',day:'numeric'});
+    return {label:short,explanation:base.join('\n')+'\nEstimated finish: '+full+'. This recalculates as hours and dates change.'};
   }
 
   function render() {
