@@ -711,7 +711,7 @@
     const todayISO = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Los_Angeles', year: 'numeric', month: '2-digit', day: '2-digit' });
     if (!log.some(e => e.date === todayISO && !e.aggregate)) {
       const pending = document.createElement('tr');
-      pending.innerHTML = '<td>Today</td><td>Work — pending</td><td class="pending-hours">Pending</td><td></td>';
+      pending.innerHTML = '<td>Today</td><td>Work — pending</td><td class="pending-hours">Pending</td>';
       tbody.appendChild(pending);
     }
     [...log].map((e,i)=>({...e, originalIndex:i})).sort((a,b)=>{
