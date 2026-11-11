@@ -150,8 +150,6 @@
   .pace-good { background: #065f46; color: #d1fae5; }
   .pace-ok { background: #92400e; color: #fef3c7; }
   .pace-low { background: #991b1b; color: #fee2e2; }
-  .del-btn { background: transparent; border: none; color: #ef4444; cursor: pointer; font-size: 14px; opacity: 0.6; padding: 4px; }
-  .del-btn:hover, .del-btn:active { opacity: 1; }
 
   .add { display: flex; gap: 8px; flex-wrap: wrap; align-items: end; margin-top: 12px; padding-top: 12px; border-top: 1px solid #2d3553; }
   .field { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
@@ -340,7 +338,7 @@
     <div class="log-title">📋 Recent Work — newest first</div>
     <table class="log-table">
       <thead>
-        <tr><th>Date</th><th>Work</th><th>Hours</th><th></th></tr>
+        <tr><th>Date</th><th>Work</th><th>Hours</th></tr>
       </thead>
       <tbody id="log-body"></tbody>
     </table>
@@ -729,16 +727,6 @@
       const hoursCell=document.createElement('td');
       hoursCell.textContent=(+e.hours||0).toFixed(1);
       tr.append(dateCell,workCell,hoursCell);
-      const actionCell=document.createElement('td');
-      if(!e.aggregate) {
-        const btn=document.createElement('button');
-        btn.className='del-btn';
-        btn.textContent='×';
-        btn.title='Remove';
-        btn.addEventListener('click',()=>{ log.splice(e.originalIndex,1);saveLog();render(); });
-        actionCell.appendChild(btn);
-      }
-      tr.appendChild(actionCell);
       tbody.appendChild(tr);
     });
     const depositBody = document.getElementById('deposit-log-body');
