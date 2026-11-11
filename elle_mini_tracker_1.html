@@ -204,6 +204,25 @@
     .bests { grid-template-columns: 1fr 1fr; }
     .best-value { font-size: 22px; }
   }
+  .collapsible { margin-bottom: 14px; }
+  .collapsible > summary { cursor: pointer; list-style: none; margin-bottom: 0; padding: 2px 1px; }
+  .collapsible > summary::-webkit-details-marker { display:none; }
+  .collapsible > summary::after { content:"▾"; float:right; color:#a0aec0; }
+  .collapsible[open] > summary::after { content:"▴"; }
+  .collapsible[open] > summary { margin-bottom:12px; }
+  .small-hint { color:#a0aec0; font-size:11px; font-weight:400; margin-left:5px; }
+  .completion-section { background:#26334a; border:1px solid #e6ae57; border-radius:16px; padding:19px; margin:16px 0; scroll-margin-top:18px; }
+  .completion-kicker {font-size:10px; font-weight:800; color:#ffd36a; letter-spacing:1px;}
+  .completion-section h2 {font-size:17px; color:#fff; margin:7px 0 4px;}
+  .completion-date {font-size:26px; color:#ffdf92; font-weight:850; margin:5px 0;}
+  .completion-section p {font-size:12px; line-height:1.5; color:#dce2ee;}
+  .completion-formula-title {font-weight:750; margin:14px 0 3px; color:#fff; font-size:13px;}
+  .completion-section #pace-formula {white-space:pre-line;}
+  .completion-section .pace-note {font-size:11px; color:#aebbd0;}
+  .wage-row {grid-template-columns:1fr !important;}
+  .hustle-row {grid-template-columns:repeat(2,1fr) !important;}
+  @keyframes pace-highlight {0%{box-shadow:0 0 0 4px #ffd36a;}100%{box-shadow:none;}}
+  .pace-flash {animation:pace-highlight 1.5s ease-out;}
 </style>
 </head>
 <body>
@@ -288,20 +307,31 @@
       <div class="stat-value" id="stat-pace">0</div>
       <div class="stat-sub">earned + deposits</div>
     </div>
-    <button class="stat stat-red pace-button" id="pace-toggle" type="button" aria-expanded="false" aria-controls="pace-details" title="See how the finish date is estimated">
+    <button class="stat stat-red pace-button" id="pace-toggle" type="button" aria-controls="completion-section" title="Jump to the estimated completion calculation">
       <div class="stat-label">🚗 PACE</div>
       <div class="stat-value pace-date" id="stat-estimate">—</div>
       <div class="stat-sub">est. completion • tap</div>
     </button>
   </div>
-  <div class="pace-details" id="pace-details" hidden>
-    <strong>How Elle’s finish date is estimated</strong>
-    <p id="pace-formula"></p>
-    <p class="pace-note">The date updates from the most recent 14 days of work, plus $200 on the 1st of each month. Cash bonuses stay separate. Actual work schedules and deposits may vary.</p>
+  <div class="milestones">
+    <div class="ms-title">🏆 Milestones</div>
+    <div class="ms-grid">
+      <div class="ms" data-mark="20"><div class="ms-icon">🌱</div><div class="ms-pct">10%</div><div class="ms-name">Started</div></div>
+      <div class="ms" data-mark="50"><div class="ms-icon">⛽</div><div class="ms-pct">25%</div><div class="ms-name">Fueled</div></div>
+      <div class="ms" data-mark="100"><div class="ms-icon">🛣️</div><div class="ms-pct">50%</div><div class="ms-name">Halfway</div></div>
+      <div class="ms" data-mark="150"><div class="ms-icon">🏎️</div><div class="ms-pct">75%</div><div class="ms-name">Stretch</div></div>
+      <div class="ms" data-mark="200"><div class="ms-icon">🔑</div><div class="ms-pct">100%</div><div class="ms-name">Keys!</div></div>
+    </div>
   </div>
 
-  <!-- Hustle bests + Effective Rate -->
-  <div class="bests">
+  <div class="bests wage-row">
+    <div class="best best-wage">
+      <div class="best-label">💰 EFFECTIVE RATE</div>
+      <div class="best-value" id="best-rate">$0/hr</div>
+      <div class="best-sub" id="best-rate-sub">Earned + legacy bonus + cash bonus, divided by hours</div>
+    </div>
+  </div>
+  <div class="bests hustle-row">
     <div class="best">
       <div class="best-label">🔥 LONGEST HUSTLE</div>
       <div class="best-value" id="best-streak">3</div>
@@ -312,13 +342,16 @@
       <div class="best-value" id="best-day">4.0</div>
       <div class="best-sub">hours in a single shift</div>
     </div>
-    <div class="best best-wage">
-      <div class="best-label">💰 EFFECTIVE RATE</div>
-      <div class="best-value" id="best-rate">$0/hr</div>
-      <div class="best-sub" id="best-rate-sub">Earned + legacy bonus + cash bonus, divided by hours</div>
-    </div>
   </div>
-
+  <section class="completion-section" id="completion-section" aria-labelledby="completion-title">
+    <div class="completion-kicker">🚗 ON THE ROAD TO THE MINI</div>
+    <h2 id="completion-title">Estimated Completion</h2>
+    <div class="completion-date" id="completion-date">Calculating…</div>
+    <p id="completion-subtitle">Based on recent work and monthly deposits</p>
+    <div class="completion-formula-title">How we estimate it</div>
+    <p id="pace-formula"></p>
+    <p class="pace-note">Uses work logged in the last 14 days and $200 deposited on future firsts of the month. A projection, not a guarantee. Cash bonuses do not go toward the car.</p>
+  </section>
   <div class="bars">
     <div class="bar-row">
       <div class="bar-label"><span>⏱️ Hours</span><span id="bar-hours-pct">0%</span></div>
@@ -336,35 +369,21 @@
 
   <div class="celebrate" id="celebrate">🎉 ROAD TRIP TIME — SHE EARNED THE KEYS! 🎉</div>
 
-  <div class="milestones">
-    <div class="ms-title">🏆 Milestones</div>
-    <div class="ms-grid">
-      <div class="ms" data-mark="20"><div class="ms-icon">🌱</div><div class="ms-pct">10%</div><div class="ms-name">Started</div></div>
-      <div class="ms" data-mark="50"><div class="ms-icon">⛽</div><div class="ms-pct">25%</div><div class="ms-name">Fueled</div></div>
-      <div class="ms" data-mark="100"><div class="ms-icon">🛣️</div><div class="ms-pct">50%</div><div class="ms-name">Halfway</div></div>
-      <div class="ms" data-mark="150"><div class="ms-icon">🏎️</div><div class="ms-pct">75%</div><div class="ms-name">Stretch</div></div>
-      <div class="ms" data-mark="200"><div class="ms-icon">🔑</div><div class="ms-pct">100%</div><div class="ms-name">Keys!</div></div>
-    </div>
-  </div>
-
-  <div class="log">
-    <div class="log-title">📋 Recent Work — newest first</div>
+  <details class="log collapsible" id="recent-work">
+    <summary class="log-title">📋 Recent Work <span class="small-hint">this week + last week</span></summary>
     <table class="log-table">
-      <thead>
-        <tr><th>Date</th><th>Work</th><th>Hours</th></tr>
-      </thead>
+      <thead><tr><th>Date</th><th>Work</th><th>Hours</th></tr></thead>
       <tbody id="log-body"></tbody>
     </table>
+  </details>
 
-  </div>
-
-  <div class="log" id="deposit-log">
-    <div class="log-title">🏦 Cash Deposit Log</div>
+  <details class="log collapsible" id="deposit-log">
+    <summary class="log-title">🏦 Cash Deposit Log</summary>
     <table class="log-table">
       <thead><tr><th>Date</th><th>Deposit</th><th>Running Total</th></tr></thead>
       <tbody id="deposit-log-body"></tbody>
     </table>
-  </div>
+  </details>
 
   <div class="log" id="cash-bonus-log">
     <div class="log-title">💵 Cash Bonus Log</div>
@@ -375,20 +394,24 @@
     <div class="cash-bonus-total">Cash bonuses earned: <strong id="cash-bonus-total">$20</strong></div>
   </div>
 
-  <div class="legacy-box">
-    <div class="legacy-title">📚 Legacy Hours</div>
+  <details class="legacy-box collapsible" id="legacy-hours">
+    <summary class="legacy-title">📚 Legacy Hours</summary>
     <div class="legacy-summary">
-      <div><span>Legacy hours worked</span><strong>31 hr</strong></div>
+      <div><span>Original legacy hours worked</span><strong>31 hr</strong></div>
       <div><span>iPhone cash-out</span><strong>−21 hr</strong></div>
-      <div><span>Legacy hours balance</span><strong>10 hr</strong></div>
+      <div><span>Original legacy hours balance</span><strong>10 hr</strong></div>
     </div>
-    <details>
-      <summary>Show original dated work entries (14 days)</summary>
-      <div class="legacy-subtitle">Original work dates — 31 hours total (newest first)</div>
-      <table class="log-table"><thead><tr><th>Date</th><th>Hours</th></tr></thead>
-      <tbody id="legacy-log-body"></tbody></table>
-    </details>
-  </div>
+    <div class="legacy-subtitle">Older work before last week (included in car progress)</div>
+    <table class="log-table">
+      <thead><tr><th>Date</th><th>Work</th><th>Hours</th></tr></thead>
+      <tbody id="older-log-body"></tbody>
+    </table>
+    <div class="legacy-subtitle">Original dated work history (already included in the original balance)</div>
+    <table class="log-table">
+      <thead><tr><th>Date</th><th>Hours</th></tr></thead>
+      <tbody id="legacy-log-body"></tbody>
+    </table>
+  </details>
 
   <!-- Historical noncash bonus items -->
   <div class="bonuses">
@@ -666,7 +689,7 @@
     if(!finish) return {label:'Not yet',explanation:base.join('\n')+'\nNo projected date within ten years.'};
     const full=finish.toLocaleDateString('en-US',{timeZone:'UTC',month:'long',day:'numeric',year:'numeric'});
     const short=finish.toLocaleDateString('en-US',{timeZone:'UTC',month:'short',day:'numeric'});
-    return {label:short,explanation:base.join('\n')+'\nEstimated finish: '+full+'. This recalculates as hours and dates change.'};
+    return {label:short,fullDate:full,explanation:base.join('\n')+'\nEstimated finish: '+full+'. This recalculates as hours and dates change.'};
   }
 
   function render() {
@@ -686,6 +709,7 @@
     const forecast = estimateCompletion(combined);
     document.getElementById('stat-estimate').textContent = forecast.label;
     document.getElementById('pace-formula').textContent = forecast.explanation;
+    document.getElementById('completion-date').textContent = forecast.fullDate || forecast.label;
 
     document.getElementById('bar-hours').style.width = hoursPct + '%';
     document.getElementById('bar-hours').textContent = t.hours.toFixed(1) + ' / 200';
@@ -753,30 +777,31 @@
     document.getElementById('best-rate-sub').textContent =
       `Earned ${Math.round(earned).toLocaleString()} + legacy bonus ${Math.round(legacyBonusEarnings)} + cash bonus ${Math.round(cashBonusEarnings)}`;
 
-    // The pending shift is visible but never counted until hours are entered.
+    // Display this calendar week and the previous calendar week, Monday through Sunday.
     const tbody = document.getElementById('log-body');
-    tbody.innerHTML = '';
-    const todayISO = new Date().toLocaleDateString('en-CA', { timeZone: 'America/Los_Angeles', year: 'numeric', month: '2-digit', day: '2-digit' });
-    if (!log.some(e => e.date === todayISO && !e.aggregate)) {
-      const pending = document.createElement('tr');
-      pending.innerHTML = '<td>Today</td><td>Work — pending</td><td class="pending-hours">Pending</td>';
-      tbody.appendChild(pending);
+    const olderBody = document.getElementById('older-log-body');
+    tbody.replaceChildren();
+    olderBody.replaceChildren();
+    const todayISO = new Intl.DateTimeFormat('en-CA', {timeZone:'America/Los_Angeles',
+      year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+    const todayUTC = new Date(todayISO+'T00:00:00Z');
+    const dayOfWeek = todayUTC.getUTCDay();
+    const mondayThisWeek = todayUTC.getTime()-((dayOfWeek+6)%7)*86400000;
+    const mondayLastWeek = mondayThisWeek-7*86400000;
+    const entries=[...log].sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+    const recent=entries.filter(e=>!e.aggregate && !e.dateLabel &&
+      /^\d{4}-\d{2}-\d{2}$/.test(e.date||'') &&
+      Date.parse(e.date+'T00:00:00Z')>=mondayLastWeek);
+    const older=entries.filter(e=>!recent.includes(e));
+    function appendWorkRow(target,e){
+      const tr=document.createElement('tr');
+      const values=[e.dateLabel || (e.date?shortDate(e.date):'Previous balance'),
+        e.label||'Work',(+e.hours||0).toFixed(1)];
+      for(const v of values){const td=document.createElement('td');td.textContent=v;tr.append(td);}
+      target.append(tr);
     }
-    [...log].map((e,i)=>({...e, originalIndex:i})).sort((a,b)=>{
-      if(a.aggregate !== b.aggregate) return a.aggregate ? 1 : -1;
-      if(a.aggregate && b.aggregate) return b.originalIndex - a.originalIndex;
-      return (b.date||'').localeCompare(a.date||'');
-    }).forEach(e => {
-      const tr = document.createElement('tr');
-      const dateCell=document.createElement('td');
-      dateCell.textContent=e.dateLabel || (e.date ? shortDate(e.date) : '—');
-      const workCell=document.createElement('td');
-      workCell.textContent=e.label || 'Work';
-      const hoursCell=document.createElement('td');
-      hoursCell.textContent=(+e.hours||0).toFixed(1);
-      tr.append(dateCell,workCell,hoursCell);
-      tbody.appendChild(tr);
-    });
+    recent.forEach(e=>appendWorkRow(tbody,e));
+    older.forEach(e=>appendWorkRow(olderBody,e));
     const depositBody = document.getElementById('deposit-log-body');
     depositBody.innerHTML = '';
     let runningDeposits = 0;
@@ -802,6 +827,13 @@
   function init() {
     loadAll();
     render();
+    document.getElementById('pace-toggle').addEventListener('click',()=>{
+      const section=document.getElementById('completion-section');
+      section.scrollIntoView({behavior:'smooth',block:'start'});
+      section.classList.remove('pace-flash');
+      void section.offsetWidth;
+      section.classList.add('pace-flash');
+    });
   }
 
   window.addEventListener('DOMContentLoaded', init);
