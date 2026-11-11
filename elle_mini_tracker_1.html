@@ -431,8 +431,8 @@
   const cashBonuses = [
     { date: '2026-10', dateLabel: 'Oct 2026', work: 'October shipping', amount: 10 },
     { date: '2026-10', dateLabel: 'Oct 2026', work: 'Armada vacuum', amount: 10 },
-    { date: '2026-11-05', dateLabel: 'Nov 5, 2026', work: '4.5 hours worked (4+ hours)', amount: 10 },
-    { date: '2026-11-10', dateLabel: 'Nov 10, 2026', work: '5.5 hours worked; 100+ items (total daily bonus)', amount: 20 }
+    { date: '2026-11-05', dateLabel: 'Nov 5, 2026', work: '80+ items completed • 4.5 hours', amount: 10 },
+    { date: '2026-11-10', dateLabel: 'Nov 10, 2026', work: '100+ items completed • 5.5 hours (total daily bonus)', amount: 20 }
   ];
   const HOURLY_RATE = 15;
   const TOTAL_VALUE = HOURS_GOAL * HOURLY_RATE; // $3,000
@@ -447,7 +447,7 @@
     { date: '2026-10-01', dateLabel: 'Oct 2026', label: 'October shipping', hours: 1, entryId: 'oct-shipping-2026-10' },
     { date: '2026-11-03', label: 'Work', hours: 2.5, entryId: 'work-2026-11-03-confirmed' },
     { date: '2026-11-04', label: 'Work', hours: 1.5, entryId: 'additional-work-2026-11-04-1h30' },
-    { date: '2026-11-05', label: 'Work', hours: 4.5, entryId: 'work-2026-11-05-4h30' },
+    { date: '2026-11-05', label: 'Work — 80+ items', hours: 4.5, entryId: 'work-2026-11-05-4h30' },
     { date: '2026-11-10', label: 'Work — 100+ items', hours: 5.5, entryId: 'work-2026-11-10-5h30' }
   ];
   // Original dated work history underlying the 31-hour legacy subtotal.
@@ -537,7 +537,7 @@
       }
       // Apply confirmed November work to existing browser histories without duplication.
       for (const e of [
-        { date: '2026-11-05', label: 'Work', hours: 4.5, entryId: 'work-2026-11-05-4h30' },
+        { date: '2026-11-05', label: 'Work — 80+ items', hours: 4.5, entryId: 'work-2026-11-05-4h30' },
         { date: '2026-11-10', label: 'Work — 100+ items', hours: 5.5, entryId: 'work-2026-11-10-5h30' }
       ]) {
         const prior=log.find(x=>x.entryId===e.entryId || (x.date===e.date && !x.aggregate));
