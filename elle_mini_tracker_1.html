@@ -503,7 +503,7 @@
     { date: '2026-11-05', label: 'Work — 80+ items', hours: 4.5, entryId: 'work-2026-11-05-4h30' },
     { date: '2026-11-10', label: 'Work — 100+ items', hours: 5.5, entryId: 'work-2026-11-10-5h30' },
     { date: '2026-11-11', label: 'Work', hours: 2.5, entryId: 'work-2026-11-11-2h30' },
-    { date: '2026-11-17', label: 'Work', hours: 0.75, entryId: 'work-2026-11-17-0h45' }
+    { date: '2026-11-17', label: 'Work', hours: 1.25, entryId: 'work-2026-11-17-0h45' }
   ];
   // Original dated work history underlying the 31-hour legacy subtotal.
   const legacyLog = [
@@ -595,7 +595,7 @@
         { date: '2026-11-05', label: 'Work — 80+ items', hours: 4.5, entryId: 'work-2026-11-05-4h30' },
         { date: '2026-11-10', label: 'Work — 100+ items', hours: 5.5, entryId: 'work-2026-11-10-5h30' },
         { date: '2026-11-11', label: 'Work', hours: 2.5, entryId: 'work-2026-11-11-2h30' },
-    { date: '2026-11-17', label: 'Work', hours: 0.75, entryId: 'work-2026-11-17-0h45' }
+    { date: '2026-11-17', label: 'Work', hours: 1.25, entryId: 'work-2026-11-17-0h45' }
       ]) {
         const prior=log.find(x=>x.entryId===e.entryId || (x.date===e.date && !x.aggregate));
         if(prior) Object.assign(prior,e);
