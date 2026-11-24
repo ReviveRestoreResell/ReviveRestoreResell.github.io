@@ -370,7 +370,7 @@
     <div class="completion-formula-title">How we estimate it</div>
     <p id="pace-formula"></p>
     <p class="pace-note" id="future-deposits">Future $200 deposits are planned, not yet received.</p>
-    <p class="pace-note">Uses work logged in the last 14 days and $200 deposited on future firsts of the month. A projection, not a guarantee. Cash bonuses do not go toward the car.</p>
+    <p class="pace-note">Projection uses the past 14 completed days, $15 per work hour, and up to $200 on future firsts of the month. The final payment is capped at the remaining balance. These future payments are not yet recorded as deposits; cash bonuses stay separate.</p>
   </section>
   <div class="bars">
     <div class="bar-row">
@@ -691,7 +691,7 @@
     const today = new Intl.DateTimeFormat('en-CA', {timeZone:'America/Los_Angeles',
       year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
     const todayUTC = new Date(today + 'T00:00:00Z');
-    const asOfUTC = new Date(todayUTC.getTime() - 86400000); // fully completed days only
+    const asOfUTC = new Date(todayUTC.getTime() - 86400000); // last completed calendar day
     const cutoff = asOfUTC.getTime() - 13 * 86400000;
     const recent = log.filter(e => !e.aggregate && !e.dateLabel && /^\d{4}-\d{2}-\d{2}$/.test(e.date || '') &&
       Date.parse(e.date + 'T00:00:00Z') >= cutoff && Date.parse(e.date + 'T00:00:00Z') <= asOfUTC.getTime());
@@ -700,27 +700,59 @@
     const weeklyEarnings = weeklyHours * HOURLY_RATE;
     const remaining = Math.max(0,TOTAL_VALUE - currentBalance);
     const asOf = asOfUTC.toLocaleDateString('en-US',{timeZone:'UTC',month:'short',day:'numeric',year:'numeric'});
-    const base = [
-      'Work recorded through ' + asOf + '.',
-      'Goal: ' + fmtMoney(TOTAL_VALUE) + ' - ' + fmtMoney(currentBalance) + ' toward car = ' + fmtMoney(remaining) + ' left.',
-      'Last 14 days: ' + hours14.toFixed(1) + ' hours / 2 = ' + weeklyHours.toFixed(1) + ' hours/week.',
-      weeklyHours.toFixed(1) + ' hours x $' + HOURLY_RATE + ' = ' + fmtMoney(weeklyEarnings) + '/week.',
-      'Plan $200 on each future 1st of the month, including March 1, 2027 if needed.'
+    const money = n => '$' + n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+    const dateLabel = d => d.toLocaleDateString('en-US',{timeZone:'UTC',month:'short',day:'numeric',year:'numeric'});
+    const summary = [
+      'As of ' + asOf + ' — based on the last 14 completed days.',
+      'Current car balance: ' + money(currentBalance) + ' / ' + money(TOTAL_VALUE) + '. Remaining: ' + money(remaining) + '.',
+      'Work pace: ' + hours14.toFixed(2) + ' hours in 14 days = ' + weeklyHours.toFixed(2) + ' hours/week.',
+      'Weekly work earnings: ' + money(weeklyEarnings) + ' at $' + HOURLY_RATE + '/hour.'
     ];
-    if(remaining <= 0) return {label:'Goal reached!',explanation:base.join('\n') + '\nGoal completed.'};
-    let balance=currentBalance,finish=null;
-    const plannedDeposits=[];
-    for(let d=1;d<=3650;d++){
-      const day=new Date(asOfUTC.getTime()+d*86400000);
-      balance+=weeklyEarnings/7;
-      if(day.getUTCDate()===1) { balance+=200; plannedDeposits.push(day.toLocaleDateString('en-US',{timeZone:'UTC',month:'short',day:'numeric',year:'numeric'}) + ': $200 planned'); }
-      if(balance>=TOTAL_VALUE){finish=day;break;}
+    if(remaining <= 0) {
+      const explanation=summary.concat(['Goal completed.']).join('\n');
+      return {label:'Goal reached!',fullDate:'Goal reached!',explanation,schedule:'No further deposits needed'};
     }
-    const schedule = plannedDeposits.length ? plannedDeposits.join(' • ') : 'No further deposits required';
-    if(!finish) return {label:'Not yet',explanation:base.join('\n')+'\nNo projected date within ten years.',schedule};
-    const full=finish.toLocaleDateString('en-US',{timeZone:'UTC',month:'long',day:'numeric',year:'numeric'});
+    let balance = currentBalance;
+    let finish = null;
+    let days = 0;
+    let projectedWork = 0;
+    let plannedTotal = 0;
+    const plannedDeposits = [];
+    for(let d=1;d<=3650;d++){
+      const day = new Date(asOfUTC.getTime()+d*86400000);
+      const workPayment = Math.min(Math.max(0,TOTAL_VALUE-balance),weeklyEarnings/7);
+      balance += workPayment;
+      projectedWork += workPayment;
+      if(day.getUTCDate()===1 && balance < TOTAL_VALUE-0.000001) {
+        // The final monthly payment pays only the remaining amount, not an automatic $200.
+        const deposit = Math.min(200,Math.round((TOTAL_VALUE-balance)*100)/100);
+        balance += deposit;
+        plannedTotal += deposit;
+        plannedDeposits.push({date:dateLabel(day),amount:deposit});
+      }
+      if(balance >= TOTAL_VALUE-0.000001){finish=day;days=d;break;}
+    }
+    const schedule = plannedDeposits.length
+      ? plannedDeposits.map(p=>p.date + ': ' + money(p.amount) + ' planned').join(' • ')
+      : 'No additional payments needed';
+    if(!finish){
+      return {label:'Not yet',explanation:summary.concat(['No payoff projected within ten years at this pace.']).join('\n'),schedule};
+    }
+    const full=dateLabel(finish);
     const short=finish.toLocaleDateString('en-US',{timeZone:'UTC',month:'short',day:'numeric'});
-    return {label:short,fullDate:full,explanation:base.join('\n')+'\nEstimated finish: '+full+'. This recalculates as hours and dates change.',schedule};
+    const weeks = (days/7).toFixed(1);
+    const workTotal=Math.round(projectedWork*100)/100;
+    const depositTotal=Math.round(plannedTotal*100)/100;
+    const finalPayment=plannedDeposits.length ? plannedDeposits[plannedDeposits.length-1] : null;
+    const paymentSummary = finalPayment ? 'Last planned payment: ' + finalPayment.date + ' — ' + money(finalPayment.amount) + '.' : 'No monthly payment is needed at payoff.';
+    const explanation=summary.concat([
+      'Time to estimated payoff: ' + days + ' days (' + weeks + ' weeks).',
+      'Projected work earnings: ' + money(workTotal) + '.',
+      'Planned future payments: ' + money(depositTotal) + '. ' + paymentSummary,
+      'Reconciliation: ' + money(currentBalance) + ' current + ' + money(workTotal) + ' future work + ' + money(depositTotal) + ' planned payments = ' + money(currentBalance+workTotal+depositTotal) + '.',
+      'Estimated payoff: ' + full + '. Only completed deposits are included in the current balance.'
+    ]).join('\n');
+    return {label:short,fullDate:full,explanation,schedule};
   }
 
   function render() {
