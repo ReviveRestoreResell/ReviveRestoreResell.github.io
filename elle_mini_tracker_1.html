@@ -798,8 +798,18 @@
     document.getElementById('forecast-weeks').textContent = forecast.weeks == null ? '—' : forecast.weeks.toFixed(1);
     const paymentsList=document.getElementById('forecast-payments');
     paymentsList.replaceChildren();
-    const payFmt = value => '
-
+    const payFmt = value => '$' + value.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+    for(const payment of forecast.payments || []) {
+      const row=document.createElement('div'); row.className='forecast-payment';
+      const when=document.createElement('span'); when.textContent=payment.date;
+      const amount=document.createElement('strong'); amount.textContent=payFmt(payment.amount);
+      row.append(when,amount); paymentsList.appendChild(row);
+    }
+    if(!paymentsList.childElementCount) paymentsList.textContent='No further monthly payments needed';
+    const forecastConclusion=document.getElementById('forecast-conclusion');
+    forecastConclusion.textContent = forecast.weeks == null
+      ? 'More work is needed to estimate a payoff date.'
+      : 'At this pace: ' + payFmt(forecast.workTotal) + ' future work + ' + payFmt(forecast.plannedTotal) + ' planned payments complete the $3,000 goal.';
     document.getElementById('bar-hours').style.width = hoursPct + '%';
     document.getElementById('bar-hours').textContent = t.hours.toFixed(1) + ' / 200';
     document.getElementById('bar-money').style.width = moneyPct + '%';
