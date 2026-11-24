@@ -230,6 +230,17 @@
   .completion-formula-title {font-weight:750; margin:14px 0 3px; color:#fff; font-size:13px;}
   .completion-section #pace-formula {white-space:pre-line;}
   .completion-section .pace-note {font-size:11px; color:#aebbd0;}
+  .completion-mini-stats {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:14px 0;}
+  .completion-mini-stats>div {background:#1b2639;border:1px solid #40506b;border-radius:10px;padding:10px 7px;min-width:0;}
+  .completion-mini-stats span {display:block;font-size:10px;color:#c2ccde;line-height:1.25;min-height:25px;}
+  .completion-mini-stats strong {display:block;font-size:16px;color:#fff;margin-top:5px;font-variant-numeric:tabular-nums;}
+  .forecast-payments {display:grid;gap:0;margin-top:5px;}
+  .forecast-payment {display:flex;justify-content:space-between;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid #43506a;font-size:13px;color:#e4e9f3;}
+  .forecast-payment strong {color:#ffdf92;font-variant-numeric:tabular-nums;white-space:nowrap;}
+  .forecast-conclusion {font-size:13px!important;font-weight:650;color:#ffe5a2!important;margin:12px 0 4px!important;}
+  .forecast-details {margin-top:12px;border-top:1px solid #43506a;padding-top:10px;color:#cbd5e1;}
+  .forecast-details summary {cursor:pointer;font-size:12px;font-weight:650;color:#b7c4db;}
+  .forecast-details #pace-formula {white-space:pre-line;font-size:11px;line-height:1.5;}
   .wage-row {grid-template-columns:1fr !important;}
   .hustle-row {grid-template-columns:repeat(2,1fr) !important;}
   @keyframes pace-highlight {0%{box-shadow:0 0 0 4px #ffd36a;}100%{box-shadow:none;}}
@@ -366,11 +377,19 @@
     <div class="completion-kicker">🚗 ON THE ROAD TO THE MINI</div>
     <h2 id="completion-title">Estimated Completion</h2>
     <div class="completion-date" id="completion-date">Calculating…</div>
-    <p id="completion-subtitle">Based on recent work and monthly deposits</p>
-    <div class="completion-formula-title">How we estimate it</div>
-    <p id="pace-formula"></p>
-    <p class="pace-note" id="future-deposits">Future $200 deposits are planned, not yet received.</p>
-    <p class="pace-note">Projection uses the past 14 completed days, $15 per work hour, and up to $200 on future firsts of the month. The final payment is capped at the remaining balance. These future payments are not yet recorded as deposits; cash bonuses stay separate.</p>
+    <p id="completion-subtitle">Estimate based on recent work</p>
+    <div class="completion-mini-stats">
+      <div><span>Current balance</span><strong id="forecast-balance">—</strong></div>
+      <div><span>Average hours/week</span><strong id="forecast-hours">—</strong></div>
+      <div><span>Weeks remaining</span><strong id="forecast-weeks">—</strong></div>
+    </div>
+    <div class="completion-formula-title">Planned payments</div>
+    <div id="forecast-payments" class="forecast-payments"></div>
+    <p class="forecast-conclusion" id="forecast-conclusion"></p>
+    <details class="forecast-details"><summary>How is this calculated?</summary>
+      <p id="pace-formula"></p>
+      <p class="pace-note">Cash bonuses stay separate. Future payments are estimates, not deposits already received.</p>
+    </details>
   </section>
   <div class="bars">
     <div class="bar-row">
@@ -702,6 +721,7 @@
     const asOf = asOfUTC.toLocaleDateString('en-US',{timeZone:'UTC',month:'short',day:'numeric',year:'numeric'});
     const money = n => '$' + n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
     const dateLabel = d => d.toLocaleDateString('en-US',{timeZone:'UTC',month:'short',day:'numeric',year:'numeric'});
+    const paceInfo = {weeklyHours, currentBalance, remaining};
     const summary = [
       'As of ' + asOf + ' — based on the last 14 completed days.',
       'Current car balance: ' + money(currentBalance) + ' / ' + money(TOTAL_VALUE) + '. Remaining: ' + money(remaining) + '.',
@@ -710,7 +730,7 @@
     ];
     if(remaining <= 0) {
       const explanation=summary.concat(['Goal completed.']).join('\n');
-      return {label:'Goal reached!',fullDate:'Goal reached!',explanation,schedule:'No further deposits needed'};
+      return {label:'Goal reached!',fullDate:'Goal reached!',explanation,schedule:'No further deposits needed',...paceInfo,weeks:0,payments:[],workTotal:0,plannedTotal:0};
     }
     let balance = currentBalance;
     let finish = null;
@@ -736,7 +756,7 @@
       ? plannedDeposits.map(p=>p.date + ': ' + money(p.amount) + ' planned').join(' • ')
       : 'No additional payments needed';
     if(!finish){
-      return {label:'Not yet',explanation:summary.concat(['No payoff projected within ten years at this pace.']).join('\n'),schedule};
+      return {label:'Not yet',explanation:summary.concat(['No payoff projected within ten years at this pace.']).join('\n'),schedule,...paceInfo,weeks:null,payments:plannedDeposits,workTotal:projectedWork,plannedTotal};
     }
     const full=dateLabel(finish);
     const short=finish.toLocaleDateString('en-US',{timeZone:'UTC',month:'short',day:'numeric'});
@@ -752,7 +772,7 @@
       'Reconciliation: ' + money(currentBalance) + ' current + ' + money(workTotal) + ' future work + ' + money(depositTotal) + ' planned payments = ' + money(currentBalance+workTotal+depositTotal) + '.',
       'Estimated payoff: ' + full + '. Only completed deposits are included in the current balance.'
     ]).join('\n');
-    return {label:short,fullDate:full,explanation,schedule};
+    return {label:short,fullDate:full,explanation,schedule,...paceInfo,weeks:days/7,payments:plannedDeposits,workTotal,plannedTotal:depositTotal};
   }
 
   function render() {
@@ -772,8 +792,165 @@
     const forecast = estimateCompletion(combined);
     document.getElementById('stat-estimate').textContent = forecast.label;
     document.getElementById('pace-formula').textContent = forecast.explanation;
-    document.getElementById('future-deposits').textContent = 'Future deposits (planned, not yet received): ' + (forecast.schedule || 'None');
     document.getElementById('completion-date').textContent = forecast.fullDate || forecast.label;
+    document.getElementById('forecast-balance').textContent = fmtMoney(combined) + ' / $3,000';
+    document.getElementById('forecast-hours').textContent = forecast.weeklyHours.toFixed(2) + ' hrs';
+    document.getElementById('forecast-weeks').textContent = forecast.weeks == null ? '—' : forecast.weeks.toFixed(1);
+    const paymentsList=document.getElementById('forecast-payments');
+    paymentsList.replaceChildren();
+    const payFmt = value => '
+
+    document.getElementById('bar-hours').style.width = hoursPct + '%';
+    document.getElementById('bar-hours').textContent = t.hours.toFixed(1) + ' / 200';
+    document.getElementById('bar-money').style.width = moneyPct + '%';
+    document.getElementById('bar-money').textContent = fmtMoney(combined) + ' / $3,000';
+    document.getElementById('bar-garments').style.width = depositPct + '%';
+    document.getElementById('bar-garments').textContent = fmtMoney(depositTotal);
+    document.getElementById('bar-hours-pct').textContent = hoursPct.toFixed(1) + '%';
+    document.getElementById('bar-money-pct').textContent = moneyPct.toFixed(1) + '%';
+    document.getElementById('bar-garments-pct').textContent = depositPct.toFixed(1) + '%';
+
+    const carPos = 5 + (moneyPct / 100) * 82;
+    document.getElementById('mini').style.left = carPos + '%';
+    document.getElementById('mini-pct').textContent = moneyPct.toFixed(1) + '%';
+
+    document.getElementById('celebrate').style.display = combined >= TOTAL_VALUE ? 'block' : 'none';
+
+    document.querySelectorAll('.ms').forEach(el => {
+      const mark = parseFloat(el.dataset.mark);
+      el.classList.toggle('hit', combined >= mark * HOURLY_RATE);
+      if (el.dataset.driveTime === 'true') {
+        el.querySelector('.ms-name').textContent = combined >= 2400 ? 'Drive Time! ✓' : 'Drive Time!';
+      }
+    });
+    const driveGoal = 2400;
+    const driveProgress = Math.max(0, Math.min(100, combined / driveGoal * 100));
+    document.getElementById('drive-thermo-value').textContent = fmtMoney(combined) + ' / $2,400';
+    document.getElementById('drive-thermo-fill').style.width = driveProgress + '%';
+    document.getElementById('drive-thermo-progress').setAttribute('aria-valuenow', Math.max(0, combined).toFixed(0));
+    document.getElementById('drive-thermo').classList.toggle('unlocked', combined >= driveGoal);
+    document.getElementById('drive-thermo-caption').textContent = combined >= driveGoal ? 'Drive Time unlocked! ✓' : fmtMoney(driveGoal - combined) + ' to Drive Time!';
+
+    // Cash bonus list is separate from both work-hour wages and cash deposits.
+    const cashBonusBody=document.getElementById('cash-bonus-body');
+    cashBonusBody.innerHTML='';
+    [...cashBonuses].reverse().forEach(b=>{
+      const row=document.createElement('tr');
+      [b.dateLabel,b.work,fmtMoney(b.amount)].forEach(value=>{
+        const cell=document.createElement('td');
+        cell.textContent=value;
+        row.appendChild(cell);
+      });
+      cashBonusBody.appendChild(row);
+    });
+    document.getElementById('cash-bonus-total').textContent =
+      fmtMoney(cashBonuses.reduce((total,b)=>total+b.amount,0));
+
+    // Bonuses Earned table + totals
+    const bonusBody = document.getElementById('bonus-body');
+    bonusBody.innerHTML = '';
+    bonuses.forEach(b => {
+      const qty = +b.qty || 0;
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${b.dateLabel || b.date}</td>
+        <td class="bonus-item"><span class="bonus-watch">${b.glyph}</span> ${b.label}</td>
+        <td>${qty}</td>
+        <td>$${(+b.avgValue || 0).toFixed(0)}</td>
+        <td>$${(+b.profitPerItem || 0).toFixed(0)}</td>
+      `;
+      bonusBody.appendChild(tr);
+    });
+    const bt = bonusTotals();
+    document.getElementById('bt-items').textContent = bt.items;
+    document.getElementById('bt-value').textContent = fmtMoney(bt.value);
+    document.getElementById('bt-profit').textContent = fmtMoney(bt.profit);
+
+    // Bests
+    document.getElementById('best-streak').textContent = longestStreak();
+    document.getElementById('best-day').textContent = longestDay().toFixed(1);
+    const legacyBonusEarnings = bt.profit;
+    const cashBonusEarnings = cashBonuses.reduce((sum, b) => sum + (+b.amount || 0), 0);
+    const effectiveRate = t.hours > 0 ? (earned + legacyBonusEarnings + cashBonusEarnings) / t.hours : HOURLY_RATE;
+    document.getElementById('best-rate').textContent = fmtRate(effectiveRate);
+    document.getElementById('best-rate-sub').textContent =
+      `Earned ${Math.round(earned).toLocaleString()} + legacy bonus ${Math.round(legacyBonusEarnings)} + cash bonus ${Math.round(cashBonusEarnings)}`;
+
+    // Display this calendar week and the previous calendar week, Monday through Sunday.
+    const tbody = document.getElementById('log-body');
+    const olderBody = document.getElementById('older-log-body');
+    tbody.replaceChildren();
+    olderBody.replaceChildren();
+    const todayISO = new Intl.DateTimeFormat('en-CA', {timeZone:'America/Los_Angeles',
+      year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+    const todayUTC = new Date(todayISO+'T00:00:00Z');
+    const dayOfWeek = todayUTC.getUTCDay();
+    const mondayThisWeek = todayUTC.getTime()-((dayOfWeek+6)%7)*86400000;
+    const mondayLastWeek = mondayThisWeek-7*86400000;
+    const entries=[...log].sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+    const recent=entries.filter(e=>!e.aggregate && !e.dateLabel &&
+      /^\d{4}-\d{2}-\d{2}$/.test(e.date||'') &&
+      Date.parse(e.date+'T00:00:00Z')>=mondayLastWeek);
+    const older=entries.filter(e=>!recent.includes(e));
+    function appendWorkRow(target,e){
+      const tr=document.createElement('tr');
+      const values=[e.dateLabel || (e.date?shortDate(e.date):'Previous balance'),
+        e.label||'Work',(+e.hours||0).toFixed(1)];
+      for(const v of values){const td=document.createElement('td');td.textContent=v;tr.append(td);}
+      target.append(tr);
+    }
+    recent.forEach(e=>appendWorkRow(tbody,e));
+    older.forEach(e=>appendWorkRow(olderBody,e));
+    const depositBody = document.getElementById('deposit-log-body');
+    depositBody.innerHTML = '';
+    let runningDeposits = 0;
+    [...cashDeposits].sort((a,b)=>a.date.localeCompare(b.date)).forEach(entry => {
+      runningDeposits += entry.amount;
+      const row=document.createElement('tr');
+      [shortDate(entry.date) + ', ' + entry.date.slice(0,4), fmtMoney(entry.amount), fmtMoney(runningDeposits)].forEach(value=>{
+        const cell=document.createElement('td'); cell.textContent=value; row.appendChild(cell);
+      });
+      depositBody.prepend(row);
+    });
+    const legacyBody=document.getElementById('legacy-log-body');
+    legacyBody.innerHTML='';
+    [...legacyLog].reverse().forEach(e=>{
+      const row=document.createElement('tr');
+      [shortDate(e.date),(+e.hours).toFixed(1)].forEach(v=>{
+        const cell=document.createElement('td');cell.textContent=v;row.appendChild(cell);
+      });
+      legacyBody.appendChild(row);
+    });
+  }
+
+  function init() {
+    loadAll();
+    render();
+    document.getElementById('pace-toggle').addEventListener('click',()=>{
+      const section=document.getElementById('completion-section');
+      section.scrollIntoView({behavior:'smooth',block:'start'});
+      section.classList.remove('pace-flash');
+      void section.offsetWidth;
+      section.classList.add('pace-flash');
+    });
+  }
+
+  window.addEventListener('DOMContentLoaded', init);
+})();
+</script>
+</body>
+</html> + value.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+    for(const payment of forecast.payments || []) {
+      const row=document.createElement('div');row.className='forecast-payment';
+      const when=document.createElement('span');when.textContent=payment.date;
+      const amount=document.createElement('strong');amount.textContent=payFmt(payment.amount);
+      row.append(when,amount);paymentsList.appendChild(row);
+    }
+    if(!paymentsList.childElementCount)paymentsList.textContent='No further monthly payments needed';
+    const forecastConclusion=document.getElementById('forecast-conclusion');
+    forecastConclusion.textContent = forecast.weeks == null
+      ? 'More work is needed to estimate a payoff date.'
+      : 'At this pace: ' + payFmt(forecast.workTotal) + ' future work + ' + payFmt(forecast.plannedTotal) + ' planned payments = $3,000 goal.';
 
     document.getElementById('bar-hours').style.width = hoursPct + '%';
     document.getElementById('bar-hours').textContent = t.hours.toFixed(1) + ' / 200';
