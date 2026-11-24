@@ -241,6 +241,12 @@
   .forecast-details {margin-top:12px;border-top:1px solid #43506a;padding-top:10px;color:#cbd5e1;}
   .forecast-details summary {cursor:pointer;font-size:12px;font-weight:650;color:#b7c4db;}
   .forecast-details #pace-formula {white-space:pre-line;font-size:11px;line-height:1.5;}
+  .completion-section {padding:14px 16px;}
+  .completion-section h2 {font-size:14px;margin:0 0 4px;}
+  .completion-date {font-size:28px;margin:2px 0 8px;}
+  .completion-section .forecast-brief {font-size:12px;line-height:1.45;margin:5px 0;color:#e4e9f3;}
+  .completion-section .forecast-details {margin-top:7px;padding-top:6px;}
+  .completion-section .forecast-details summary {font-size:11px;}
   .wage-row {grid-template-columns:1fr !important;}
   .hustle-row {grid-template-columns:repeat(2,1fr) !important;}
   @keyframes pace-highlight {0%{box-shadow:0 0 0 4px #ffd36a;}100%{box-shadow:none;}}
@@ -374,22 +380,11 @@
     </div>
   </div>
   <section class="completion-section" id="completion-section" aria-labelledby="completion-title">
-    <div class="completion-kicker">🚗 ON THE ROAD TO THE MINI</div>
-    <h2 id="completion-title">Estimated Completion</h2>
+    <h2 id="completion-title">🚗 Mini Cooper ETA</h2>
     <div class="completion-date" id="completion-date">Calculating…</div>
-    <p id="completion-subtitle">Estimate based on recent work</p>
-    <div class="completion-mini-stats">
-      <div><span>Current balance</span><strong id="forecast-balance">—</strong></div>
-      <div><span>Average hours/week</span><strong id="forecast-hours">—</strong></div>
-      <div><span>Weeks remaining</span><strong id="forecast-weeks">—</strong></div>
-    </div>
-    <div class="completion-formula-title">Planned payments</div>
-    <div id="forecast-payments" class="forecast-payments"></div>
-    <p class="forecast-conclusion" id="forecast-conclusion"></p>
-    <details class="forecast-details"><summary>How is this calculated?</summary>
-      <p id="pace-formula"></p>
-      <p class="pace-note">Cash bonuses stay separate. Future payments are estimates, not deposits already received.</p>
-    </details>
+    <p class="forecast-brief" id="forecast-brief">—</p>
+    <p class="forecast-brief" id="forecast-payments-brief">—</p>
+    <details class="forecast-details"><summary>Details</summary><p id="pace-formula"></p></details>
   </section>
   <div class="bars">
     <div class="bar-row">
@@ -793,23 +788,13 @@
     document.getElementById('stat-estimate').textContent = forecast.label;
     document.getElementById('pace-formula').textContent = forecast.explanation;
     document.getElementById('completion-date').textContent = forecast.fullDate || forecast.label;
-    document.getElementById('forecast-balance').textContent = fmtMoney(combined) + ' / $3,000';
-    document.getElementById('forecast-hours').textContent = forecast.weeklyHours.toFixed(2) + ' hrs';
-    document.getElementById('forecast-weeks').textContent = forecast.weeks == null ? '—' : forecast.weeks.toFixed(1);
-    const paymentsList=document.getElementById('forecast-payments');
-    paymentsList.replaceChildren();
-    const payFmt = value => '$' + value.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
-    for(const payment of forecast.payments || []) {
-      const row=document.createElement('div'); row.className='forecast-payment';
-      const when=document.createElement('span'); when.textContent=payment.date;
-      const amount=document.createElement('strong'); amount.textContent=payFmt(payment.amount);
-      row.append(when,amount); paymentsList.appendChild(row);
-    }
-    if(!paymentsList.childElementCount) paymentsList.textContent='No further monthly payments needed';
-    const forecastConclusion=document.getElementById('forecast-conclusion');
-    forecastConclusion.textContent = forecast.weeks == null
-      ? 'More work is needed to estimate a payoff date.'
-      : 'At this pace: ' + payFmt(forecast.workTotal) + ' future work + ' + payFmt(forecast.plannedTotal) + ' planned payments complete the $3,000 goal.';
+    document.getElementById('forecast-brief').textContent = forecast.weeklyHours.toFixed(2).replace(/\\.?0+$/,'') + ' hrs/week · ' +
+      (forecast.weeks == null ? 'ETA pending' : forecast.weeks.toFixed(1) + ' weeks left');
+    const future=forecast.payments || [];
+    const dateCompact = text => text.replace(', 2026','').replace(', 2027','');
+    document.getElementById('forecast-payments-brief').textContent = future.length
+      ? 'Payments: ' + future.map(p=>dateCompact(p.date)+' $'+Number(p.amount).toFixed(2).replace(/\\.00$/,'')).join(' · ')
+      : 'No more payments needed';
     document.getElementById('bar-hours').style.width = hoursPct + '%';
     document.getElementById('bar-hours').textContent = t.hours.toFixed(1) + ' / 200';
     document.getElementById('bar-money').style.width = moneyPct + '%';
