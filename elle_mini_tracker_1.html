@@ -788,12 +788,12 @@
     document.getElementById('stat-estimate').textContent = forecast.label;
     document.getElementById('pace-formula').textContent = forecast.explanation;
     document.getElementById('completion-date').textContent = forecast.fullDate || forecast.label;
-    document.getElementById('forecast-brief').textContent = forecast.weeklyHours.toFixed(2).replace(/\\.?0+$/,'') + ' hrs/week · ' +
+    document.getElementById('forecast-brief').textContent = String(Number(forecast.weeklyHours.toFixed(2))) + ' hrs/week · ' +
       (forecast.weeks == null ? 'ETA pending' : forecast.weeks.toFixed(1) + ' weeks left');
     const future=forecast.payments || [];
     const dateCompact = text => text.replace(', 2026','').replace(', 2027','');
     document.getElementById('forecast-payments-brief').textContent = future.length
-      ? 'Payments: ' + future.map(p=>dateCompact(p.date)+' $'+Number(p.amount).toFixed(2).replace(/\\.00$/,'')).join(' · ')
+      ? 'Payments: ' + future.map(p=>dateCompact(p.date)+' $'+String(Number(p.amount.toFixed(2)))).join(' · ')
       : 'No more payments needed';
     document.getElementById('bar-hours').style.width = hoursPct + '%';
     document.getElementById('bar-hours').textContent = t.hours.toFixed(1) + ' / 200';
