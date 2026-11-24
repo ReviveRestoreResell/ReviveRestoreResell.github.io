@@ -369,6 +369,7 @@
     <p id="completion-subtitle">Based on recent work and monthly deposits</p>
     <div class="completion-formula-title">How we estimate it</div>
     <p id="pace-formula"></p>
+    <p class="pace-note" id="future-deposits">Future $200 deposits are planned, not yet received.</p>
     <p class="pace-note">Uses work logged in the last 14 days and $200 deposited on future firsts of the month. A projection, not a guarantee. Cash bonuses do not go toward the car.</p>
   </section>
   <div class="bars">
@@ -690,31 +691,36 @@
     const today = new Intl.DateTimeFormat('en-CA', {timeZone:'America/Los_Angeles',
       year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
     const todayUTC = new Date(today + 'T00:00:00Z');
-    const cutoff = todayUTC.getTime() - 13 * 86400000;
+    const asOfUTC = new Date(todayUTC.getTime() - 86400000); // fully completed days only
+    const cutoff = asOfUTC.getTime() - 13 * 86400000;
     const recent = log.filter(e => !e.aggregate && !e.dateLabel && /^\d{4}-\d{2}-\d{2}$/.test(e.date || '') &&
-      Date.parse(e.date + 'T00:00:00Z') >= cutoff && Date.parse(e.date + 'T00:00:00Z') <= todayUTC.getTime());
+      Date.parse(e.date + 'T00:00:00Z') >= cutoff && Date.parse(e.date + 'T00:00:00Z') <= asOfUTC.getTime());
     const hours14 = recent.reduce((sum,e) => sum + (+e.hours || 0),0);
     const weeklyHours = hours14 / 2;
     const weeklyEarnings = weeklyHours * HOURLY_RATE;
     const remaining = Math.max(0,TOTAL_VALUE - currentBalance);
+    const asOf = asOfUTC.toLocaleDateString('en-US',{timeZone:'UTC',month:'short',day:'numeric',year:'numeric'});
     const base = [
+      'Work recorded through ' + asOf + '.',
       'Goal: ' + fmtMoney(TOTAL_VALUE) + ' - ' + fmtMoney(currentBalance) + ' toward car = ' + fmtMoney(remaining) + ' left.',
       'Last 14 days: ' + hours14.toFixed(1) + ' hours / 2 = ' + weeklyHours.toFixed(1) + ' hours/week.',
       weeklyHours.toFixed(1) + ' hours x $' + HOURLY_RATE + ' = ' + fmtMoney(weeklyEarnings) + '/week.',
-      'Add $200 on each future 1st of the month.'
+      'Plan $200 on each future 1st of the month, including March 1, 2027 if needed.'
     ];
     if(remaining <= 0) return {label:'Goal reached!',explanation:base.join('\n') + '\nGoal completed.'};
     let balance=currentBalance,finish=null;
+    const plannedDeposits=[];
     for(let d=1;d<=3650;d++){
-      const day=new Date(todayUTC.getTime()+d*86400000);
+      const day=new Date(asOfUTC.getTime()+d*86400000);
       balance+=weeklyEarnings/7;
-      if(day.getUTCDate()===1) balance+=200;
+      if(day.getUTCDate()===1) { balance+=200; plannedDeposits.push(day.toLocaleDateString('en-US',{timeZone:'UTC',month:'short',day:'numeric',year:'numeric'}) + ': $200 planned'); }
       if(balance>=TOTAL_VALUE){finish=day;break;}
     }
-    if(!finish) return {label:'Not yet',explanation:base.join('\n')+'\nNo projected date within ten years.'};
+    const schedule = plannedDeposits.length ? plannedDeposits.join(' • ') : 'No further deposits required';
+    if(!finish) return {label:'Not yet',explanation:base.join('\n')+'\nNo projected date within ten years.',schedule};
     const full=finish.toLocaleDateString('en-US',{timeZone:'UTC',month:'long',day:'numeric',year:'numeric'});
     const short=finish.toLocaleDateString('en-US',{timeZone:'UTC',month:'short',day:'numeric'});
-    return {label:short,fullDate:full,explanation:base.join('\n')+'\nEstimated finish: '+full+'. This recalculates as hours and dates change.'};
+    return {label:short,fullDate:full,explanation:base.join('\n')+'\nEstimated finish: '+full+'. This recalculates as hours and dates change.',schedule};
   }
 
   function render() {
@@ -734,6 +740,7 @@
     const forecast = estimateCompletion(combined);
     document.getElementById('stat-estimate').textContent = forecast.label;
     document.getElementById('pace-formula').textContent = forecast.explanation;
+    document.getElementById('future-deposits').textContent = 'Future deposits (planned, not yet received): ' + (forecast.schedule || 'None');
     document.getElementById('completion-date').textContent = forecast.fullDate || forecast.label;
 
     document.getElementById('bar-hours').style.width = hoursPct + '%';
